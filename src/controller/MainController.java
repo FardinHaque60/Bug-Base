@@ -23,6 +23,7 @@ public class MainController {
 		showProjectsOp();
 	}
 		
+	//TODO: use this method often when returning to main page
 	@FXML public void showProjectsOp() {
 		
 		URL url = getClass().getClassLoader().getResource("view/ProjDisplay.fxml");
