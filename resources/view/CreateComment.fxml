@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #5F9EA0;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField layoutX="97.0" layoutY="188.0" text="10/20/2023" />
+      <Text layoutX="16.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Timestamp:" wrappingWidth="72.4609375">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextArea layoutX="97.0" layoutY="231.0" prefHeight="108.0" prefWidth="288.0" />
+      <Text layoutX="18.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" wrappingWidth="72.4609375">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Button layoutX="51.0" layoutY="353.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="61.0" text="Save" />
+      <Button layoutX="257.0" layoutY="353.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="83.0" text="Go Home" />
+      <Label layoutX="27.0" layoutY="50.0" text="Created Comments:" />
+      <Text layoutX="81.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ticket Name:  Add database connection" wrappingWidth="238.4609375">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <VBox layoutX="13.0" layoutY="71.0" prefHeight="108.0" prefWidth="373.0" spacing="10.0">
+         <children>
+            <Label prefHeight="17.0" prefWidth="338.0" text="10/15/2023: Restructured project to easily reach flat files" />
+            <Label prefHeight="17.0" prefWidth="361.0" text="10/18/2023: Created java bean classes to pack information." />
+         </children>
+         <padding>
+            <Insets left="10.0" top="5.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
