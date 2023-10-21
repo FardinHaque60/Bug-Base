@@ -24,21 +24,15 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.TableColumn;
 
-public class CreateProjectController {
+public class CreateProjectController extends AbstractController {
 
-	private CommonObjs common = CommonObjs.getInstance();
-	HBox mainBox = common.getMainBox();
+	//Scene fields/inputs:
 	@FXML TextField projName;
 	@FXML DatePicker projDate;
 	@FXML TextArea projDescription;
-	@FXML VBox projList;
 	
-	//TODO: fix loading DB call
-	@FXML public void goHome() {
-		common.loadProjectDisplay();
-	}
-	
-	@FXML public void saveProject() {
+	@Override
+	@FXML public void save() {
 		try {
 			ProjectBean projectInfo = new ProjectBean();
 			//JavaBean -> Connection -> Write to DB

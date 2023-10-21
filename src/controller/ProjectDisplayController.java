@@ -33,7 +33,8 @@ public class ProjectDisplayController implements Initializable {
 		ProjectName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		ProjectDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 		
-		//TODO: add implementation so it can read all javabeans that have been added
+		//With this implementation it never actually reads from the DB, allowing the user to have a fresh set of projects with they reopen
+		//TODO: Should change to read from DB?
 		if (observableList.size() < ProjectBean.numBeans()) {
 			int i;
 			for (i = observableList.size(); i < ProjectBean.numBeans(); i++) {

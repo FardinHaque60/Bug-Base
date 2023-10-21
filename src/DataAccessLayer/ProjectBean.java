@@ -2,6 +2,7 @@ package DataAccessLayer;
 
 import java.util.ArrayList;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 
 public class ProjectBean {
@@ -12,10 +13,6 @@ public class ProjectBean {
 	SimpleStringProperty description;
 	final String TYPE = "Project";
 	
-	public ProjectBean() {
-		
-	}
-	
 	//takes in information from scene and adds attributes to the bean
 	public void makeProjectBean(String name, String date, String description) {
 		this.name = new SimpleStringProperty(name);
@@ -25,8 +22,8 @@ public class ProjectBean {
 		String[] tmp = description.split("\n");
 		int i;
 		this.description = new SimpleStringProperty("");
-		for (i = 0; i < tmp.length; i++) {
-			this.getDescription().concat(tmp[i] + " ");
+		for (String s: tmp) {
+			this.description.bind(Bindings.concat(this.description.get() + s + " "));
 		}
 		
 		Connection projectConnection = new Connection(TYPE);

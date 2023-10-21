@@ -59,7 +59,6 @@ public class MainController {
 			mainBox.getChildren().add(pane1);
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -76,7 +75,6 @@ public class MainController {
 			mainBox.getChildren().add(pane2);
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

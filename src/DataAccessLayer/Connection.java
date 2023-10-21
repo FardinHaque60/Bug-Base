@@ -43,4 +43,6 @@ public class Connection {
 		pw.println("\t" + bean.getDescription());	
 		pw.close();
 	}
+	
+	//TODO: Look into read from database
 }
