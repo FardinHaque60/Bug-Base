@@ -50,12 +50,6 @@ public class MainController {
 				mainBox.getChildren().remove(1);
 			}
 			
-			//Makes date picker show current date
-			DatePicker dateP = (DatePicker) pane1.getChildren().get(3);
-			pane1.getChildren().remove(3);
-            dateP.setValue(LocalDate.now());
-            pane1.getChildren().add(3, dateP);
-			
 			mainBox.getChildren().add(pane1);
 			
 		} catch (IOException e) {

@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 import DataAccessLayer.ProjectBean;
@@ -30,6 +31,11 @@ public class CreateProjectController extends AbstractController {
 	@FXML TextField projName;
 	@FXML DatePicker projDate;
 	@FXML TextArea projDescription;
+	
+	@FXML
+	public void initialize() {
+		projDate.setValue(LocalDate.now());
+	}
 	
 	@Override
 	@FXML public void save() {
