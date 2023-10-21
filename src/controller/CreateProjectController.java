@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.util.Scanner;
 
-import DataAccessLayer.JavaBean;
+import DataAccessLayer.ProjectBean;
 import application.CommonObjs;
 import application.Main;
 import javafx.event.ActionEvent;
@@ -22,99 +22,32 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.TableColumn;
 
 public class CreateProjectController {
 
-	private CommonObjs commonObjs = CommonObjs.getInstance();
+	private CommonObjs common = CommonObjs.getInstance();
+	HBox mainBox = common.getMainBox();
 	@FXML TextField projName;
 	@FXML DatePicker projDate;
-	@FXML TextArea projDesrip;
-	//@FXML VBox projList;
-	HBox mainBox = commonObjs.getMainBox();
+	@FXML TextArea projDescription;
+	@FXML VBox projList;
 	
 	//TODO: fix loading DB call
-	@FXML public void goHomeOp() {
-		
-		URL url = getClass().getClassLoader().getResource("view/ProjDisplay.fxml");
-		try {
-			AnchorPane pane3 = (AnchorPane) FXMLLoader.load(url);
-			
-			//HBox mainBox = commonObjs.getMainBox();
-			
-			if (mainBox.getChildren().size() > 1) {
-				mainBox.getChildren().remove(1);
-			}
-			
-			VBox tmp1 = (VBox) pane3.getChildren().get(1);
-			
-			Scanner scn = new Scanner(new File("FlatFiles/ProjectDB.txt"));
-			String name;
-			int count = 1;
-			while (scn.hasNextLine()) {
-				name = scn.nextLine();
-				tmp1.getChildren().add(new Label("\t" + count + ". " + name));
-				count++;
-				scn.nextLine();
-				scn.nextLine();
-			}
-			
-			mainBox.getChildren().add(pane3);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	@FXML public void goHome() {
+		common.loadProjectDisplay();
 	}
-
-	//TODO change implementation to have Javabeans -> DAO -> etc.
-	//TODO: fix loading DB call
-	@FXML public void saveProj() {
-		
+	
+	@FXML public void saveProject() {
 		try {
-			File projDB = new File("FlatFiles/ProjectDB.txt");
-			//System.out.println("printed");
-			FileWriter fw = new FileWriter(projDB, true);
-			PrintWriter pw = new PrintWriter(fw);
+			ProjectBean projectInfo = new ProjectBean();
+			//JavaBean -> Connection -> Write to DB
+			projectInfo.makeProjectBean(projName.getText(), projDate.getValue().toString(), projDescription.getText());
 			
-			String tmp = projName.getText();
-			
-			//JavaBean projN = new JavaBean(projDate.getValue(), projName.getText(), projDesrip.getText());
-
-			pw.println(projName.getText());
-			pw.println("\t" + projDate.getValue());
-			pw.println("\t" + projDesrip.getText());	
-			
-			pw.close();
-			
-			URL url = getClass().getClassLoader().getResource("view/ProjDisplay.fxml");
-			AnchorPane projDisp = (AnchorPane) FXMLLoader.load(url);
-			
-			//HBox mainBox = commonObjs.getMainBox();
-			
-			
-			//just so we can add labels to the Vbox that is in project display, vBox is the
-			//white screen behind labels
-			if (mainBox.getChildren().size() > 1) {
-				mainBox.getChildren().remove(1);
-			}
-			
-			VBox tmp1 = (VBox) projDisp.getChildren().get(1);
-			
-			// TODO fix implementation to solve newline in description field
-			Scanner scn = new Scanner(new File("FlatFiles/ProjectDB.txt"));
-			//replace with reading information from javaBean
-			String name;
-			int count = 1;
-			while (scn.hasNextLine()) {
-				name = scn.nextLine();
-				Label temp = new Label("\t" + count + ". " + name);
-				tmp1.getChildren().add(temp);
-				count++;
-				scn.nextLine();
-				scn.nextLine();
-			}
-			mainBox.getChildren().add(projDisp);
-		} catch (IOException e) {
+			goHome();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 }

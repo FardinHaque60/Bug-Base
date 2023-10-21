@@ -1,6 +1,46 @@
 package DataAccessLayer;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class Connection {
-	//connect to flat files
+	final String PROJECT_DB = "FlatFiles/ProjectDB.txt";
+	final String TICKET_DB = "FlatFiles/TicketDB.txt";
+	final String COMMENT_DB = "FlatFiles/CommentDB.txt";
+	
+	File file;
+	FileWriter fw;
+	PrintWriter pw;
+	Scanner scn;
+	
+	public Connection(String type) {
+		if (type.equals("Project")) {
+			file = new File(PROJECT_DB);
+		}
+		else if (type.equals("Ticket")) {
+			file = new File(TICKET_DB);
+		}
+		else {
+			file = new File(COMMENT_DB);
+		}
+		
+		try {
+			fw = new FileWriter(file, true);
+			pw = new PrintWriter(fw);
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void writeProject(ProjectBean bean) { 	
+		pw.println(bean.getName());
+		pw.println("\t" + bean.getDate());
+		pw.println("\t" + bean.getDescription());	
+		pw.close();
+	}
 }
