@@ -10,14 +10,14 @@
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: azure;">
          <children>
-            <Button layoutX="23.0" layoutY="187.0" mnemonicParsing="false" onAction="#showCreateProjectOp" prefHeight="27.0" prefWidth="155.0" text="Create Project" />
-            <Button layoutX="23.0" layoutY="234.0" mnemonicParsing="false" onAction="#showCreateTicketOp" prefHeight="27.0" prefWidth="155.0" text="Create Ticket" />
+            <Button layoutX="23.0" layoutY="187.0" mnemonicParsing="false" onAction="#showCreateProject" prefHeight="27.0" prefWidth="155.0" text="Create Project" />
+            <Button layoutX="23.0" layoutY="234.0" mnemonicParsing="false" onAction="#showCreateTicket" prefHeight="27.0" prefWidth="155.0" text="Create Ticket" />
             <Label alignment="CENTER" layoutX="32.0" layoutY="37.0" prefHeight="37.0" prefWidth="137.0" text="Bug Base">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
-            <Button layoutX="23.0" layoutY="140.0" mnemonicParsing="false" onAction="#showProjectsOp" prefHeight="27.0" prefWidth="155.0" text="View Projects" />
+            <Button layoutX="23.0" layoutY="140.0" mnemonicParsing="false" onAction="#showProjects" prefHeight="27.0" prefWidth="155.0" text="View Projects" />
             <TextField alignment="CENTER" layoutX="35.0" layoutY="344.0" prefHeight="27.0" prefWidth="130.0" text="Search" />
          </children>
       </AnchorPane>

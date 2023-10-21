@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #6495ED;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #6495ED;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateTicketController">
    <children>
       <Label layoutX="20.0" layoutY="14.0" prefHeight="30.0" prefWidth="129.0" text="Select a Project">
          <font>
@@ -19,19 +19,19 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="96.0" layoutY="133.0" />
+      <TextField fx:id="ticketTitle" layoutX="96.0" layoutY="133.0" />
       <Text layoutX="34.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title:" wrappingWidth="37.4609375">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <TextArea layoutX="96.0" layoutY="176.0" prefHeight="153.0" prefWidth="288.0" />
+      <TextArea fx:id="ticketDescription" layoutX="96.0" layoutY="176.0" prefHeight="153.0" prefWidth="288.0" />
       <Text layoutX="17.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" wrappingWidth="72.4609375">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <Button layoutX="51.0" layoutY="353.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="61.0" text="Save" />
-      <Button layoutX="257.0" layoutY="353.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="83.0" text="Go Home" />
+      <Button layoutX="51.0" layoutY="353.0" mnemonicParsing="false" onAction="#save" prefHeight="27.0" prefWidth="61.0" text="Save" />
+      <Button layoutX="257.0" layoutY="353.0" mnemonicParsing="false" onAction="#goHome" prefHeight="27.0" prefWidth="83.0" text="Go Home" />
    </children>
 </AnchorPane>

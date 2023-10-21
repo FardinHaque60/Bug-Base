@@ -5,16 +5,18 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: cyan;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateProjectController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: cyan;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProjectDisplayController">
    <children>
       <Label layoutX="130.0" layoutY="8.0" prefHeight="40.0" prefWidth="140.0" text="Project Display">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <VBox fx:id="projList" layoutX="14.0" layoutY="48.0" prefHeight="344.0" prefWidth="372.0" style="-fx-background-color: white;">
-         <children>
-            <Label prefHeight="25.0" prefWidth="119.0" text="       Projects:" />
-         </children></VBox>
+      <TableView fx:id="ProjectTable" layoutX="12.0" layoutY="59.0" prefHeight="334.0" prefWidth="376.0" style="-fx-background-color: #FFF8DC;">
+        <columns>
+          <TableColumn fx:id="ProjectName" prefWidth="282.0" text="Project Name" />
+          <TableColumn fx:id="ProjectDate" minWidth="0.0" prefWidth="93.0" text="Date Created" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
