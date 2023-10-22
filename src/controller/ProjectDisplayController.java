@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import DataAccessLayer.ProjectBean;
@@ -26,20 +27,20 @@ public class ProjectDisplayController implements Initializable {
 	@FXML TableColumn<ProjectBean, String> ProjectDate;
 	@FXML TableView<ProjectBean> ProjectTable;
 	HBox mainBox = common.getMainBox();
-	ObservableList<ProjectBean> observableList = FXCollections.observableArrayList();
+	ObservableList<ProjectBean> observableList;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//TODO: need to clear and reset list everytime, look for alt
+		observableList = FXCollections.observableArrayList();
 		ProjectName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		ProjectDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 		
-		//With this implementation it never actually reads from the DB, allowing the user to have a fresh set of projects with they reopen
-		//TODO: Should change to read from DB?
-		if (observableList.size() < ProjectBean.numBeans()) {
-			int i;
-			for (i = observableList.size(); i < ProjectBean.numBeans(); i++) {
-				observableList.add(ProjectBean.getAllProjectInfo().get(i));
-			}
+		ArrayList<ProjectBean> allProjects = ProjectBean.readAllProjectInfo();
+
+		int i;
+		for (i = 0; i < allProjects.size(); i++) {
+			observableList.add(allProjects.get(i));
 		}
 		
 		ProjectTable.setItems(observableList);

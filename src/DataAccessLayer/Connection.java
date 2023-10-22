@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Connection {
@@ -45,4 +46,23 @@ public class Connection {
 	}
 	
 	//TODO: Look into read from database
+	public ArrayList<ProjectBean> readAllProjects() {
+		ArrayList<ProjectBean> out = new ArrayList<ProjectBean>();;
+		try {
+			scn = new Scanner(file);
+			String name;
+			String date;
+			String description;
+			while (scn.hasNextLine()) {
+				name = scn.nextLine();
+				date = scn.nextLine().replace("\t", "");
+				description = scn.nextLine().replace("\t", "");
+				out.add(new ProjectBean(name, date, description));
+			}
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		return out;
+	}
 }
