@@ -25,7 +25,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.TableColumn;
 
-public class CreateProjectController extends AbstractController {
+public class CreateProjectController extends AbstractCreateController {
 
 	//Scene fields/inputs:
 	@FXML TextField projName;
@@ -37,12 +37,12 @@ public class CreateProjectController extends AbstractController {
 		projDate.setValue(LocalDate.now());
 	}
 	
+	//TODO: handle if any required field is invalid, Example: empty name field or manually input date in invalid format
 	@Override
 	@FXML public void save() {
 		try {
-			ProjectBean projectInfo = new ProjectBean();
-			//JavaBean -> Connection -> Write to DB
-			projectInfo.makeProjectBean(projName.getText(), projDate.getValue().toString(), projDescription.getText());
+			ProjectBean projectInfo = new ProjectBean(projName.getText(), formatter.format(projDate.getValue()), projDescription.getText());
+			projectInfo.writeProjectBean();
 			
 			goHome();
 		} catch (Exception e) {
