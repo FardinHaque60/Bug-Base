@@ -54,16 +54,16 @@ public class CreateProjectController extends AbstractCreateController {
 		}
 		
 		// same name inputed occurred
-				if (sameNameError) {
-					
-					// fill back name, date and description data
-					projName.setText(nameData);
-					projDate.setValue(dateData);
-					projDescription.setText(descriptionData);
-					
-					sameNameError = true;
-					return;
-				}
+		if (sameNameError) {
+			
+			// fill back name, date and description data
+			projName.setText(nameData);
+			projDate.setValue(dateData);
+			projDescription.setText(descriptionData);
+			
+			sameNameError = true;
+			return;
+		}
 		
 		projDate.setValue(LocalDate.now());
 	}
