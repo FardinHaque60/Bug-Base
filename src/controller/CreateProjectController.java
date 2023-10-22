@@ -32,8 +32,39 @@ public class CreateProjectController extends AbstractCreateController {
 	@FXML DatePicker projDate;
 	@FXML TextArea projDescription;
 	
+	// static fields that save old data when errors occur
+	private static String nameData;
+	private static LocalDate dateData;
+	private static String descriptionData;
+	private static boolean noNameError = false;
+	private static boolean sameNameError = false;
+	
 	@FXML
 	public void initialize() {
+		
+		// no name inputed occurred
+		if (noNameError) {
+			
+			// fill back date and description data
+			projDate.setValue(dateData);
+			projDescription.setText(descriptionData);
+			
+			noNameError = true;
+			return;
+		}
+		
+		// same name inputed occurred
+				if (sameNameError) {
+					
+					// fill back name, date and description data
+					projName.setText(nameData);
+					projDate.setValue(dateData);
+					projDescription.setText(descriptionData);
+					
+					sameNameError = true;
+					return;
+				}
+		
 		projDate.setValue(LocalDate.now());
 	}
 	
@@ -44,8 +75,15 @@ public class CreateProjectController extends AbstractCreateController {
 		// edge case: Name was not inputed
 		if (projName.getText() == null || projName.getText().equals("")) {
 			
+			noNameError = true;
+			
+			// save date and description
+			dateData = projDate.getValue();
+			descriptionData = projDescription.getText();
+			
 			// goes to error fxml
 			goTo("view/CreateProjectError.fxml");
+
 			return;
 		}
 		
