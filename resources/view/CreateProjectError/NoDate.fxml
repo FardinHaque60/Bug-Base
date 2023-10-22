@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: khaki;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateProjectController">
+   <children>
+      <Label layoutX="39.0" layoutY="26.0" prefHeight="32.0" prefWidth="223.0" text="Enter info for project" />
+      <TextField fx:id="projName" layoutX="121.0" layoutY="77.0" prefHeight="21.0" prefWidth="231.0" />
+      <Label layoutX="35.0" layoutY="74.0" prefHeight="32.0" prefWidth="68.0" text="Name" />
+      <DatePicker fx:id="projDate" layoutX="121.0" layoutY="140.0" />
+      <Label layoutX="35.0" layoutY="137.0" prefHeight="32.0" prefWidth="68.0" text="Date" />
+      <TextArea fx:id="projDescription" layoutX="121.0" layoutY="190.0" prefHeight="124.0" prefWidth="231.0" />
+      <Label layoutX="35.0" layoutY="184.0" prefHeight="53.0" prefWidth="68.0" text="Description (Optional)" wrapText="true" />
+      <Button layoutX="80.0" layoutY="339.0" mnemonicParsing="false" onAction="#save" text="Save" />
+      <Button layoutX="262.0" layoutY="339.0" mnemonicParsing="false" onAction="#goHome" text="Go Home" />
+      <Label layoutX="121.0" layoutY="158.0" prefHeight="32.0" prefWidth="160.0" text="Project requires a proper date" textFill="RED">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
