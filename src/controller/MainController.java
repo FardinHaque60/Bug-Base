@@ -57,6 +57,24 @@ public class MainController {
 		}
 	}
 	
+@FXML public void showCreateProjectError() {
+		
+		URL url = getClass().getClassLoader().getResource("view/CreateProjectError.fxml");
+		try {
+			
+			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
+			
+			if (mainBox.getChildren().size() > 1) {
+				mainBox.getChildren().remove(1);
+			}
+			
+			mainBox.getChildren().add(pane1);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@FXML public void showCreateTicket() {
 		URL url = getClass().getClassLoader().getResource("view/CreateTicket.fxml");
 		try {

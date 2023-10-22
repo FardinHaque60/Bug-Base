@@ -40,6 +40,21 @@ public class CreateProjectController extends AbstractCreateController {
 	//TODO: handle if any required field is invalid, Example: empty name field or manually input date in invalid format
 	@Override
 	@FXML public void save() {
+		
+		// edge case: Name was not inputed
+		if (projName.getText() == null || projName.getText().equals("")) {
+			
+			// goes to error fxml
+			goTo("view/CreateProjectError.fxml");
+			return;
+		}
+		
+		// add project to database and go to home page
+		ProjectBean projectInfo = new ProjectBean(projName.getText(), formatter.format(projDate.getValue()), projDescription.getText());
+		projectInfo.writeProjectBean();
+		goHome();
+		
+		/* OLD IMPLEMENTATION
 		try {
 			ProjectBean projectInfo = new ProjectBean(projName.getText(), formatter.format(projDate.getValue()), projDescription.getText());
 			projectInfo.writeProjectBean();
@@ -48,6 +63,7 @@ public class CreateProjectController extends AbstractCreateController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		*/
 		
 	}
 }

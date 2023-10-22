@@ -58,4 +58,26 @@ public class CommonObjs {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Loads a fxml with a given string path. More abstract version of loadProjectDisplay method.
+	 * @param path  fxml string path
+	 */
+	public void loadDisplay(String path) {
+		URL url = getClass().getClassLoader().getResource(path);
+		try {
+			
+			AnchorPane pane = (AnchorPane) FXMLLoader.load(url);
+			
+			if (mainBox.getChildren().size() > 1) {
+				mainBox.getChildren().remove(1);
+			}
+			
+			mainBox.getChildren().add(pane);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

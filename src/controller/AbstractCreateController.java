@@ -14,5 +14,13 @@ public abstract class AbstractCreateController {
 		common.loadProjectDisplay();
 	}
 	
+	/**
+	 * Loads a fxml with a given string path. More abstract version of goHome method.
+	 * @param path  fxml string path
+	 */
+	public void goTo(String path) {
+		common.loadDisplay(path);
+	}
+	
 	public abstract void save();
 }
