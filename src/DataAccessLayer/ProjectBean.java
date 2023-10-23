@@ -48,6 +48,10 @@ public class ProjectBean {
 		return projectBeans;
 	}
 	
+	public static void clearAllProjectInfo() {
+		projectBeans.clear();
+	}
+	
 	public static int numBeans() {
 		return projectBeans.size();
 	}

@@ -13,7 +13,7 @@
             <Font size="12.0" />
          </font>
       </Label>
-      <ChoiceBox layoutX="20.0" layoutY="50.0" prefHeight="9.0" prefWidth="148.0" />
+      <ChoiceBox fx:id="projectDropdownList" layoutX="20.0" layoutY="50.0" prefHeight="9.0" prefWidth="148.0" />
       <Label alignment="CENTER" layoutX="103.0" layoutY="91.0" prefHeight="30.0" prefWidth="195.0" text="Input Ticket Information">
          <font>
             <Font size="18.0" />
