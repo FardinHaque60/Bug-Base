@@ -50,9 +50,8 @@ public class Connection {
 		ArrayList<ProjectBean> out = new ArrayList<ProjectBean>();;
 		try {
 			scn = new Scanner(file);
-			String name;
-			String date;
-			String description;
+			String name, date, description;
+			ProjectBean.clearAllProjectInfo();
 			while (scn.hasNextLine()) {
 				name = scn.nextLine();
 				date = scn.nextLine().replace("\t", "");

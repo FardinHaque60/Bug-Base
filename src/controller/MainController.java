@@ -27,7 +27,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class MainController {
 	@FXML HBox mainBox;
-	private CommonObjs common = CommonObjs.getInstance();
+	private static CommonObjs common = CommonObjs.getInstance();
 
 	@FXML
 	public void initialize() { 
@@ -44,13 +44,31 @@ public class MainController {
 		URL url = getClass().getClassLoader().getResource("view/CreateProject.fxml");
 		try {
 			
-			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
+			AnchorPane pane = (AnchorPane) FXMLLoader.load(url);
 			
 			if (mainBox.getChildren().size() > 1) {
 				mainBox.getChildren().remove(1);
 			}
 			
-			mainBox.getChildren().add(pane1);
+			mainBox.getChildren().add(pane);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+@FXML public void showCreateProjectError() {
+		
+		URL url = getClass().getClassLoader().getResource("view/CreateProjectError.fxml");
+		try {
+			
+			AnchorPane pane = (AnchorPane) FXMLLoader.load(url);
+			
+			if (mainBox.getChildren().size() > 1) {
+				mainBox.getChildren().remove(1);
+			}
+			
+			mainBox.getChildren().add(pane);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -60,17 +78,20 @@ public class MainController {
 	@FXML public void showCreateTicket() {
 		URL url = getClass().getClassLoader().getResource("view/CreateTicket.fxml");
 		try {
-			AnchorPane pane2 = (AnchorPane) FXMLLoader.load(url);
+			AnchorPane pane = (AnchorPane) FXMLLoader.load(url);
 			
 			if (mainBox.getChildren().size() > 1) {
 				mainBox.getChildren().remove(1);
 			}
 			
-			mainBox.getChildren().add(pane2);
+			mainBox.getChildren().add(pane);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+	}
+	
+	public static CommonObjs getCommonObjs() {
+		return common;
 	}
 }

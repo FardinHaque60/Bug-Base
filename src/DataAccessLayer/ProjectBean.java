@@ -26,7 +26,6 @@ public class ProjectBean {
 		
 		//adds description as one line if user has new lines for description
 		String[] tmp = description.split("\n");
-		int i;
 		this.description = new SimpleStringProperty("");
 		for (String s: tmp) {
 			this.description.bind(Bindings.concat(this.description.get() + s + " "));
@@ -47,6 +46,10 @@ public class ProjectBean {
 	//implementation using beans for info
 	public static ArrayList<ProjectBean> getAllProjectInfo() {
 		return projectBeans;
+	}
+	
+	public static void clearAllProjectInfo() {
+		projectBeans.clear();
 	}
 	
 	public static int numBeans() {
