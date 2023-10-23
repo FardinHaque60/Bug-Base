@@ -13,6 +13,8 @@ import javafx.scene.control.TextArea;
 
 public class CreateTicketController extends AbstractCreateController {
 
+	private static int uid;
+	
 	@FXML ChoiceBox<String> projectDropdownList;
 	@FXML TextField ticketTitle;
 	@FXML TextArea ticketDescription;
@@ -24,8 +26,6 @@ public class CreateTicketController extends AbstractCreateController {
 		for (ProjectBean projectBean : ProjectBean.getAllProjectInfo()) {
 			projectNameList.add(projectBean.getName());
 		}
-		
-		System.out.println(ProjectBean.getAllProjectInfo().size());
 		
 		// put list of names into the dropdown list
 		ObservableList<String> projectNameObservableList = FXCollections.observableList(projectNameList);

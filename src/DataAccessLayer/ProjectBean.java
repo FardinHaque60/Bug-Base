@@ -12,8 +12,8 @@ public class ProjectBean {
 	SimpleStringProperty name;
 	SimpleStringProperty date;
 	SimpleStringProperty description;
-	final String TYPE = "Project";
-	final Connection projectConnection = new Connection(TYPE);
+	final static String TYPE = "Project";
+	final static Connection projectConnection = new Connection(TYPE);
 	
 	public ProjectBean() {
 		
@@ -64,8 +64,7 @@ public class ProjectBean {
 	
 	//TODO: Poor implementation of reading from db
 	public static ArrayList<ProjectBean> readAllProjectInfo() {
-		ProjectBean tmp = new ProjectBean();
-		return tmp.projectConnection.readAllProjects();
+		return ProjectBean.projectConnection.readAllProjects();
 	}
 
 	public String getName() {
