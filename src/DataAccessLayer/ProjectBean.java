@@ -4,16 +4,26 @@ import java.util.ArrayList;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class ProjectBean {
 
 	//potentially remove list of beans
+	//TODO: moving into observable instead of projectBeans static list
+	//TODO: methods to use for new observableList, initialize list based on anything that is 
+	//in DB, and write projects 
+	
+	ObservableList<ProjectBean> projectBeans_TO_ADD = FXCollections.observableArrayList();
+	
+	//TODO: delete below
 	static ArrayList<ProjectBean> projectBeans = new ArrayList<ProjectBean>();
+	
 	SimpleStringProperty name;
 	SimpleStringProperty date;
 	SimpleStringProperty description;
-	final String TYPE = "Project";
-	final Connection projectConnection = new Connection(TYPE);
+	final static String TYPE = "Project";
+	final static Connection projectConnection = new Connection(TYPE);
 	
 	public ProjectBean() {
 		
@@ -34,11 +44,12 @@ public class ProjectBean {
 		//Connection projectConnection = new Connection(TYPE);
 		//projectConnection.writeProject(this);
 	
-		addBean(this);
+		//addBean(this);
 	}
 	
 	public void writeProjectBean() {
 		projectConnection.writeProject(this);
+		addBean(this);
 	}
 	
 //OLD IMPLEMENTATION OF READING BEANS START
@@ -62,10 +73,11 @@ public class ProjectBean {
 	
 //OLD IMPLEMENTATION OF READING BEANS END
 	
-	//TODO: Poor implementation of reading from db
+	
+	//TODO: update this method to take this list returned from connection to populate obervableList
 	public static ArrayList<ProjectBean> readAllProjectInfo() {
-		ProjectBean tmp = new ProjectBean();
-		return tmp.projectConnection.readAllProjects();
+		//TODO: should populate observableLisst list directly
+		return projectConnection.readAllProjects();
 	}
 
 	public String getName() {

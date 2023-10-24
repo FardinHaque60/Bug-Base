@@ -36,12 +36,19 @@ public class ProjectDisplayController implements Initializable {
 		ProjectName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		ProjectDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 		
-		ArrayList<ProjectBean> allProjects = ProjectBean.readAllProjectInfo();
+		//TODO: DELETE BELOW
+		
+		ArrayList<ProjectBean> allProjects = ProjectBean.readAllProjectInfo(); //this contains a arrayList of beans
+		//based on DB
+		//basically converts DB entires, into list of beans
 
 		int i;
 		for (i = 0; i < allProjects.size(); i++) {
 			observableList.add(allProjects.get(i));
 		}
+		
+		//now observable List is just a copy of allProjects 
+		//TODO: DELETE END
 		
 		ProjectTable.setItems(observableList);
 	}
