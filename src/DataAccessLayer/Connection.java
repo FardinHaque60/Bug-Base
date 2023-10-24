@@ -47,11 +47,15 @@ public class Connection {
 	
 	//TODO: Look into read from database
 	public ArrayList<ProjectBean> readAllProjects() {
-		ArrayList<ProjectBean> out = new ArrayList<ProjectBean>();;
+		ArrayList<ProjectBean> out = new ArrayList<ProjectBean>();
 		try {
 			scn = new Scanner(file);
 			String name, date, description;
+<<<<<<< HEAD
 			ProjectBean.clearAllProjectInfo();
+=======
+			//ProjectBean.clearAllProjectInfo();
+>>>>>>> fardinBranch
 			while (scn.hasNextLine()) {
 				name = scn.nextLine();
 				date = scn.nextLine().replace("\t", "");
