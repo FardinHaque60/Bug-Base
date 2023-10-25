@@ -10,8 +10,11 @@ public abstract class AbstractCreateController {
 	HBox mainBox = common.getMainBox();
 	final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/YYYY");
 	
+	/**
+	 * Loads ProjectDisplay page. Used for fxml actions.
+	 */
 	public void goHome() {
-		common.loadProjectDisplay();
+		common.loadDisplay("view/ProjDisplay.fxml");
 	}
 	
 	/**
@@ -22,5 +25,8 @@ public abstract class AbstractCreateController {
 		common.loadDisplay(path);
 	}
 	
+	/**
+	 * Saves information into the database
+	 */
 	public abstract void save();
 }
