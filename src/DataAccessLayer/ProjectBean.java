@@ -8,10 +8,6 @@ import javafx.collections.ObservableList;
 
 public class ProjectBean {
 
-	//potentially remove list of beans
-	//TODO: methods to use for new observableList, initialize list based on anything that is 
-	//in DB, and write projects 
-	
 	private static ObservableList<ProjectBean> projectBeans = FXCollections.observableArrayList();
 	private final static Connection projectConnection = new Connection(ConnectionType.PROJECT);
 	

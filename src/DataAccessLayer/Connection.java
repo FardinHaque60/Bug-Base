@@ -79,7 +79,7 @@ public class Connection {
 		}
 		catch (IOException e) {
 			e.printStackTrace();
-			return FXCollections.observableArrayList();
+			return FXCollections.observableArrayList(); //will return empty list if catches invalid dir error
 		}
 		
 		// fills list from all the projects in the database
