@@ -7,12 +7,13 @@ import DataAccessLayer.ProjectBean;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 public class CreateTicketController extends AbstractCreateController {
 
+	// private static int uid;
 	@FXML ChoiceBox<String> projectDropdownList;
 	@FXML TextField ticketTitle;
 	@FXML TextArea ticketDescription;
@@ -25,13 +26,9 @@ public class CreateTicketController extends AbstractCreateController {
 			projectNameList.add(projectBean.getName());
 		}
 		
-		System.out.println(ProjectBean.getAllProjectInfo().size());
-		
 		// put list of names into the dropdown list
 		ObservableList<String> projectNameObservableList = FXCollections.observableList(projectNameList);
 		projectDropdownList.setItems(projectNameObservableList);
-		
-		
 	}
 	
 	
