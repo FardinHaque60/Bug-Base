@@ -3,6 +3,7 @@ package controller;
 import java.time.format.DateTimeFormatter;
 
 import application.CommonObjs;
+import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 
 public abstract class AbstractCreateController {
@@ -11,9 +12,9 @@ public abstract class AbstractCreateController {
 	final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/YYYY");
 	
 	/**
-	 * Loads ProjectDisplay page. Used for fxml actions.
+	 * Loads ProjectDisplay page. Used for fxml "Go Home" button.
 	 */
-	public void goHome() {
+	@FXML public void goHome() {
 		common.loadDisplay("view/ProjDisplay.fxml");
 	}
 	
@@ -26,7 +27,7 @@ public abstract class AbstractCreateController {
 	}
 	
 	/**
-	 * Saves information into the database
+	 * Saves information into the database.
 	 */
-	public abstract void save();
+	@FXML public abstract void save();
 }

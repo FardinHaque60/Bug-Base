@@ -26,8 +26,7 @@ public class CreateProjectController extends AbstractCreateController {
 		NO_ERROR, NO_NAME, SAME_NAME, NO_DATE
 	}
 	
-	@FXML
-	public void initialize() {
+	@FXML public void initialize() {
 		switch (errorType) {
 		
 			case NO_ERROR:
@@ -58,7 +57,6 @@ public class CreateProjectController extends AbstractCreateController {
 		errorType = ErrorType.NO_ERROR;
 	}
 	
-	//TODO: handle if any required field is invalid, Example: empty name field or manually input date in invalid format
 	@Override
 	@FXML public void save() {
 		
@@ -106,6 +104,8 @@ public class CreateProjectController extends AbstractCreateController {
 			foundException = true;
 		}
 		if (foundException || projDate.getValue() == null) {
+			
+			// for initialize method
 			errorType = ErrorType.NO_DATE;
 			
 			// save name and description
@@ -121,18 +121,6 @@ public class CreateProjectController extends AbstractCreateController {
 		// add project to database and go to home page
 		ProjectBean projectInfo = new ProjectBean(projName.getText(), formatter.format(projDate.getValue()), projDescription.getText());
 		projectInfo.writeProjectBean();
-		goHome();
-		
-		/* OLD IMPLEMENTATION
-		try {
-			ProjectBean projectInfo = new ProjectBean(projName.getText(), formatter.format(projDate.getValue()), projDescription.getText());
-			projectInfo.writeProjectBean();
-			
-			goHome();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		*/
-		
+		goHome(); // TODO: would probably want to go to view project page to add tickets later
 	}
 }

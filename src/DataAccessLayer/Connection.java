@@ -51,6 +51,10 @@ public class Connection {
 		}
 	}
 	
+	/**
+	 * Adds project into the project database.
+	 * @param bean	The project as a ProjectBean
+	 */
 	public void writeProject(ProjectBean bean) { 	
 		pw.println(bean.getName());
 		pw.println("\t" + bean.getDate());
@@ -66,7 +70,10 @@ public class Connection {
 	 */
 	public ObservableList<ProjectBean> readAllProjects() {
 		
+		// initialize projectBean list
 		ObservableList<ProjectBean> projectBeans = FXCollections.observableArrayList();
+		
+		// initialize scanner to read from project database
 		try {
 			scn = new Scanner(file);
 		}
@@ -75,6 +82,7 @@ public class Connection {
 			return FXCollections.observableArrayList();
 		}
 		
+		// fills list from all the projects in the database
 		String name, date, description;
 		while (scn.hasNextLine()) {
 			name = scn.nextLine();

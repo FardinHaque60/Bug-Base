@@ -29,8 +29,6 @@ public class CreateTicketController extends AbstractCreateController {
 		// put list of names into the dropdown list
 		ObservableList<String> projectNameObservableList = FXCollections.observableList(projectNameList);
 		projectDropdownList.setItems(projectNameObservableList);
-		
-		
 	}
 	
 	

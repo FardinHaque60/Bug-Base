@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 public class ProjectBean {
 
 	//potentially remove list of beans
-	//TODO: moving into observable instead of projectBeans static list
 	//TODO: methods to use for new observableList, initialize list based on anything that is 
 	//in DB, and write projects 
 	
