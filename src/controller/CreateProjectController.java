@@ -1,32 +1,13 @@
 package controller;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URL;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 import DataAccessLayer.ProjectBean;
-import application.CommonObjs;
-import application.Main;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.VBox;
-import javafx.scene.control.TableColumn;
-
 import javafx.beans.property.SimpleStringProperty;
+import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 public class CreateProjectController extends AbstractCreateController {
 
@@ -45,8 +26,10 @@ public class CreateProjectController extends AbstractCreateController {
 		NO_ERROR, NO_NAME, SAME_NAME, NO_DATE
 	}
 	
-	@FXML
-	public void initialize() {
+	//TODO: look into implementation of unhappy flow later
+	//runs when create project page is displayed
+	//main functions: check if any fields are missing, populate fields with current date, etc
+	@FXML public void initialize() {
 		switch (errorType) {
 		
 			case NO_ERROR:
@@ -77,7 +60,6 @@ public class CreateProjectController extends AbstractCreateController {
 		errorType = ErrorType.NO_ERROR;
 	}
 	
-	//TODO: handle if any required field is invalid, Example: empty name field or manually input date in invalid format
 	@Override
 	@FXML public void save() {
 		
@@ -120,11 +102,13 @@ public class CreateProjectController extends AbstractCreateController {
 		// edge case: Date is not correctly inputed
 		boolean foundException = false;
 		try {
-			SimpleStringProperty temp = new SimpleStringProperty(formatter.format(projDate.getValue()));
+			new SimpleStringProperty(formatter.format(projDate.getValue()));
 		} catch (Exception e) {
 			foundException = true;
 		}
 		if (foundException || projDate.getValue() == null) {
+			
+			// for initialize method
 			errorType = ErrorType.NO_DATE;
 			
 			// save name and description
@@ -140,18 +124,6 @@ public class CreateProjectController extends AbstractCreateController {
 		// add project to database and go to home page
 		ProjectBean projectInfo = new ProjectBean(projName.getText(), formatter.format(projDate.getValue()), projDescription.getText());
 		projectInfo.writeProjectBean();
-		goHome();
-		
-		/* OLD IMPLEMENTATION
-		try {
-			ProjectBean projectInfo = new ProjectBean(projName.getText(), formatter.format(projDate.getValue()), projDescription.getText());
-			projectInfo.writeProjectBean();
-			
-			goHome();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		*/
-		
+		goHome(); // TODO: would probably want to go to view project page to add tickets later
 	}
 }
