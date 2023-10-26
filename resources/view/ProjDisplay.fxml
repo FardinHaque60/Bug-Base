@@ -12,7 +12,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <TableView fx:id="ProjectTable" layoutX="12.0" layoutY="59.0" prefHeight="334.0" prefWidth="376.0" style="-fx-background-color: #FFF8DC;">
+      <TableView fx:id="ProjectTable" layoutX="12.0" layoutY="59.0" onMouseClicked="#getProject" prefHeight="334.0" prefWidth="376.0" style="-fx-background-color: #FFF8DC;">
         <columns>
           <TableColumn fx:id="ProjectName" prefWidth="282.0" text="Project Name" />
           <TableColumn fx:id="ProjectDate" minWidth="0.0" prefWidth="93.0" text="Date Created" />

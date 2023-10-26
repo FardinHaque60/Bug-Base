@@ -11,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.scene.input.MouseEvent;
 
 public class ProjectDisplayController implements Initializable {
 
@@ -36,6 +37,13 @@ public class ProjectDisplayController implements Initializable {
 		ProjectName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		ProjectDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 		ProjectTable.setItems(ProjectBean.getAllProjectInfo());
+	}
+
+	@FXML public void getProject(MouseEvent event) {
+		
+		ProjectBean selectedProject = ProjectTable.getSelectionModel().getSelectedItem();
+		
+		
 	}
 
 }
