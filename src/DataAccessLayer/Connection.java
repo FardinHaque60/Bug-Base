@@ -84,7 +84,7 @@ public class Connection {
 		pw.println("\t" + bean.getDescription());	
 		// testing line
 		System.out.println(bean.getDate() + " " + bean.getName() + " " + bean.getDescription());
-		pw.close();
+		pw.flush();
 	}
 	
 	//TODO: Look into read from database
