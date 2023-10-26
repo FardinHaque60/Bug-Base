@@ -5,19 +5,19 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: khaki;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateProjectController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: khaki;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewProjectController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="89.0" layoutY="14.0" prefHeight="32.0" prefWidth="223.0" text="Project Info">
          <font>
             <Font size="19.0" />
          </font></Label>
-      <TextField fx:id="projName" layoutX="121.0" layoutY="77.0" prefHeight="21.0" prefWidth="231.0" />
+      <TextField fx:id="nameInfo" layoutX="121.0" layoutY="77.0" prefHeight="21.0" prefWidth="231.0" />
       <Label layoutX="35.0" layoutY="74.0" prefHeight="32.0" prefWidth="68.0" text="Name" />
       <Label layoutX="35.0" layoutY="137.0" prefHeight="32.0" prefWidth="68.0" text="Date" />
-      <TextArea fx:id="projDescription" layoutX="121.0" layoutY="190.0" prefHeight="124.0" prefWidth="231.0" />
+      <TextArea fx:id="descriptionInfo" layoutX="121.0" layoutY="190.0" prefHeight="124.0" prefWidth="231.0" />
       <Label layoutX="35.0" layoutY="184.0" prefHeight="53.0" prefWidth="68.0" text="Description" wrapText="true" />
-      <Button layoutX="80.0" layoutY="339.0" mnemonicParsing="false" onAction="#save" text="Edit" />
+      <Button layoutX="80.0" layoutY="339.0" mnemonicParsing="false" onAction="#edit" text="Edit" />
       <Button layoutX="262.0" layoutY="339.0" mnemonicParsing="false" onAction="#goHome" text="Go Home" />
-      <TextField fx:id="projDate" layoutX="121.0" layoutY="140.0" prefHeight="27.0" prefWidth="127.0" />
+      <TextField fx:id="dateInfo" layoutX="121.0" layoutY="140.0" prefHeight="27.0" prefWidth="127.0" />
    </children>
 </AnchorPane>

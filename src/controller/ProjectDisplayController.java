@@ -43,7 +43,8 @@ public class ProjectDisplayController implements Initializable {
 		
 		ProjectBean selectedProject = ProjectTable.getSelectionModel().getSelectedItem();
 		
-		
+		ViewProjectController.initalize(selectedProject.getName(), selectedProject.getDate(), selectedProject.getDescription());
+		common.loadDisplay("view/ViewProject.fxml");
 	}
 
 }
