@@ -33,8 +33,4 @@ public class MainController {
 	@FXML public void showCreateTicket() {
 		common.loadDisplay("view/CreateTicket.fxml");
 	}
-	
-	public static CommonObjs getCommonObjs() {
-		return common;
-	}
 }
