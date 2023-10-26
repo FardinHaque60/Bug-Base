@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 public class ProjectBean {
 
 	private static ObservableList<ProjectBean> projectBeans = FXCollections.observableArrayList();
-	private final static Connection projectConnection = new Connection(ConnectionType.PROJECT);
+	private final static Connection projectConnection = Connection.getProjectConnection();
 	
 	private SimpleStringProperty name, date, description;
 	

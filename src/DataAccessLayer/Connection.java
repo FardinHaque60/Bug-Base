@@ -23,7 +23,13 @@ public class Connection {
 		PROJECT, TICKET, COMMENT
 	}
 	
-	public Connection(ConnectionType connectionType) {
+	//only instantiated once
+	private final static Connection ProjectConnection = new Connection(ConnectionType.PROJECT);
+	private final static Connection TicketConnection = new Connection(ConnectionType.TICKET);
+	private final static Connection CommentConnection = new Connection(ConnectionType.COMMENT);
+	
+	//creates connections
+	private Connection(ConnectionType connectionType) {
 		
 		// load file based on type
 		switch (connectionType) {
@@ -51,6 +57,23 @@ public class Connection {
 		}
 	}
 	
+	//Singleton getter methods
+	public static Connection getTicketConnection() {
+		return TicketConnection;
+	}
+	
+	public static Connection getProjectConnection() {
+		return ProjectConnection;
+	}
+	
+	public static Connection getCommentConnection() {
+		return CommentConnection;
+	}
+	
+	
+	//TODO: fix bug where writeProject is only writing once to DB
+	//may be becasue pw is closed and never reopened 
+	
 	/**
 	 * Adds project into the project database.
 	 * @param bean	The project as a ProjectBean
@@ -59,6 +82,8 @@ public class Connection {
 		pw.println(bean.getName());
 		pw.println("\t" + bean.getDate());
 		pw.println("\t" + bean.getDescription());	
+		// testing line
+		System.out.println(bean.getDate() + " " + bean.getName() + " " + bean.getDescription());
 		pw.close();
 	}
 	

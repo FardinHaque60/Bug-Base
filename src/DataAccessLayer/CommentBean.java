@@ -7,7 +7,7 @@ public class CommentBean {
 	
 	SimpleStringProperty date;
 	SimpleStringProperty description;
-	final Connection commentConnection = new Connection(ConnectionType.COMMENT);
+	final Connection commentConnection = Connection.getCommentConnection();
 	
 	
 }
