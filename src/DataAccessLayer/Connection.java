@@ -70,9 +70,7 @@ public class Connection {
 		return CommentConnection;
 	}
 	
-	
-	//TODO: fix bug where writeProject is only writing once to DB
-	//may be becasue pw is closed and never reopened 
+//PROJECT CONNECTION METHODS
 	
 	/**
 	 * Adds project into the project database.
@@ -82,12 +80,9 @@ public class Connection {
 		pw.println(bean.getName());
 		pw.println("\t" + bean.getDate());
 		pw.println("\t" + bean.getDescription());	
-		// testing line
-		System.out.println(bean.getDate() + " " + bean.getName() + " " + bean.getDescription());
 		pw.flush();
 	}
 	
-	//TODO: Look into read from database
 	/**
 	 * Reads the whole project file database and puts them in a observable list.
 	 * Will assume that this is called by Connection w/ TYPE: "Project"
@@ -117,5 +112,51 @@ public class Connection {
 		}
 		
 		return projectBeans;
+	}
+	
+//TICKET CONNECTION METHODS
+	
+	/**
+	 * Adds project into the ticket database.
+	 * @param bean	The ticket as a TicketBean
+	 */
+	public void writeTicket(TicketBean bean) { 	
+		pw.println(bean.getProjectParent());
+		pw.println("\t" + bean.getTitle());
+		pw.println("\t" + bean.getDescription());	
+		pw.flush();
+	}
+	
+	/**
+	 * Reads the whole ticket info from database and puts them in a observable list.
+	 * Will assume that this is called by Connection w/ TYPE: "Ticket"
+	 * @return  an observable list containing TicketBeans
+	 */
+	public ObservableList<TicketBean> readAllTickets() {
+		
+		// initialize projectBean list
+		ObservableList<TicketBean> ticketBeans = FXCollections.observableArrayList();
+		
+		// initialize scanner to read from project database
+		try {
+			scn = new Scanner(file);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+			return FXCollections.observableArrayList(); //will return empty list if catches invalid dir error
+		}
+		
+		// fills list from all the projects in the database
+		String name, date, description;
+		while (scn.hasNextLine()) {
+			name = scn.nextLine();
+			date = scn.nextLine().replace("\t", "");
+			description = scn.nextLine().replace("\t", "");
+			TicketBean t = new TicketBean(name, date, description);
+			ticketBeans.add(t);
+			ProjectBean.insertTicket(t); //adds tickets to respective projects
+		}
+		
+		return ticketBeans;
 	}
 }

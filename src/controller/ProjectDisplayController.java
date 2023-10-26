@@ -21,17 +21,8 @@ public class ProjectDisplayController implements Initializable {
 	@FXML TableView<ProjectBean> ProjectTable;
 	HBox mainBox = common.getMainBox();
 	
-	private static boolean firstInitialization = true;
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		// first time running the application, read from the database
-		if (firstInitialization) {
-			// tells ProjectBean to fill all the projects in the database
-			ProjectBean.readAllProjectsInDatabase();
-			firstInitialization = false;
-		}
 		
 		// sets the project table
 		ProjectName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -43,7 +34,7 @@ public class ProjectDisplayController implements Initializable {
 		
 		ProjectBean selectedProject = ProjectTable.getSelectionModel().getSelectedItem();
 		
-		ViewProjectController.initalize(selectedProject.getName(), selectedProject.getDate(), selectedProject.getDescription());
+		ViewProjectController.initalize(selectedProject);
 		common.loadDisplay("view/ViewProject.fxml");
 	}
 

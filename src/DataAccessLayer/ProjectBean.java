@@ -9,6 +9,8 @@ import javafx.collections.ObservableList;
 public class ProjectBean {
 
 	private static ObservableList<ProjectBean> projectBeans = FXCollections.observableArrayList();
+	//list of tickets in this project
+	public ObservableList<TicketBean> tickets = FXCollections.observableArrayList(); 
 	private final static Connection projectConnection = Connection.getProjectConnection();
 	
 	private SimpleStringProperty name, date, description;
@@ -41,6 +43,16 @@ public class ProjectBean {
 		projectBeans.add(this);
 	}
 	
+	public static void insertTicket(TicketBean t) {
+		ProjectBean parent = projectBeans.get(0);
+		int i = 1;
+		while (!parent.getName().equals(t.getProjectParent())) {
+			parent = projectBeans.get(i);
+			i++;
+		}
+		parent.tickets.add(t);
+	}
+	
 	/**
 	 * Gets the project bean observable list.
 	 * @return all the project beans as an observable list
@@ -49,15 +61,18 @@ public class ProjectBean {
 		return projectBeans;
 	}
 	
+	public ObservableList<TicketBean> getTicketInfo() {
+		return tickets;
+	}
+	
 	/**
 	 * Fills projectBeans list will all the project data in the database. Should only run once.
 	 */
 	public static void readAllProjectsInDatabase() {
 		projectBeans.clear(); // don't really need this line, but added just in case it runs more than once.
 		projectBeans.addAll(projectConnection.readAllProjects());
-		
 	}
-
+	
 	public String getName() {
 		return this.name.get();
 	}
