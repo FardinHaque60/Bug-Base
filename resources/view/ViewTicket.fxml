@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="ticketInfo" maxWidth="1.7976931348623157E308" prefHeight="550.0" prefWidth="400.0" style="-fx-background-color: khaki;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewProjectController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="89.0" layoutY="14.0" prefHeight="32.0" prefWidth="223.0" text="Ticket Info">
+         <font>
+            <Font size="19.0" />
+         </font></Label>
+      <Label layoutX="33.0" layoutY="36.0" prefHeight="32.0" prefWidth="336.0" text="Change any of the fields and press update to edit this project">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="35.0" layoutY="74.0" prefHeight="32.0" prefWidth="68.0" text="Name" />
+      <Label layoutX="35.0" layoutY="113.0" prefHeight="27.0" prefWidth="68.0" text="Description" wrapText="true" />
+      <Button layoutX="277.0" layoutY="480.0" mnemonicParsing="false" onAction="#goHome" text="Go Home" />
+      <Label alignment="CENTER" layoutX="160.0" layoutY="232.0" prefHeight="27.0" prefWidth="83.0" text="Comments" wrapText="true">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <TableView fx:id="TicketTable" layoutX="40.0" layoutY="298.0" prefHeight="152.0" prefWidth="321.0">
+        <columns>
+          <TableColumn fx:id="CommentDate" prefWidth="127.0" text="Date" />
+          <TableColumn fx:id="CommentDescriptions" prefWidth="193.0" text="Description" />
+        </columns>
+      </TableView>
+      <Text fx:id="name" layoutX="102.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="198.21630859375" />
+      <Text fx:id="description" layoutX="119.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="198.21630859375" />
+      <Button fx:id="newComment" layoutX="46.0" layoutY="480.0" mnemonicParsing="false" text="New Comment" />
+   </children>
+</AnchorPane>
