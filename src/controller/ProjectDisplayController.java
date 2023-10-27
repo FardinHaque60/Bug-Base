@@ -44,7 +44,7 @@ public class ProjectDisplayController implements Initializable {
 			
 			TicketBean selectedProject = TicketTable.getSelectionModel().getSelectedItem();
 			
-			ViewProjectController.initalizeTicket(selectedProject);
+			ViewTicketController.initalizeTicket(selectedProject);
 			common.loadDisplay("view/ViewProject.fxml");
 		}
 
