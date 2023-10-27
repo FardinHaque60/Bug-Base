@@ -51,14 +51,6 @@ public class ViewProjectController extends AbstractViewController implements Ini
 		descriptionFill = b.getDescription();
 	}
 	
-	@FXML public void update() {
-		// TODO edits ticket information in DB to reflect changed fields
-	}
-	
-	@FXML public void goHome() {
-		common.loadDisplay("view/ProjDisplay.fxml");
-	}
-	
 	@FXML public void getTicket(MouseEvent event) {
 		
 		TicketBean selectedTicket = TicketTable.getSelectionModel().getSelectedItem();
@@ -67,9 +59,9 @@ public class ViewProjectController extends AbstractViewController implements Ini
 		common.loadDisplay("view/ViewTicket.fxml");
 	}
 
+	//TODO: implement editing project by seeing which fields changed
 	@Override
-	public void edit() {
-		// TODO Auto-generated method stub
+	@FXML public void edit() {
 		
 	}
 }

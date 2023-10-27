@@ -36,10 +36,10 @@ public class CommentBean {
 	/**
 	 * Adds comment into the database and in the list of comments into its ticketParent.
 	 */
-	public void writeCommentBean() {
+	public void writeCommentBean(TicketBean t) {
 		commentConnection.writeComment(this);
-		//adds this ticket to respective project
-		TicketBean.insertComment(this);
+		//adds this comment to respective ticket
+		t.comments.add(this);
 	}
 
 	/**

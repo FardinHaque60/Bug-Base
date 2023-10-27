@@ -40,15 +40,15 @@ public class CreateCommentController extends AbstractCreateController implements
 		CommentTable.setItems(ticketParent.getCommentInfo()); //make a observable list of comments from ticketParent
 	}
 	
-	//get information for what ticket this comment will belong to based on where it was clicked
-	public static void initialize(TicketBean t) {
+	//get information for what ticket this comment will belong to based on which ticket entry was clicked
+	public static void initializeComment(TicketBean t) {
 		ticketParent = t;
 	}
 	
 	@Override
 	public void save() {
 		CommentBean commentInfo = new CommentBean(ticketParent.getTitle(), commentTimestamp.getText(), commentDescription.getText());
-		commentInfo.writeCommentBean();
+		commentInfo.writeCommentBean(ticketParent);
 		goBack();
 	}
 	

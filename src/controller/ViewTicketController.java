@@ -19,6 +19,7 @@ import javafx.scene.control.TextField;
 
 public class ViewTicketController extends AbstractViewController implements Initializable {
 	
+	//FXML fields to fill on page
 	@FXML TextArea ticketDescription;
 	@FXML TextField ticketTitle;
 	@FXML TextField projectParent;
@@ -29,11 +30,13 @@ public class ViewTicketController extends AbstractViewController implements Init
 	
 	CommonObjs common = CommonObjs.getInstance();
 	
+	//info from ticketBean that we are looking to display
 	private static String titleFill;
 	private static String descriptionFill;
 	private static TicketBean thisBean;
 	private static String projectParentFill;
-
+	
+	//initializes fields and table
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		ticketTitle.setText(titleFill);
@@ -46,6 +49,8 @@ public class ViewTicketController extends AbstractViewController implements Init
 		CommentTable.setItems(thisBean.getCommentInfo()); //make a observable list of comments in ticketBean class
 		
 	}
+	
+	//assigns values fields so it can fill them once it is loaded
 	public static void initalizeTicket(TicketBean b) {
 		thisBean = b;
 		projectParentFill = b.getProjectParent();
@@ -53,12 +58,13 @@ public class ViewTicketController extends AbstractViewController implements Init
 		descriptionFill = b.getDescription();
 	}
 	
+	//attached to "create comment" button
 	@FXML public void makeNewComment() {
-		CreateCommentController.initialize(thisBean);
+		CreateCommentController.initializeComment(thisBean);
 		goTo("view/CreateComment.fxml");
 	}
 	
-	//if user clicks on entry in comment table they can edit its fields
+	//TODO: if user clicks on entry in comment table they can edit its fields
 	@FXML public void editComment() {
 		
 	}
@@ -72,4 +78,6 @@ public class ViewTicketController extends AbstractViewController implements Init
 	public void edit() {
 	
 	}
+	
+	//TODO add method so we can view comments if we click their table
 }

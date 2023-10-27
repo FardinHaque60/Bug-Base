@@ -22,7 +22,7 @@
       <TextField fx:id="dateInfo" layoutX="121.0" layoutY="121.0" prefHeight="27.0" prefWidth="127.0" />
       <Label layoutX="35.0" layoutY="165.0" prefHeight="27.0" prefWidth="68.0" text="Description" wrapText="true" />
       <TextArea fx:id="descriptionInfo" layoutX="121.0" layoutY="165.0" prefHeight="81.0" prefWidth="231.0" />
-      <Button layoutX="60.0" layoutY="480.0" mnemonicParsing="false" onAction="#update" text="Update" />
+      <Button layoutX="60.0" layoutY="480.0" mnemonicParsing="false" onAction="#edit" text="Update" />
       <Button layoutX="277.0" layoutY="480.0" mnemonicParsing="false" onAction="#goHome" text="Go Home" />
       <Label alignment="CENTER" layoutX="165.0" layoutY="265.0" prefHeight="27.0" prefWidth="70.0" text="Tickets" wrapText="true">
          <font>
