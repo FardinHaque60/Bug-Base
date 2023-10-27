@@ -20,7 +20,6 @@ public class ProjectDisplayController implements Initializable {
 	@FXML TableColumn<ProjectBean, String> ProjectName;
 	@FXML TableColumn<ProjectBean, String> ProjectDate;
 	@FXML TableView<ProjectBean> ProjectTable;
-	@FXML TableView<TicketBean> TicketTable;
 	HBox mainBox = common.getMainBox();
 	
 	@Override
@@ -39,13 +38,5 @@ public class ProjectDisplayController implements Initializable {
 		ViewProjectController.initalize(selectedProject);
 		common.loadDisplay("view/ViewProject.fxml");
 	}
-	
-	@FXML public void getTicket(MouseEvent event) {
-			
-			TicketBean selectedProject = TicketTable.getSelectionModel().getSelectedItem();
-			
-			ViewTicketController.initalizeTicket(selectedProject);
-			common.loadDisplay("view/ViewProject.fxml");
-		}
 
 }

@@ -17,7 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class ViewTicketController implements Initializable{
+public class ViewTicketController extends AbstractViewController implements Initializable {
 	
 	@FXML TextArea ticketDescription;
 	@FXML TextField ticketTitle;
@@ -43,7 +43,7 @@ public class ViewTicketController implements Initializable{
 		CommentDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 		CommentDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 		
-		CommentTable.setItems(thisBean.getCommentInfo()); //make a observable list of comments in ticketBean clas
+		CommentTable.setItems(thisBean.getCommentInfo()); //make a observable list of comments in ticketBean class
 		
 	}
 	public static void initalizeTicket(TicketBean b) {
@@ -52,12 +52,24 @@ public class ViewTicketController implements Initializable{
 		titleFill = b.getTitle();
 		descriptionFill = b.getDescription();
 	}
+	
 	@FXML public void makeNewComment() {
-		//TODO implement comments 
+		CreateCommentController.initialize(thisBean);
+		goTo("view/CreateComment.fxml");
 	}
+	
+	//if user clicks on entry in comment table they can edit its fields
+	@FXML public void editComment() {
+		
+	}
+	
 	@FXML public void goBack() {
 		common.loadDisplay("view/ViewProject.fxml");
 	}
 	
-
+	//TODO add implementation if user changes fields ticket gets updates
+	@Override
+	public void edit() {
+	
+	}
 }

@@ -26,7 +26,7 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="commentTimestamp" editable="false" layoutX="97.0" layoutY="188.0" />
+      <DatePicker fx:id="commentTimestamp" editable="false" layoutX="97.0" layoutY="188.0" />
       <Text fontSmoothingType="LCD" layoutX="18.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" wrappingWidth="72.4609375">
          <font>
             <Font size="14.0" />

@@ -73,7 +73,7 @@ public class TicketBean {
 	 */
 	public static void readAllTicketsInDatabase() {
 		ticketBeans.clear(); // don't really need this line, but added just in case it runs more than once.
-		ticketBeans.addAll(ticketConnection.readAllTickets());
+		ticketBeans.addAll(ticketConnection.readAllTickets()); //sets ticket beans to all ticket beans read in db
 	}
 	
 	public String getProjectParent() {
