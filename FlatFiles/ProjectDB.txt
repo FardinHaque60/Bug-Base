@@ -1,9 +1,9 @@
-myProj
-	10/26/2023
+Mario Game
+	10/25/2023
+	Mario game imitation. Made with Unity. 
+Schedule Program
+	10/27/2023
+	Allows you to create schedules and find the fastest time to finish jobs. 
+Reminder App
+	10/28/2023
 	 
-myProj2
-	10/26/2023
-	some descrip 
-another project
-	11/14/2023
-	stuff 

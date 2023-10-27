@@ -1,21 +1,9 @@
-some name
-	10/26/2023
-	some description 
-some name
-	10/11/2023
-	very good comment made in  the past 
-some name
+Implement Parana Plants
 	10/27/2023
-	another comment becayse this project needs help 
-myTicket2
+	Configured animation for health loss by 1. 
+Implement Parana Plants
 	10/27/2023
-	more comments 
-toilet 
+	Configure death animation if Parana kills. 
+Bug with tubes
 	10/27/2023
-	this is a coment for th e wonders 
-toilet 
-	2023-10-27
-	i cannot edit the date 
-toilet 
-	10/27/2023
-	this should be good now 
+	Sound now plays when Mario goes down tube. 
