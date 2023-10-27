@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DataAccessLayer.ProjectBean;
+import DataAccessLayer.TicketBean;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,6 +19,7 @@ public class CreateTicketController extends AbstractCreateController {
 	@FXML TextField ticketTitle;
 	@FXML TextArea ticketDescription;
 	
+	//populates drop down menu of projects to choose from
 	@FXML public void initialize() {
 		
 		// get all the names of the projects
@@ -31,10 +33,11 @@ public class CreateTicketController extends AbstractCreateController {
 		projectDropdownList.setItems(projectNameObservableList);
 	}
 	
-	
 	@Override
 	@FXML public void save() {
-		
+		TicketBean ticketInfo = new TicketBean(projectDropdownList.getValue(), ticketTitle.getText(), ticketDescription.getText());
+		ticketInfo.writeTicketBean();
+		goHome();
 	}
 
 }

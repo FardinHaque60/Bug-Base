@@ -1,0 +1,6 @@
+myProj
+	some name
+	some descrip 
+myProj2
+	myTicket2
+	some name  with new lines 

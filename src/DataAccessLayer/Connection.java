@@ -23,7 +23,13 @@ public class Connection {
 		PROJECT, TICKET, COMMENT
 	}
 	
-	public Connection(ConnectionType connectionType) {
+	//only instantiated once
+	private final static Connection ProjectConnection = new Connection(ConnectionType.PROJECT);
+	private final static Connection TicketConnection = new Connection(ConnectionType.TICKET);
+	private final static Connection CommentConnection = new Connection(ConnectionType.COMMENT);
+	
+	//creates connections
+	private Connection(ConnectionType connectionType) {
 		
 		// load file based on type
 		switch (connectionType) {
@@ -51,6 +57,21 @@ public class Connection {
 		}
 	}
 	
+	//Singleton getter methods
+	public static Connection getTicketConnection() {
+		return TicketConnection;
+	}
+	
+	public static Connection getProjectConnection() {
+		return ProjectConnection;
+	}
+	
+	public static Connection getCommentConnection() {
+		return CommentConnection;
+	}
+	
+//PROJECT CONNECTION METHODS
+	
 	/**
 	 * Adds project into the project database.
 	 * @param bean	The project as a ProjectBean
@@ -59,10 +80,9 @@ public class Connection {
 		pw.println(bean.getName());
 		pw.println("\t" + bean.getDate());
 		pw.println("\t" + bean.getDescription());	
-		pw.close();
+		pw.flush();
 	}
 	
-	//TODO: Look into read from database
 	/**
 	 * Reads the whole project file database and puts them in a observable list.
 	 * Will assume that this is called by Connection w/ TYPE: "Project"
@@ -92,5 +112,51 @@ public class Connection {
 		}
 		
 		return projectBeans;
+	}
+	
+//TICKET CONNECTION METHODS
+	
+	/**
+	 * Adds project into the ticket database.
+	 * @param bean	The ticket as a TicketBean
+	 */
+	public void writeTicket(TicketBean bean) { 	
+		pw.println(bean.getProjectParent());
+		pw.println("\t" + bean.getTitle());
+		pw.println("\t" + bean.getDescription());	
+		pw.flush();
+	}
+	
+	/**
+	 * Reads the whole ticket info from database and puts them in a observable list.
+	 * Will assume that this is called by Connection w/ TYPE: "Ticket"
+	 * @return  an observable list containing TicketBeans
+	 */
+	public ObservableList<TicketBean> readAllTickets() {
+		
+		// initialize projectBean list
+		ObservableList<TicketBean> ticketBeans = FXCollections.observableArrayList();
+		
+		// initialize scanner to read from project database
+		try {
+			scn = new Scanner(file);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+			return FXCollections.observableArrayList(); //will return empty list if catches invalid dir error
+		}
+		
+		// fills list from all the projects in the database
+		String name, date, description;
+		while (scn.hasNextLine()) {
+			name = scn.nextLine();
+			date = scn.nextLine().replace("\t", "");
+			description = scn.nextLine().replace("\t", "");
+			TicketBean t = new TicketBean(name, date, description);
+			ticketBeans.add(t);
+			ProjectBean.insertTicket(t); //adds tickets to respective projects
+		}
+		
+		return ticketBeans;
 	}
 }

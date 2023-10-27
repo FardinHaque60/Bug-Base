@@ -26,7 +26,8 @@ public class CreateProjectController extends AbstractCreateController {
 		NO_ERROR, NO_NAME, SAME_NAME, NO_DATE
 	}
 	
-	//TODO: look into implementation of unhappy flow later
+	//TODO: potentially change implementation so error message populated textbox instead of underneath textbox
+	
 	//runs when create project page is displayed
 	//main functions: check if any fields are missing, populate fields with current date, etc
 	@FXML public void initialize() {
