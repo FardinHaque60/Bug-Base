@@ -1,5 +1,6 @@
 package controller;
 
+import DataAccessLayer.CommentBean;
 import DataAccessLayer.ProjectBean;
 import DataAccessLayer.TicketBean;
 import application.CommonObjs;
@@ -19,6 +20,7 @@ public class MainController {
 			// tells ProjectBean to fill all the projects in the database
 			ProjectBean.readAllProjectsInDatabase();
 			TicketBean.readAllTicketsInDatabase();
+			CommentBean.readAllCommentsInDatabase();
 			firstInitialization = false;
 		}
 	}

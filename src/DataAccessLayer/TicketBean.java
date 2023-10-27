@@ -11,7 +11,7 @@ public class TicketBean {
 	private static ObservableList<TicketBean> ticketBeans = FXCollections.observableArrayList();
 	//list of comments under this ticket
 	public ObservableList<CommentBean> comments = FXCollections.observableArrayList();
-	private final static Connection ticketConnection = Connection.getCommentConnection();
+	private final static Connection ticketConnection = Connection.getTicketConnection();
 	
 	private SimpleStringProperty projectParent, title, description;
 	

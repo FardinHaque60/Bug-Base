@@ -4,3 +4,6 @@ myProj
 myProj2
 	myTicket2
 	some name  with new lines 
+another project
+	toilet 
+	toilet needs cleaning 

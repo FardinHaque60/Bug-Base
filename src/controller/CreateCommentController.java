@@ -1,6 +1,7 @@
 package controller;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -22,7 +23,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class CreateCommentController extends AbstractCreateController implements Initializable {
 	
 	@FXML TextArea commentDescription;
-	@FXML DatePicker commentTimestamp;
+	@FXML TextField commentTimestamp;
 	@FXML TableView<CommentBean> CommentTable;
 	@FXML TableColumn<CommentBean, String> DescriptionColumn;
 	@FXML TableColumn<CommentBean, String> DateColumn;
@@ -32,6 +33,7 @@ public class CreateCommentController extends AbstractCreateController implements
 	//populates existing comment table with comments that are already made
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		commentTimestamp.setText(formatter.format(LocalDate.now()));
 		DateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 		DescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
 		
@@ -45,8 +47,12 @@ public class CreateCommentController extends AbstractCreateController implements
 	
 	@Override
 	public void save() {
-		CommentBean commentInfo = new CommentBean(ticketParent.getTitle(), formatter.format(commentTimestamp.getValue()), commentDescription.getText());
+		CommentBean commentInfo = new CommentBean(ticketParent.getTitle(), commentTimestamp.getText(), commentDescription.getText());
 		commentInfo.writeCommentBean();
-		goHome();
+		goBack();
+	}
+	
+	@FXML public void goBack() {
+		common.loadDisplay("view/ViewTicket.fxml");
 	}
 }
