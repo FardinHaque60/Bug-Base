@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxWidth="1.7976931348623157E308" prefHeight="550.0" prefWidth="400.0" style="-fx-background-color: #6495ED;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewTicketController">
+<AnchorPane maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #6495ED;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewTicketController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="89.0" layoutY="14.0" prefHeight="32.0" prefWidth="223.0" text="Ticket Info">
          <font>
@@ -27,14 +27,14 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <TableView fx:id="CommentTable" layoutX="40.0" layoutY="305.0" prefHeight="166.0" prefWidth="321.0">
+      <TableView fx:id="CommentTable" layoutX="40.0" layoutY="305.0" prefHeight="227.0" prefWidth="321.0">
         <columns>
           <TableColumn fx:id="CommentDescription" prefWidth="233.0" text="Description" />
           <TableColumn fx:id="CommentDate" prefWidth="87.0" text="Date" />
         </columns>
       </TableView>
-      <Button layoutX="33.0" layoutY="494.0" mnemonicParsing="false" onAction="#edit" text="Update" />
-      <Button layoutX="297.0" layoutY="494.0" mnemonicParsing="false" onAction="#goBack" text="Go Back" />
-      <Button layoutX="150.0" layoutY="494.0" mnemonicParsing="false" onAction="#makeNewComment" text="New Comment" />
+      <Button layoutX="36.0" layoutY="548.0" mnemonicParsing="false" onAction="#edit" text="Update" />
+      <Button layoutX="300.0" layoutY="548.0" mnemonicParsing="false" onAction="#goBack" text="Go Back" />
+      <Button layoutX="153.0" layoutY="548.0" mnemonicParsing="false" onAction="#makeNewComment" text="New Comment" />
    </children>
 </AnchorPane>
