@@ -22,6 +22,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class CreateCommentController extends AbstractCreateController implements Initializable {
 	
+	@FXML TextField ticketTitle;
+	@FXML TextArea ticketDescription;
 	@FXML TextArea commentDescription;
 	@FXML TextField commentTimestamp;
 	@FXML TableView<CommentBean> CommentTable;
@@ -33,6 +35,8 @@ public class CreateCommentController extends AbstractCreateController implements
 	//populates existing comment table with comments that are already made
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		ticketTitle.setText(ticketParent.getTitle());
+		ticketDescription.setText(ticketParent.getDescription());
 		commentTimestamp.setText(formatter.format(LocalDate.now()));
 		DateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 		DescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
