@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxWidth="1.7976931348623157E308" prefHeight="550.0" prefWidth="400.0" style="-fx-background-color: khaki;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewProjectController">
+<AnchorPane maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: khaki;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewProjectController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="89.0" layoutY="14.0" prefHeight="32.0" prefWidth="223.0" text="Project Info">
          <font>
@@ -22,14 +22,14 @@
       <TextField fx:id="dateInfo" layoutX="121.0" layoutY="121.0" prefHeight="27.0" prefWidth="127.0" />
       <Label layoutX="35.0" layoutY="165.0" prefHeight="27.0" prefWidth="68.0" text="Description" wrapText="true" />
       <TextArea fx:id="descriptionInfo" layoutX="121.0" layoutY="165.0" prefHeight="81.0" prefWidth="231.0" />
-      <Button layoutX="60.0" layoutY="480.0" mnemonicParsing="false" onAction="#update" text="Update" />
-      <Button layoutX="277.0" layoutY="480.0" mnemonicParsing="false" onAction="#goHome" text="Go Home" />
+      <Button layoutX="58.0" layoutY="542.0" mnemonicParsing="false" onAction="#edit" text="Update" />
+      <Button layoutX="275.0" layoutY="542.0" mnemonicParsing="false" onAction="#goHome" text="Go Home" />
       <Label alignment="CENTER" layoutX="165.0" layoutY="265.0" prefHeight="27.0" prefWidth="70.0" text="Tickets" wrapText="true">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <TableView fx:id="TicketTable" layoutX="40.0" layoutY="298.0" prefHeight="152.0" prefWidth="321.0">
+      <TableView fx:id="TicketTable" layoutX="40.0" layoutY="298.0" onMouseClicked="#getTicket" prefHeight="222.0" prefWidth="321.0">
         <columns>
           <TableColumn fx:id="TicketTitles" prefWidth="127.0" text="Title" />
           <TableColumn fx:id="TicketDescriptions" prefWidth="193.0" text="Description" />

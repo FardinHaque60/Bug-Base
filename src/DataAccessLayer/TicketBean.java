@@ -9,12 +9,14 @@ public class TicketBean {
 
 	//list of all tickets, used to show up in search results
 	private static ObservableList<TicketBean> ticketBeans = FXCollections.observableArrayList();
+	//list of comments under this ticket
+	public ObservableList<CommentBean> comments = FXCollections.observableArrayList();
 	private final static Connection ticketConnection = Connection.getTicketConnection();
 	
 	private SimpleStringProperty projectParent, title, description;
 	
 	/**
-	 * Creates a ProjectBean with the given name, date, and description.
+	 * Creates a ticketBean with the given parent, title, and description.
 	 * @param projectParent	name of the project it belongs to
 	 * @param title			title of the ticket
 	 * @param description	description of the ticket
@@ -34,7 +36,7 @@ public class TicketBean {
 	}
 	
 	/**
-	 * Adds project into the database and in the list.
+	 * Adds ticket into the database and in the list.
 	 */
 	public void writeTicketBean() {
 		ticketConnection.writeTicket(this);
@@ -43,20 +45,35 @@ public class TicketBean {
 		ProjectBean.insertTicket(this);
 	}
 	
+	//takes care of inserting comment into correct ticket parent
+	public static void insertComment(CommentBean c) {
+		TicketBean parent = ticketBeans.get(0);
+		int i = 1;
+		while (!parent.getTitle().equals(c.getTicketParent())) {
+			parent = ticketBeans.get(i);
+			i++;
+		}
+		parent.comments.add(c);
+	}
+	
 	/**
-	 * Gets the project bean observable list.
-	 * @return all the project beans as an observable list
+	 * Gets the ticket bean observable list.
+	 * @return all the ticket beans as an observable list
 	 */
 	public static ObservableList<TicketBean> getAllTicketInfo() {
 		return ticketBeans;
 	}
+	
+	public ObservableList<CommentBean> getCommentInfo() {
+		return comments;
+	}
 
 	/**
-	 * Fills projectBeans list will all the project data in the database. Should only run once.
+	 * Fills ticketBeans list will all the project data in the database. Should only run once.
 	 */
 	public static void readAllTicketsInDatabase() {
 		ticketBeans.clear(); // don't really need this line, but added just in case it runs more than once.
-		ticketBeans.addAll(ticketConnection.readAllTickets());
+		ticketBeans.addAll(ticketConnection.readAllTickets()); //sets ticket beans to all ticket beans read in db
 	}
 	
 	public String getProjectParent() {
@@ -70,6 +87,4 @@ public class TicketBean {
 	public String getDescription() {
 		return description.get();
 	}
-	
-	
 }

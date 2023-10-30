@@ -10,11 +10,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 
-public class ViewProjectController implements Initializable {
+public class ViewProjectController extends AbstractViewController implements Initializable {
 
 	@FXML TextField nameInfo;
 	@FXML TextArea descriptionInfo;
@@ -30,10 +31,8 @@ public class ViewProjectController implements Initializable {
 	@FXML TableColumn<TicketBean, String> TicketDescriptions;
 
 	//TODO: get description to fit not all in one line
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		nameInfo.setText(nameFill);
 		dateInfo.setText(dateFill);
 		descriptionInfo.setText(descriptionFill);
@@ -52,12 +51,17 @@ public class ViewProjectController implements Initializable {
 		descriptionFill = b.getDescription();
 	}
 	
-	@FXML public void update() {
-		// TODO opens new edit project page
+	@FXML public void getTicket(MouseEvent event) {
+		
+		TicketBean selectedTicket = TicketTable.getSelectionModel().getSelectedItem();
+		
+		ViewTicketController.initalizeTicket(selectedTicket);
+		common.loadDisplay("view/ViewTicket.fxml");
 	}
-	
-	@FXML public void goHome() {
-		common.loadDisplay("view/ProjDisplay.fxml");
+
+	//TODO: implement editing project by seeing which fields changed
+	@Override
+	@FXML public void edit() {
+		
 	}
-	
 }

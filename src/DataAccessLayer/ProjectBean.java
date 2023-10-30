@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 
 public class ProjectBean {
 
+	//list of project used as results when searching
 	private static ObservableList<ProjectBean> projectBeans = FXCollections.observableArrayList();
 	//list of tickets in this project
 	public ObservableList<TicketBean> tickets = FXCollections.observableArrayList(); 

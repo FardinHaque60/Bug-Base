@@ -147,16 +147,54 @@ public class Connection {
 		}
 		
 		// fills list from all the projects in the database
-		String name, date, description;
+		String projectParent, title, description;
 		while (scn.hasNextLine()) {
-			name = scn.nextLine();
-			date = scn.nextLine().replace("\t", "");
+			projectParent = scn.nextLine();
+			title = scn.nextLine().replace("\t", "");
 			description = scn.nextLine().replace("\t", "");
-			TicketBean t = new TicketBean(name, date, description);
+			TicketBean t = new TicketBean(projectParent, title, description);
 			ticketBeans.add(t);
 			ProjectBean.insertTicket(t); //adds tickets to respective projects
 		}
 		
 		return ticketBeans;
+	}
+	
+//COMMENT CONNECTION METHODS	
+	
+	/**
+	 * Adds project into the comment database.
+	 * @param bean	The comment as a CommentBean
+	 */
+	public void writeComment(CommentBean bean) { 	
+		pw.println(bean.getTicketParent());
+		pw.println("\t" + bean.getDate());
+		pw.println("\t" + bean.getDescription());	
+		pw.flush();
+	}
+	
+	/**
+	 * Reads the whole Comment info from database and puts them in a observable list.
+	 * Will assume that this is called by Connection w/ TYPE: "Comment"
+	 */
+	public void readAllComments() {
+		
+		// initialize scanner to read from comment database
+		try {
+			scn = new Scanner(file);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// fills list from all the projects in the database
+		String ticketParent, date, description;
+		while (scn.hasNextLine()) {
+			ticketParent = scn.nextLine();
+			date = scn.nextLine().replace("\t", "");
+			description = scn.nextLine().replace("\t", "");
+			CommentBean t = new CommentBean(ticketParent, date, description);
+			TicketBean.insertComment(t); //adds tickets to respective projects
+		}
 	}
 }

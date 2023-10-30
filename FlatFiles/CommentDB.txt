@@ -1,0 +1,9 @@
+Implement Parana Plants
+	10/27/2023
+	Configured animation for health loss by 1. 
+Implement Parana Plants
+	10/27/2023
+	Configure death animation if Parana kills. 
+Bug with tubes
+	10/27/2023
+	Sound now plays when Mario goes down tube. 
