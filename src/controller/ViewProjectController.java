@@ -52,12 +52,16 @@ public class ViewProjectController extends AbstractViewController implements Ini
 	}
 	
 	@FXML public void getTicket(MouseEvent event) {
-		
-		TicketBean selectedTicket = TicketTable.getSelectionModel().getSelectedItem();
-		
-		ViewTicketController.initalizeTicket(selectedTicket);
-		common.loadDisplay("view/ViewTicket.fxml");
+		try {
+			TicketBean selectedTicket = TicketTable.getSelectionModel().getSelectedItem();
+			ViewTicketController.initalizeTicket(selectedTicket);
+			common.loadDisplay("view/ViewTicket.fxml");
+		}
+		catch(Exception e){
+			
+		}
 	}
+		
 
 	//TODO: implement editing project by seeing which fields changed
 	@Override
