@@ -29,7 +29,8 @@ public class ProjectBean {
 		this.date = new SimpleStringProperty(date);
 		
 		//adds description as one line if user has new lines for description
-		String[] tmp = description.split("\n");
+		//TODO: refactor below so description is read in raw format from user
+		String[] tmp = description.split("\n");  
 		this.description = new SimpleStringProperty("");
 		for (String s: tmp) {
 			this.description.bind(Bindings.concat(this.description.get() + s + " "));

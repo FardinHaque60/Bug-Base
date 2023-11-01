@@ -70,6 +70,7 @@ public class Connection {
 		return CommentConnection;
 	}
 	
+//TODO: Daniel look into refactoring lines below 
 //PROJECT CONNECTION METHODS
 	
 	/**
