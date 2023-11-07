@@ -7,6 +7,3 @@ Mario Game
 Schedule Program
 	Handle loop case
 	Handle edge case where there is a loop in the schedule and it not possible to finish the task. 
-
-
-	 
