@@ -5,20 +5,26 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #8FBC8F;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProjectDisplayController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #8FBC8F;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchController">
    <children>
       <TableView fx:id="ProjectResult" layoutX="14.0" layoutY="41.0" onMouseClicked="#getProject" prefHeight="525.0" prefWidth="279.0" style="-fx-background-color: #FFF8DC;">
+        <placeholder>
+        	<Label text="No Result Found"/>
+        </placeholder>
         <columns>
-          <TableColumn fx:id="ProjectName" prefWidth="186.0" text="Project Name" />
-          <TableColumn fx:id="ProjectDate" minWidth="0.0" prefWidth="92.0" text="Date Created" />
+          <TableColumn fx:id="ProjectName" prefWidth="178.0" text="Project Name" />
+          <TableColumn fx:id="ProjectDate" minWidth="0.0" prefWidth="100.0" text="Date Created" />
         </columns>
       </TableView>
-      <TextField layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="279.0" promptText="Search Project" />
-      <TextField layoutX="307.0" layoutY="14.0" prefHeight="27.0" prefWidth="279.0" promptText="Search Ticket" />
-      <TableView fx:id="TicketResult" layoutX="307.0" layoutY="41.0" onMouseClicked="#getProject" prefHeight="525.0" prefWidth="279.0" style="-fx-background-color: #FFF8DC;">
+      <TextField fx:id="ProjectSearchBar" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="279.0" promptText="Search Project" />
+      <TextField fx:id="TicketSearchBar" layoutX="307.0" layoutY="14.0" prefHeight="27.0" prefWidth="279.0" promptText="Search Ticket" />
+      <TableView fx:id="TicketResult" layoutX="307.0" layoutY="41.0" onMouseClicked="#getTicket" prefHeight="525.0" prefWidth="279.0" style="-fx-background-color: #FFF8DC;">
+         <placeholder>
+         	<Label text="No Result Found"/>
+         </placeholder>
          <columns>
-            <TableColumn fx:id="TicketTitle" prefWidth="182.0" text="Ticket Title" />
-            <TableColumn fx:id="TicketDate" minWidth="0.0" prefWidth="96.0" text="Date Created" />
+            <TableColumn fx:id="TicketTitle" prefWidth="168.0" text="Ticket Title" />
+            <TableColumn fx:id="ProjectParent" minWidth="0.0" prefWidth="110.0" text="Project Parent" />
          </columns>
       </TableView>
    </children>
