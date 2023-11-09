@@ -45,4 +45,11 @@ public class MainController {
 	@FXML public void showCreateTicket() {
 		common.loadDisplay("view/CreateTicket.fxml");
 	}
+
+	/**
+	 * Opens search page. For Main.fxml button.
+	 */
+	@FXML public void openSearch() {
+		common.loadDisplay("view/Search.fxml");
+	}	
 }
