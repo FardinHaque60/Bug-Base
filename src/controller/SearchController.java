@@ -93,6 +93,8 @@ public class SearchController implements Initializable {
 				
 				if (TicketBean.getTitle().toLowerCase().indexOf(searchKeyword) > -1) {
 					return true;
+				} else if (TicketBean.getProjectParent().toLowerCase().indexOf(searchKeyword) > -1){
+					return true;
 				} else {
 					return false;
 				}
@@ -108,7 +110,6 @@ public class SearchController implements Initializable {
 		TicketResult.setItems(filteredTickets);
 	}
 	
-
 	//when table entry is clicked it will open the view ticket or project page respectively
 	//TODO: Some repeated code here from projDisp and viewProj classes, look into abstraction
 	@FXML public void getProject() {
