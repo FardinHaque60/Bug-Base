@@ -113,16 +113,26 @@ public class SearchController implements Initializable {
 	//when table entry is clicked it will open the view ticket or project page respectively
 	//TODO: Some repeated code here from projDisp and viewProj classes, look into abstraction
 	@FXML public void getProject() {
-		ProjectBean selectedProject = ProjectResult.getSelectionModel().getSelectedItem();
-		
-		ViewProjectController.initalize(selectedProject);
-		common.loadDisplay("view/ViewProject.fxml");
+		try {
+			ProjectBean selectedProject = ProjectResult.getSelectionModel().getSelectedItem();
+			
+			ViewProjectController.initalize(selectedProject);
+			common.loadDisplay("view/ViewProject.fxml");
+		}
+		catch (NullPointerException e){
+			//do nothing, put it in a system log later or something
+		}
 	}
 	
 	@FXML public void getTicket() {
-		TicketBean selectedTicket = TicketResult.getSelectionModel().getSelectedItem();
-		
-		ViewTicketController.initalizeTicket(selectedTicket);
-		common.loadDisplay("view/ViewTicket.fxml");
+		try {
+			TicketBean selectedTicket = TicketResult.getSelectionModel().getSelectedItem();
+			
+			ViewTicketController.initalizeTicket(selectedTicket);
+			common.loadDisplay("view/ViewTicket.fxml");
+		}
+		catch (NullPointerException e){
+			//do nothing, put it in a system log later or something
+		}
 	}
 }
