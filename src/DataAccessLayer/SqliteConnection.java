@@ -15,6 +15,7 @@ public class SqliteConnection {
             Class.forName("org.sqlite.JDBC");
             // Establish a connection to the SQLite database
             connection = DriverManager.getConnection(DATABASE_URL);
+            connection.setAutoCommit(true);
             return connection;
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

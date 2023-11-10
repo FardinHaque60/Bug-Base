@@ -39,17 +39,20 @@ public class ViewProjectController extends AbstractViewController implements Ini
 		
 		TicketTitles.setCellValueFactory(new PropertyValueFactory<>("title"));
 		TicketDescriptions.setCellValueFactory(new PropertyValueFactory<>("description"));
-		
+			
 		TicketTable.setItems(thisBean.getTicketInfo());
 		
 	}
 	
-	public static void initalize(ProjectBean b) {
-		thisBean = b;
-		nameFill = b.getName();
-		dateFill = b.getDate();
-		descriptionFill = b.getDescription();
-	}
+	public static void initialize(ProjectBean b) {
+	    thisBean = b;
+	    // Assume this method now exists and properly fetches tickets for this project
+	    thisBean.loadTicketsForProject(); 
+
+	    nameFill = b.getName();
+	    dateFill = b.getDate();
+	    descriptionFill = b.getDescription();
+	}	
 	
 	@FXML public void getTicket(MouseEvent event) {
 		try {

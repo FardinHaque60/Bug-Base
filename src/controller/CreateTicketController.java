@@ -1,5 +1,7 @@
 package controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +15,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class CreateTicketController extends AbstractCreateController {
-
-	// private static int uid;
+	
 	@FXML ChoiceBox<String> projectDropdownList;
 	@FXML TextField ticketTitle;
 	@FXML TextArea ticketDescription;
@@ -33,11 +34,18 @@ public class CreateTicketController extends AbstractCreateController {
 		projectDropdownList.setItems(projectNameObservableList);
 	}
 	
-	@Override
 	@FXML public void save() {
-		TicketBean ticketInfo = new TicketBean(projectDropdownList.getValue(), ticketTitle.getText(), ticketDescription.getText());
-		ticketInfo.writeTicketBean();
-		goHome();
+	    String selectedProjectName = projectDropdownList.getValue();
+
+	    if (selectedProjectName != null) {
+	        TicketBean ticketInfo = new TicketBean(selectedProjectName, ticketTitle.getText(), ticketDescription.getText());
+	        ticketInfo.writeTicketBean();
+	        goHome();
+	    } else {
+	        // Handle the case where no matching project ID was found
+	    }
+	   
 	}
+
 
 }

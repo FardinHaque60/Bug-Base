@@ -18,7 +18,7 @@ public class MainController {
 		// first time running the application, read from the database
 		if (firstInitialization) {
 			// tells Beans to initalize info from what was persisted in db
-			ProjectBean.readAllProjectsInDatabase();
+			ProjectBean.getAllProjectInfo();
 			TicketBean.readAllTicketsInDatabase();
 			CommentBean.readAllCommentsInDatabase();
 			firstInitialization = false;

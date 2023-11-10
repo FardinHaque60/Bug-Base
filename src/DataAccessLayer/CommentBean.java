@@ -1,5 +1,6 @@
 package DataAccessLayer;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class CommentBean {
@@ -7,10 +8,12 @@ public class CommentBean {
     // Reference to CommentDAO
     private static CommentDAO commentDAO = new CommentDAO();
 
-    private SimpleStringProperty ticketParent, description, date;
+    SimpleIntegerProperty ticketParent;
 
-    public CommentBean(String ticketParent, String date, String description) {
-        this.ticketParent = new SimpleStringProperty(ticketParent);
+	private SimpleStringProperty description, date;
+
+    public CommentBean(int ticketParent, String date, String description) {
+        this.ticketParent = new SimpleIntegerProperty(ticketParent);
         this.date = new SimpleStringProperty(date);
         this.description = new SimpleStringProperty(description.replace("\n", " "));
     }
@@ -20,11 +23,10 @@ public class CommentBean {
      */
     public void writeCommentBean(TicketBean ticket) {
         commentDAO.writeComment(this);
+
     }
 
-    // ... Other methods ...
-
-    public String getTicketParent() {
+    public int getTicketParent() {
         return this.ticketParent.get();
     }
 

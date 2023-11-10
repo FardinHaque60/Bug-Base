@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import DataAccessLayer.CommentBean;
-import DataAccessLayer.ProjectBean;
 import DataAccessLayer.TicketBean;
 import application.CommonObjs;
 import javafx.fxml.FXML;
@@ -12,14 +11,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.text.Text;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class ViewTicketController extends AbstractViewController implements Initializable {
-	
-	//FXML fields to fill on page
+
 	@FXML TextArea ticketDescription;
 	@FXML TextField ticketTitle;
 	@FXML TextField projectParent;
@@ -30,13 +27,12 @@ public class ViewTicketController extends AbstractViewController implements Init
 	
 	CommonObjs common = CommonObjs.getInstance();
 	
-	//info from ticketBean that we are looking to display
 	private static String titleFill;
 	private static String descriptionFill;
 	private static TicketBean thisBean;
 	private static String projectParentFill;
 	
-	//initializes fields and table
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		ticketTitle.setText(titleFill);
@@ -46,21 +42,24 @@ public class ViewTicketController extends AbstractViewController implements Init
 		CommentDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 		CommentDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 		
-		CommentTable.setItems(thisBean.getCommentInfo()); //make a observable list of comments in ticketBean class
+		CommentTable.setItems(thisBean.getCommentInfo()); 
 		
 	}
 	
-	//assigns values fields so it can fill them once it is loaded
-	public static void initalizeTicket(TicketBean b) {
-		thisBean = b;
-		projectParentFill = b.getProjectParent();
-		titleFill = b.getTitle();
-		descriptionFill = b.getDescription();
-	}
+
+	public static void initalizeTicket(TicketBean ticket) {
+		thisBean = ticket;
+	    titleFill = ticket.getTitle();
+	    thisBean.loadCommentsForTicket(); 
+	    
+	    descriptionFill = ticket.getDescription();
+	    projectParentFill = ticket.getProjectName();
+	}		
 	
-	//attached to "create comment" button
+	
 	@FXML public void makeNewComment() {
 		CreateCommentController.initializeComment(thisBean);
+		CommentTable.refresh();
 		goTo("view/CreateComment.fxml");
 	}
 	

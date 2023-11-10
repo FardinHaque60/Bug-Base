@@ -19,7 +19,7 @@ public class CommentDAO {
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
-                String ticketParent = resultSet.getString("ticketParent");
+                int ticketParent = resultSet.getInt("TicketID");
                 String date = resultSet.getString("date");
                 String description = resultSet.getString("description");
                 commentBeans.add(new CommentBean(ticketParent, date, description));
@@ -32,12 +32,12 @@ public class CommentDAO {
 
     // Method to write a comment into the database
     public void writeComment(CommentBean bean) {
-        String sql = "INSERT INTO comment (ticketParent, date, description) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO comment (TicketID, date, description) VALUES (?, ?, ?)";
 
         try (Connection connection = SqliteConnection.connect();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setString(1, bean.getTicketParent());
+            preparedStatement.setLong(1, bean.getTicketParent());
             preparedStatement.setString(2, bean.getDate());
             preparedStatement.setString(3, bean.getDescription());
             preparedStatement.executeUpdate();

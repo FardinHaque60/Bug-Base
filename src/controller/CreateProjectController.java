@@ -1,6 +1,7 @@
 package controller;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import DataAccessLayer.ProjectBean;
 import javafx.beans.property.SimpleStringProperty;
@@ -63,23 +64,6 @@ public class CreateProjectController extends AbstractCreateController {
 	
 	@Override
 	@FXML public void save() {
-		
-		// edge case: Name was not inputed
-		if (projName.getText() == null || projName.getText().equals("")) {
-			
-			// for initialize method
-			errorType = ErrorType.NO_NAME;
-			
-			// save date and description
-			dateData = projDate.getValue();
-			descriptionData = projDescription.getText();
-			
-			// goes to error fxml
-			goTo("view/CreateProjectError/NoName.fxml");
-
-			return;
-		}
-		
 		// edge case: Name is the same as another project
 		for (ProjectBean projectBean : ProjectBean.getAllProjectInfo()) {
 			if (! projectBean.getName().equals(projName.getText())) {
@@ -123,8 +107,11 @@ public class CreateProjectController extends AbstractCreateController {
 		}
 		
 		// add project to database and go to home page
-		ProjectBean projectInfo = new ProjectBean(projName.getText(), formatter.format(projDate.getValue()), projDescription.getText());
-		projectInfo.writeProjectBean();
-		goHome(); // TODO: would probably want to go to view project page to add tickets later
+		String formattedDate = projDate.getValue().format(DateTimeFormatter.ISO_LOCAL_DATE); // Adjust the formatter to your needs.
+	    ProjectBean projectInfo = new ProjectBean(projName.getText(), formattedDate, projDescription.getText()); // ID is 0 as a placeholder.
+	    projectInfo.writeProjectBean();
+	    goHome();
 	}
+
+
 }
