@@ -1,24 +1,18 @@
 package controller;
 
-import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import DataAccessLayer.ProjectBean;
+import DataAccessLayer.TicketBean;
 import application.CommonObjs;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.input.MouseEvent;
 
 public class ProjectDisplayController implements Initializable {
 
@@ -27,23 +21,26 @@ public class ProjectDisplayController implements Initializable {
 	@FXML TableColumn<ProjectBean, String> ProjectDate;
 	@FXML TableView<ProjectBean> ProjectTable;
 	HBox mainBox = common.getMainBox();
-	ObservableList<ProjectBean> observableList;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		//TODO: need to clear and reset list everytime, look for alt
-		observableList = FXCollections.observableArrayList();
+		
+		// sets the project table
 		ProjectName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		ProjectDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-		
-		ArrayList<ProjectBean> allProjects = ProjectBean.readAllProjectInfo();
+		ProjectTable.setItems(ProjectBean.getAllProjectInfo());
+	}
 
-		int i;
-		for (i = 0; i < allProjects.size(); i++) {
-			observableList.add(allProjects.get(i));
+	@FXML public void getProject(MouseEvent event) {
+		try {
+			ProjectBean selectedProject = ProjectTable.getSelectionModel().getSelectedItem();
+			
+			ViewProjectController.initalize(selectedProject);
+			common.loadDisplay("view/ViewProject.fxml");
 		}
-		
-		ProjectTable.setItems(observableList);
+		catch (NullPointerException e){
+			//do nothing, put it in a system log later or something
+		}
 	}
 
 }

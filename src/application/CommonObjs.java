@@ -2,23 +2,10 @@ package application;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.ArrayList;
 
-import DataAccessLayer.ProjectBean;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 public class CommonObjs {
 	
@@ -41,21 +28,30 @@ public class CommonObjs {
 		this.mainBox = mainBox;
 	}
 	
-	public void loadProjectDisplay() {
-		URL url = getClass().getClassLoader().getResource("view/ProjDisplay.fxml");
+	/**
+	 * Loads a fxml sub page with a given string path.
+	 * @param path  fxml string path
+	 */
+	public void loadDisplay(String path) {
+		
+		// grabs the fxml file as a url
+		URL url = getClass().getClassLoader().getResource(path);
+		AnchorPane pane = null;
+		
+		//grabs the fxml sub page
 		try {
-			
-			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
-			
-			if (mainBox.getChildren().size() > 1) {
-				mainBox.getChildren().remove(1);
-			}
-			
-			mainBox.getChildren().add(pane1);
-			
+			pane = (AnchorPane) FXMLLoader.load(url);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return;
 		}
+		
+		// removes the previous sub page
+		if (mainBox.getChildren().size() > 1) {
+			mainBox.getChildren().remove(1);
+		}
+		
+		// add sub page into mainBox
+		mainBox.getChildren().add(pane);
 	}
 }

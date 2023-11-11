@@ -6,7 +6,7 @@ import application.CommonObjs;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 
-public abstract class AbstractCreateController {
+public abstract class AbstractViewController {
 	CommonObjs common = CommonObjs.getInstance();
 	HBox mainBox = common.getMainBox();
 	final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/YYYY");
@@ -29,5 +29,5 @@ public abstract class AbstractCreateController {
 	/**
 	 * Saves information into the database.
 	 */
-	@FXML public abstract void save();
+	@FXML public abstract void edit();
 }

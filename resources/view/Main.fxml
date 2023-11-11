@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox fx:id="mainBox" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<HBox fx:id="mainBox" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: azure;">
          <children>
@@ -18,7 +18,7 @@
                </font>
             </Label>
             <Button layoutX="23.0" layoutY="140.0" mnemonicParsing="false" onAction="#showProjects" prefHeight="27.0" prefWidth="155.0" text="View Projects" />
-            <TextField alignment="CENTER" layoutX="35.0" layoutY="344.0" prefHeight="27.0" prefWidth="130.0" text="Search" />
+            <Button layoutX="23.0" layoutY="336.0" mnemonicParsing="false" onAction="#openSearch" prefHeight="27.0" prefWidth="155.0" text="Search" />
          </children>
       </AnchorPane>
    </children>

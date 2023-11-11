@@ -1,70 +1,80 @@
 package DataAccessLayer;
 
-import java.util.ArrayList;
-
+import DataAccessLayer.Connection.ConnectionType;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class ProjectBean {
 
-	//potentially remove list of beans
-	static ArrayList<ProjectBean> projectBeans = new ArrayList<ProjectBean>();
-	SimpleStringProperty name;
-	SimpleStringProperty date;
-	SimpleStringProperty description;
-	final String TYPE = "Project";
-	final Connection projectConnection = new Connection(TYPE);
+	//list of project used as results when searching
+	private static ObservableList<ProjectBean> projectBeans = FXCollections.observableArrayList();
+	//list of tickets in this project
+	public ObservableList<TicketBean> tickets = FXCollections.observableArrayList(); 
+	private final static Connection projectConnection = Connection.getProjectConnection();
 	
-	public ProjectBean() {
-		
-	}
+	private SimpleStringProperty name, date, description;
 	
-	//takes in information from scene and adds attributes to the bean
+	/**
+	 * Creates a ProjectBean with the given name, date, and description.
+	 * @param name			name of the project
+	 * @param date			date of the project
+	 * @param description	description of the project
+	 */
 	public ProjectBean(String name, String date, String description) {
+		
+		// adds name and date
 		this.name = new SimpleStringProperty(name);
 		this.date = new SimpleStringProperty(date);
 		
 		//adds description as one line if user has new lines for description
-		String[] tmp = description.split("\n");
-		int i;
+		//TODO: refactor below so description is read in raw format from user
+		String[] tmp = description.split("\n");  
 		this.description = new SimpleStringProperty("");
 		for (String s: tmp) {
 			this.description.bind(Bindings.concat(this.description.get() + s + " "));
 		}
-		
-		//Connection projectConnection = new Connection(TYPE);
-		//projectConnection.writeProject(this);
-	
-		addBean(this);
 	}
 	
+	/**
+	 * Adds project into the database and in the list.
+	 */
 	public void writeProjectBean() {
 		projectConnection.writeProject(this);
+		projectBeans.add(this);
 	}
 	
-//OLD IMPLEMENTATION OF READING BEANS START
+	public static void insertTicket(TicketBean t) {
+		ProjectBean parent = projectBeans.get(0);
+		int i = 1;
+		while (!parent.getName().equals(t.getProjectParent())) {
+			parent = projectBeans.get(i);
+			i++;
+		}
+		parent.tickets.add(t);
+	}
 	
-	//implementation using beans for info
-	public static ArrayList<ProjectBean> getAllProjectInfo() {
+	/**
+	 * Gets the project bean observable list.
+	 * @return all the project beans as an observable list
+	 */
+	public static ObservableList<ProjectBean> getAllProjectInfo() {
 		return projectBeans;
 	}
 	
-	public static int numBeans() {
-		return projectBeans.size();
+	public ObservableList<TicketBean> getTicketInfo() {
+		return tickets;
 	}
 	
-	public static void addBean(ProjectBean b) {
-		projectBeans.add(b);
+	/**
+	 * Fills projectBeans list will all the project data in the database. Should only run once.
+	 */
+	public static void readAllProjectsInDatabase() {
+		projectBeans.clear(); // don't really need this line, but added just in case it runs more than once.
+		projectBeans.addAll(projectConnection.readAllProjects());
 	}
 	
-//OLD IMPLEMENTATION OF READING BEANS END
-	
-	//TODO: Poor implementation of reading from db
-	public static ArrayList<ProjectBean> readAllProjectInfo() {
-		ProjectBean tmp = new ProjectBean();
-		return tmp.projectConnection.readAllProjects();
-	}
-
 	public String getName() {
 		return this.name.get();
 	}
