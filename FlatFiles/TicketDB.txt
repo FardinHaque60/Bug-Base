@@ -7,3 +7,6 @@ Mario Game
 Schedule Program
 	Handle loop case
 	Handle edge case where there is a loop in the schedule and it not possible to finish the task.
+Schedule Program
+	Make start method more efficient
+	The start method takes too long to return values,  make method run in linear time with some added optimizations.  
