@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #8FBC8F;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProjectDisplayController">
    <children>
-      <Label layoutX="238.0" layoutY="14.0" prefHeight="40.0" prefWidth="127.0" text="Project Display" textAlignment="CENTER">
+      <Label layoutX="238.0" layoutY="14.0" prefHeight="40.0" prefWidth="149.0" text="Project Display" textAlignment="CENTER">
          <font>
             <Font size="20.0" />
          </font>

@@ -33,15 +33,22 @@ public class ViewProjectController extends AbstractViewController implements Ini
 	//TODO: get description to fit not all in one line
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		nameInfo.setText(nameFill);
-		dateInfo.setText(dateFill);
-		descriptionInfo.setText(descriptionFill);
-		
-		TicketTitles.setCellValueFactory(new PropertyValueFactory<>("title"));
-		TicketDescriptions.setCellValueFactory(new PropertyValueFactory<>("description"));
-		
-		TicketTable.setItems(thisBean.getTicketInfo());
-		
+		//TODO: fix so if we press go back on view ticket page we go back to correct page
+		//two options: create stack so it goes back to last clicked page
+		//goes back to its project parent page using bean info 
+		try {
+			nameInfo.setText(nameFill);
+			dateInfo.setText(dateFill);
+			descriptionInfo.setText(descriptionFill);
+			
+			TicketTitles.setCellValueFactory(new PropertyValueFactory<>("title"));
+			TicketDescriptions.setCellValueFactory(new PropertyValueFactory<>("description"));
+			
+			TicketTable.setItems(thisBean.getTicketInfo());
+		}
+		catch (NullPointerException e) {
+			//do nothing for now
+		}
 	}
 	
 	public static void initalize(ProjectBean b) {
