@@ -57,11 +57,13 @@ public class ViewProjectController extends AbstractViewController implements Ini
 	@FXML public void getTicket(MouseEvent event) {
 		try {
 			TicketBean selectedTicket = TicketTable.getSelectionModel().getSelectedItem();
+
+			
 			ViewTicketController.initalizeTicket(selectedTicket);
 			common.loadDisplay("view/ViewTicket.fxml");
 		}
-		catch(Exception e){
-			
+		catch (NullPointerException e){
+			//do nothing, put it in a system log later or something
 		}
 	}
 		

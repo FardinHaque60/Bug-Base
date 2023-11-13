@@ -5,14 +5,14 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #8FBC8F;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProjectDisplayController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #8FBC8F;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProjectDisplayController">
    <children>
-      <Label layoutX="130.0" layoutY="8.0" prefHeight="40.0" prefWidth="140.0" text="Project Display">
+      <Label layoutX="238.0" layoutY="14.0" prefHeight="40.0" prefWidth="127.0" text="Project Display" textAlignment="CENTER">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <TableView fx:id="ProjectTable" layoutX="12.0" layoutY="59.0" onMouseClicked="#getProject" prefHeight="525.0" prefWidth="376.0" style="-fx-background-color: #FFF8DC;">
+      <TableView fx:id="ProjectTable" layoutX="113.0" layoutY="61.0" onMouseClicked="#getProject" prefHeight="525.0" prefWidth="376.0" style="-fx-background-color: #FFF8DC;">
         <columns>
           <TableColumn fx:id="ProjectName" prefWidth="282.0" text="Project Name" />
           <TableColumn fx:id="ProjectDate" minWidth="0.0" prefWidth="93.0" text="Date Created" />

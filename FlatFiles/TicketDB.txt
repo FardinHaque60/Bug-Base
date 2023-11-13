@@ -1,9 +1,0 @@
-Mario Game
-	Implement Parana Plants
-	Make health go down when attacked by Parana. 
-Mario Game
-	Bug with tubes
-	Fix bug with animation not playing when Mario goes down tube. 
-Schedule Program
-	Handle loop case
-	Handle edge case where there is a loop in the schedule and it not possible to finish the task. 

@@ -67,8 +67,5 @@ public class ProjectBean {
         // You would need to implement this method in the ProjectDAO or similar
         this.tickets = projectDAO.readAllTicketsByName(this.getName());
     }
-   
-    
-
 
 }

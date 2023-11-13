@@ -47,9 +47,9 @@ public class TicketBean {
         return this.comments;
     }
 
-	public static void readAllTicketsInDatabase() {
+	public static ObservableList<TicketBean> readAllTicketsInDatabase() {
 		// TODO Auto-generated method stub
-		ticketDAO.readAllTickets();
+		return ticketDAO.readAllTickets();
 	}
 
 	public int getIdbyName() {

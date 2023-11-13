@@ -13,3 +13,11 @@ Hit the 'Create Ticket' Button on the main page -> Enter details for your ticket
 > Creating a Comment for a Ticket:
 
 Go to the ticket you would like to create the comment for -> Hit the 'Create Comment' button at the bottom of the view ticket page -> Enter details for comment and hit 'Create'
+
+> Searching for a Project:
+
+Click Search to enter the search page -> search for project in the project search bar on the left -> search is not case sensitive and will show all projects that match your query -> click the entry in the table to view the project
+
+> Searching for a Ticket:
+
+On the same page you used to search for projects, use the right search bar to search for tickets -> Search for a ticket based on its title or the project (non-case sensitive) it belongs to -> click on the entry in the table to view the ticket details

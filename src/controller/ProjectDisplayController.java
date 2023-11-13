@@ -34,12 +34,13 @@ public class ProjectDisplayController implements Initializable {
 	@FXML public void getProject(MouseEvent event) {
 		try {
 			ProjectBean selectedProject = ProjectTable.getSelectionModel().getSelectedItem();
+
+			
 			ViewProjectController.initialize(selectedProject);
 			common.loadDisplay("view/ViewProject.fxml");
 		}
-		catch (Exception e){
-			
-		
+		catch (NullPointerException e){
+			//do nothing, put it in a system log later or something
 		}
 	}
 
