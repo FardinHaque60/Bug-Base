@@ -36,8 +36,8 @@ public class SearchController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		ticketBeans = TicketBean.readAllTicketsInDatabase();
-		projectBeans = ProjectBean.getAllProjectInfo();
+		ticketBeans = TicketBean.getTicketBeanList();
+		projectBeans = ProjectBean.getProjectBeanList();
 		
 		// sets the project table
 		ProjectName.setCellValueFactory(new PropertyValueFactory<>("name"));

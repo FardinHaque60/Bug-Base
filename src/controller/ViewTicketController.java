@@ -50,7 +50,7 @@ public class ViewTicketController extends AbstractViewController implements Init
 	public static void initalizeTicket(TicketBean ticket) {
 		thisBean = ticket;
 	    titleFill = ticket.getTitle();
-	    thisBean.loadCommentsForTicket(); 
+	    thisBean.loadCommentsForTicket(); //Look to fix, connects to the db everytime we want to open the ticket page
 	    
 	    descriptionFill = ticket.getDescription();
 	    projectParentFill = ticket.getProjectName();

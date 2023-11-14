@@ -65,7 +65,7 @@ public class CreateProjectController extends AbstractCreateController {
 	@Override
 	@FXML public void save() {
 		// edge case: Name is the same as another project
-		for (ProjectBean projectBean : ProjectBean.getAllProjectInfo()) {
+		for (ProjectBean projectBean : ProjectBean.getProjectBeanList()) {
 			if (! projectBean.getName().equals(projName.getText())) {
 				continue;
 			}

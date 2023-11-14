@@ -10,6 +10,19 @@ import javafx.collections.ObservableList;
 
 public class TicketDAO {
 
+	final static TicketDAO TicketConnection = new TicketDAO();
+	
+	private TicketDAO() {
+		
+	}
+	
+	public static TicketDAO getTicketConnection() {
+		return TicketConnection;
+	}
+	
+	/** reads all tickets in DB 
+	 * @returns list of tickets
+	 */
 	public ObservableList<TicketBean> readAllTickets() {
         ObservableList<TicketBean> ticketBeans = FXCollections.observableArrayList();
         String query = "SELECT * FROM ticket";
@@ -30,6 +43,10 @@ public class TicketDAO {
         return ticketBeans;
     }
 
+	/**
+	 * Writes Ticket Bean to DB
+	 * @param bean to be written
+	 */
     public void writeTicket(TicketBean bean) {
         String sql = "INSERT INTO ticket (projectName, title, description) VALUES (?, ?, ?)";
 
@@ -47,6 +64,10 @@ public class TicketDAO {
         }
     }
 
+    /** TODO: to be used, edit bean functionality
+     * 
+     * @param bean to be edited/updated
+     */
     public void updateTicket(TicketBean bean) {
         String query = "UPDATE ticket SET title = ?, description = ? WHERE projectName = ?";
         try (Connection connection = SqliteConnection.connect();
@@ -61,6 +82,11 @@ public class TicketDAO {
         }
     }
 
+    /** TODO: To be used, delete bean functionality
+     * 
+     * @param projectParent that this ticket belongs to
+     * @param title of this ticket
+     */
     public void deleteTicket(String projectParent, String title) {
         String query = "DELETE FROM ticket WHERE projectName = ? AND title = ?";
         try (Connection connection = SqliteConnection.connect();
@@ -74,6 +100,11 @@ public class TicketDAO {
         }
     }
 
+    /** given a tickets title we can return its id
+     * 
+     * @param title of the ticket
+     * @return id of the ticket
+     */
     public int getTicketIDByTitle(String title) {
         String query = "SELECT ticketID FROM ticket WHERE title = ?";
         try (Connection connection = SqliteConnection.connect();
@@ -96,7 +127,11 @@ public class TicketDAO {
         }
     }
     
-    //TODO: move to different class?
+    /** TODO: move to different class?
+     * 
+     * @param id
+     * @return
+     */
     public ObservableList<CommentBean> readAllCommentsByID(int id) {
         ObservableList<CommentBean> commentBeans = FXCollections.observableArrayList();
         // Updated query with a WHERE clause to filter by project name

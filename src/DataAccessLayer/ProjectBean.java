@@ -52,8 +52,8 @@ public class ProjectBean {
     	return projectBeans;
     }
 
-    public static ObservableList<ProjectBean> getAllProjectInfo() {
-        return ProjectDAO.readAllProjects();
+    public static void getAllProjectInfo() {
+        projectBeans = ProjectDAO.readAllProjects();
     }
     
     //TODO: Change location potentially

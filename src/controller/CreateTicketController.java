@@ -25,7 +25,7 @@ public class CreateTicketController extends AbstractCreateController {
 		
 		// get all the names of the projects
 		List<String> projectNameList = new ArrayList<String>();
-		for (ProjectBean projectBean : ProjectBean.getAllProjectInfo()) {
+		for (ProjectBean projectBean : ProjectBean.getProjectBeanList()) {
 			projectNameList.add(projectBean.getName());
 		}
 		
