@@ -28,6 +28,8 @@ public class ProjectDisplayController implements Initializable {
 		// sets the project table
 		ProjectName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		ProjectDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+		
+		//ProjectTable.refresh();
 		ProjectTable.setItems(ProjectBean.getProjectBeanList());
 	}
 

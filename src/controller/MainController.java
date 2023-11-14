@@ -14,7 +14,6 @@ public class MainController {
 
 	@FXML public void initialize() { 
 		common.setMainBox(mainBox);
-		showProjects();
 		// first time running the application, read from the database
 		if (firstInitialization) {
 			// tells Beans to initalize info from what was persisted in db
@@ -23,6 +22,7 @@ public class MainController {
 			CommentBean.readAllCommentsInDatabase();
 			firstInitialization = false;
 		}
+		showProjects();
 	}
 	
 	/**

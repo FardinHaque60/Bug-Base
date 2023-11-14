@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 public class CommentBean {
 
     // Reference to CommentDAO
-    private static CommentDAO commentDAO = new CommentDAO();
+    private static CommentDAO commentDAO = CommentDAO.getCommentConnection();
 
     SimpleIntegerProperty ticketParent;
 

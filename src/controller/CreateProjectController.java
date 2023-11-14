@@ -106,12 +106,8 @@ public class CreateProjectController extends AbstractCreateController {
 			return;
 		}
 		
-		// add project to database and go to home page
-		String formattedDate = projDate.getValue().format(DateTimeFormatter.ISO_LOCAL_DATE); // Adjust the formatter to your needs.
-	    ProjectBean projectInfo = new ProjectBean(projName.getText(), formattedDate, projDescription.getText()); // ID is 0 as a placeholder.
+	    ProjectBean projectInfo = new ProjectBean(projName.getText(), formatter.format(projDate.getValue()), projDescription.getText()); // ID is 0 as a placeholder.
 	    projectInfo.writeProjectBean();
 	    goHome();
 	}
-
-
 }

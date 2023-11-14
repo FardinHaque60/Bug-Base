@@ -42,7 +42,7 @@ public class ViewTicketController extends AbstractViewController implements Init
 		CommentDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 		CommentDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 		
-		CommentTable.refresh();
+		//CommentTable.refresh();
 		
 		CommentTable.setItems(thisBean.getCommentInfo()); 
 	}
@@ -58,7 +58,7 @@ public class ViewTicketController extends AbstractViewController implements Init
 	
 	@FXML public void makeNewComment() {
 		CreateCommentController.initializeComment(thisBean);
-		CommentTable.refresh();
+		//CommentTable.refresh();
 		goTo("view/CreateComment.fxml");
 	}
 	

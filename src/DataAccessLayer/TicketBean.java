@@ -64,6 +64,6 @@ public class TicketBean {
 	
 	//TODO: look to move
 	public void loadCommentsForTicket() {
-	    this.comments = ticketDAO.readAllCommentsByID(getIdbyName());
+	    comments = ticketDAO.readAllCommentsByID(getIdbyName());
 	}
 }

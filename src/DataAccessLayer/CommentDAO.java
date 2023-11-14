@@ -9,7 +9,19 @@ import javafx.collections.ObservableList;
 
 public class CommentDAO {
 
+	final static CommentDAO CommentConnection = new CommentDAO();
+	
+	private CommentDAO() {
+		
+	}
+	
+	public static CommentDAO getCommentConnection() {
+		return CommentConnection;
+	}
+	
     // Method to read all comments from the database
+	/** TODO: current not doing anything with this
+	 */
     public static ObservableList<CommentBean> readAllComments() {
         ObservableList<CommentBean> commentBeans = FXCollections.observableArrayList();
         String sql = "SELECT * FROM comment";
@@ -30,7 +42,10 @@ public class CommentDAO {
         return commentBeans;
     }
 
-    // Method to write a comment into the database
+    /** Method to write a comment into the database
+     * 
+     * @param bean to be written to db
+     */
     public void writeComment(CommentBean bean) {
         String sql = "INSERT INTO comment (TicketID, date, description) VALUES (?, ?, ?)";
 
@@ -44,7 +59,5 @@ public class CommentDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-  
+    }  
 }
