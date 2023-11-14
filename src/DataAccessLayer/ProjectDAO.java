@@ -9,6 +9,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class ProjectDAO {
+	final static ProjectDAO ProjectConnection = new ProjectDAO();
+	
+	private ProjectDAO() {
+		
+	}
+	
+	public static ProjectDAO getProjectConnection() {
+		return ProjectConnection;
+	}
+	/**
+	 * Reads all projects from DB, should be called only once
+	 * @return returns list of projectBeans 
+	 */
     public static ObservableList<ProjectBean> readAllProjects() {
         ObservableList<ProjectBean> projectBeans = FXCollections.observableArrayList();
         try (Connection connection = SqliteConnection.connect();
@@ -26,9 +39,13 @@ public class ProjectDAO {
         }
         return projectBeans;
     }
-    public int writeProject(ProjectBean bean) {
+    
+    /**
+     * Writes project bean onto DB
+     * @param bean to inserted
+     */
+    public void writeProject(ProjectBean bean) {
         String sql = "INSERT INTO project (name, date, description) VALUES (?, ?, ?)";
-        int generatedId = -1;
 
         try (Connection connection = SqliteConnection.connect();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -37,23 +54,15 @@ public class ProjectDAO {
             preparedStatement.setString(2, bean.getDate());
             preparedStatement.setString(3, bean.getDescription());
 
-            int affectedRows = preparedStatement.executeUpdate();
-
-            if (affectedRows > 0) {
-                // Use a separate query to retrieve the last inserted row ID
-                try (Statement stmt = connection.createStatement();
-                     ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()")) {
-                    if (rs.next()) {
-                        generatedId = rs.getInt(1); 
-                    }
-                }
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return generatedId;
     }
+    
+    /** TODO: Not used yet, needs to be implemented
+     * Method used to delete beans
+     * @param bean to be deleted
+     */
     public void deleteProject(ProjectBean bean) {
     	String sql = "DELETE name FROM project WHERE id = ?";
         try (Connection connection = SqliteConnection.connect();
@@ -68,28 +77,16 @@ public class ProjectDAO {
         }
     }
 
-
-    public static String getProjectNameById(int projectId) {
-        String projectName = "";
-        String sql = "SELECT name FROM project WHERE id = ?";
-        try (Connection conn = SqliteConnection.connect();
-             PreparedStatement pstmt  = conn.prepareStatement(sql)) { 
-            pstmt.setInt(1, projectId);
-            ResultSet rs  = pstmt.executeQuery();
-            if (rs.next()) {
-                projectName = rs.getString("name");
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return projectName;
-    }
+    /** TODO: look to move this potentially
+     * 
+     * @param projectName
+     * @return
+     */
     public ObservableList<TicketBean> readAllTicketsByName(String projectName) {
         ObservableList<TicketBean> ticketBeans = FXCollections.observableArrayList();
         String query = "SELECT * FROM ticket WHERE projectName = ?";
         try (Connection connection = SqliteConnection.connect();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            
+            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
      
             preparedStatement.setString(1, projectName);
             
