@@ -23,7 +23,7 @@ public class CommentBean {
      */
     public void writeCommentBean(TicketBean ticket) {
         commentDAO.writeComment(this);
-
+        ticket.addComment(this);
     }
 
     public int getTicketParent() {
@@ -38,9 +38,6 @@ public class CommentBean {
         return this.description.get();
     }
     public static void readAllCommentsInDatabase() {
-       
         CommentDAO.readAllComments();
     }
-
-    
 }

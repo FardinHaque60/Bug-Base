@@ -105,12 +105,5 @@ public class ProjectDAO {
             e.printStackTrace();
         }
         return ticketBeans;
-    }
-
-
-	
-    
-    
-
-   
+    }  
 }

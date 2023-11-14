@@ -96,6 +96,7 @@ public class TicketDAO {
         }
     }
     
+    //TODO: move to different class?
     public ObservableList<CommentBean> readAllCommentsByID(int id) {
         ObservableList<CommentBean> commentBeans = FXCollections.observableArrayList();
         // Updated query with a WHERE clause to filter by project name
@@ -121,7 +122,4 @@ public class TicketDAO {
         }
         return commentBeans;
     }
-
-	
-
 }

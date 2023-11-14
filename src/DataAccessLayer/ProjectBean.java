@@ -55,7 +55,6 @@ public class ProjectBean {
         return this.description.get();
     }
 
-
     public ObservableList<TicketBean> getTicketInfo() {
         return tickets;
     }
@@ -63,6 +62,8 @@ public class ProjectBean {
     public static ObservableList<ProjectBean> getAllProjectInfo() {
         return ProjectDAO.readAllProjects();
     }
+    
+    //TODO: Change location potentially
     public void loadTicketsForProject() {
         // You would need to implement this method in the ProjectDAO or similar
         this.tickets = projectDAO.readAllTicketsByName(this.getName());

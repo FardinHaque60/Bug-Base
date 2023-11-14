@@ -48,21 +48,17 @@ public class TicketBean {
     }
 
 	public static ObservableList<TicketBean> readAllTicketsInDatabase() {
-		// TODO Auto-generated method stub
 		return ticketDAO.readAllTickets();
 	}
 
 	public int getIdbyName() {
-		// TODO Auto-generated method stub
 		String stringValue = this.title.get();
 		return ticketDAO.getTicketIDByTitle(stringValue);
 	}
-	public void loadCommentsForTicket() {
-	   
-	    this.comments = ticketDAO.readAllCommentsByID(getIdbyName());
-	   
-	}
 	
-
-  
+	
+	//TODO: NOT GOOD
+	public void loadCommentsForTicket() {
+	    this.comments = ticketDAO.readAllCommentsByID(getIdbyName());
+	}
 }
