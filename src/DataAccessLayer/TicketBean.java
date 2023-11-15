@@ -11,7 +11,7 @@ public class TicketBean {
     private static TicketDAO ticketDAO = TicketDAO.getTicketConnection();
     //projectName => Project this ticket belongs to
     private SimpleStringProperty projectName, title, description;
-    public ObservableList<CommentBean> comments = FXCollections.observableArrayList();;
+    public ObservableList<CommentBean> comments = FXCollections.observableArrayList();
 
     
     public TicketBean(String projectName, String title, String description) {
@@ -27,7 +27,6 @@ public class TicketBean {
     public void writeTicketBean(ProjectBean parent) {
         ticketDAO.writeTicket(this); //writes it to db
         ticketBeans.add(this); //adds it to the static list of ALL ticket beans
-        parent.tickets.add(this); //adds it into the list of beans within its parent
     }
 
     public void addComment(CommentBean comment) {
@@ -56,21 +55,7 @@ public class TicketBean {
     
 	public static void readAllTicketsInDatabase() {
 		ticketBeans = ticketDAO.readAllTickets();
-		loadTicketsIntoProjects();
 		loadCommentsForTicket();
-	}
-	
-	private static void loadTicketsIntoProjects() {
-		ObservableList<ProjectBean> p = ProjectBean.getProjectBeanList();
-		String parent;
-		for (TicketBean t: ticketBeans) {
-			parent = t.getProjectName();
-			for (ProjectBean proj: p) {
-				if (parent.equals(proj.getName())) {
-					proj.tickets.add(t);
-				}
-			}
-		}
 	}
 	
 	/*

@@ -9,9 +9,6 @@ public class ProjectBean {
     // List of project used as results when searching
     private static ObservableList<ProjectBean> projectBeans = FXCollections.observableArrayList();
 
-    // List of tickets in this project
-    public ObservableList<TicketBean> tickets = FXCollections.observableArrayList();
-
     // Reference to ProjectDAO
     private static ProjectDAO projectDAO = ProjectDAO.getProjectConnection();
 
@@ -46,7 +43,11 @@ public class ProjectBean {
     }
 
     public ObservableList<TicketBean> getTicketInfo() {
-        return tickets;
+    	// clones ticket bean list
+    	ObservableList<TicketBean> ticketBeanList = FXCollections.observableArrayList(TicketBean.getTicketBeanList());
+    	// remove all the ticket beans that are not related to the project
+    	ticketBeanList.removeIf(ticketBean -> (!ticketBean.getProjectName().equals(this.getName())));
+        return ticketBeanList;
     }
     
     public static ObservableList<ProjectBean> getProjectBeanList() {
