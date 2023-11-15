@@ -59,5 +59,5 @@ public class CommentDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }  
+    }
 }

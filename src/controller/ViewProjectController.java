@@ -22,9 +22,7 @@ public class ViewProjectController extends AbstractViewController implements Ini
 	@FXML TextField dateInfo;
 	CommonObjs common = CommonObjs.getInstance();
 	
-	private static String nameFill;
-	private static String descriptionFill;
-	private static String dateFill;
+	private static String nameFill, descriptionFill, dateFill;
 	private static ProjectBean thisBean;
 	@FXML TableView<TicketBean>  TicketTable;
 	@FXML TableColumn<TicketBean, String> TicketTitles;

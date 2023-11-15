@@ -11,13 +11,13 @@ public class ProjectBean {
 
     // Reference to ProjectDAO
     private static ProjectDAO projectDAO = ProjectDAO.getProjectConnection();
-
+    
     private SimpleStringProperty name, date, description;
 
     
     // Constructor now includes ID
     public ProjectBean(String name, String date, String description) {
-        this.name = new SimpleStringProperty(name);
+    	this.name = new SimpleStringProperty(name);
         this.date = new SimpleStringProperty(date);
         this.description = new SimpleStringProperty(description);
     }
@@ -29,6 +29,8 @@ public class ProjectBean {
         // Add the project to the list of all projects
         projectBeans.add(this);
     }
+    
+    
 
     public String getName() {
         return this.name.get();
@@ -54,9 +56,8 @@ public class ProjectBean {
     	return projectBeans;
     }
 
-//METHODS THAT ARE RAN ONCE IN INITIALIZATION
     
-    public static void getAllProjectInfo() {
+    public static void readAllProjectsInDatabase() {
         projectBeans = ProjectDAO.readAllProjects();
     }
 }

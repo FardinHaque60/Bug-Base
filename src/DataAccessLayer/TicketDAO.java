@@ -51,7 +51,7 @@ public class TicketDAO {
         String sql = "INSERT INTO ticket (projectName, title, description) VALUES (?, ?, ?)";
 
         try (Connection connection = SqliteConnection.connect();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             
             preparedStatement.setString(1, bean.getProjectName()); 
             preparedStatement.setString(2, bean.getTitle());
