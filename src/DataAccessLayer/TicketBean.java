@@ -27,7 +27,6 @@ public class TicketBean {
     public void writeTicketBean(ProjectBean parent) {
         ticketDAO.writeTicket(this); //writes it to db
         ticketBeans.add(this); //adds it to the static list of ALL ticket beans
-        parent.tickets.add(this); //adds it into the list of beans within its parent
     }
 
     public void addComment(CommentBean comment) {
@@ -58,23 +57,8 @@ public class TicketBean {
     }
     
 	public static void readAllTicketsInDatabase() {
-		ticketBeans = ticketDAO.readAllTickets(); //static list of all ticket beans gets set based on db persisted entries
-		loadTicketsIntoProjects(); //assigns tickets to respective parent 
+		ticketBeans = ticketDAO.readAllTickets();
 		loadCommentsForTicket();
-	}
-	
-	private static void loadTicketsIntoProjects() {
-		ObservableList<ProjectBean> p = ProjectBean.getProjectBeanList();
-		String parent;
-		for (TicketBean t: ticketBeans) {
-			parent = t.getProjectName();
-			for (ProjectBean proj: p) {
-				if (parent.equals(proj.getName())) {
-					proj.tickets.add(t);
-					break;
-				}
-			}
-		}
 	}
 	
 	//iterates through all tickets and adds their comments for them

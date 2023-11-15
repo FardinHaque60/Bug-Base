@@ -39,7 +39,8 @@ public class ViewProjectController extends AbstractViewController implements Ini
 		
 		TicketTitles.setCellValueFactory(new PropertyValueFactory<>("title"));
 		TicketDescriptions.setCellValueFactory(new PropertyValueFactory<>("description"));
-			
+		
+		
 		TicketTable.setItems(thisBean.getTicketInfo());
 	}
 	
