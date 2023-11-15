@@ -10,7 +10,10 @@ public class ProjectBean {
     private static ObservableList<ProjectBean> projectBeans = FXCollections.observableArrayList();
 
     // List of tickets in this project
-    public ObservableList<TicketBean> tickets = FXCollections.observableArrayList();
+    public ObservableList<TicketBean> tickets = FXCollections.observableArrayList(); 
+    //get rid of this and look into searching tickets inside static ticketList instead
+    //in order to search for ticketBeans for this project
+    //getTicketBeanList(), search through this, and find all tickets we need
 
     // Reference to ProjectDAO
     private static ProjectDAO projectDAO = ProjectDAO.getProjectConnection();

@@ -11,7 +11,7 @@ public class TicketBean {
     private static TicketDAO ticketDAO = TicketDAO.getTicketConnection();
     //projectName => Project this ticket belongs to
     private SimpleStringProperty projectName, title, description;
-    public ObservableList<CommentBean> comments = FXCollections.observableArrayList();;
+    public ObservableList<CommentBean> comments = FXCollections.observableArrayList();
 
     
     public TicketBean(String projectName, String title, String description) {
@@ -51,12 +51,15 @@ public class TicketBean {
     }
 
     public static ObservableList<TicketBean> getTicketBeanList() {
+    	//iterate through all projects
+    	//add all tickets in project p to list
+    	//return final list
     	return ticketBeans;
     }
     
 	public static void readAllTicketsInDatabase() {
-		ticketBeans = ticketDAO.readAllTickets();
-		loadTicketsIntoProjects();
+		ticketBeans = ticketDAO.readAllTickets(); //static list of all ticket beans gets set based on db persisted entries
+		loadTicketsIntoProjects(); //assigns tickets to respective parent 
 		loadCommentsForTicket();
 	}
 	
@@ -68,28 +71,11 @@ public class TicketBean {
 			for (ProjectBean proj: p) {
 				if (parent.equals(proj.getName())) {
 					proj.tickets.add(t);
+					break;
 				}
 			}
 		}
 	}
-	
-	/*
-	
-	//TODO: While I am doing this make sure to assign tickets too
-	//loads all the tickets for all the projects, ran once in initializing
-	//called by projectBean 
-    private static void loadTicketsForProjects() {
-        int i;
-        String projName;
-        ProjectBean currBean;
-        for (i = 0; i < projectBeans.size(); i++) {
-        	currBean = projectBeans.get(i);
-        	projName = currBean.getName();
-        	currBean.tickets = projectDAO.readAllTicketsByName(projName);
-        }
-    }
-    
-    */
 	
 	//iterates through all tickets and adds their comments for them
 	//using a ticket id, the ticketDAO can get all the comments for it
