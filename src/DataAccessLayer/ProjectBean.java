@@ -10,13 +10,14 @@ public class ProjectBean {
     private static ObservableList<ProjectBean> projectBeans = FXCollections.observableArrayList();
 
     // List of tickets in this project
-    private ObservableList<TicketBean> tickets = FXCollections.observableArrayList();
+    public ObservableList<TicketBean> tickets = FXCollections.observableArrayList();
 
     // Reference to ProjectDAO
     private static ProjectDAO projectDAO = ProjectDAO.getProjectConnection();
 
     private SimpleStringProperty name, date, description;
 
+    
     // Constructor now includes ID
     public ProjectBean(String name, String date, String description) {
         this.name = new SimpleStringProperty(name);
@@ -52,13 +53,9 @@ public class ProjectBean {
     	return projectBeans;
     }
 
+//METHODS THAT ARE RAN ONCE IN INITIALIZATION
+    
     public static void getAllProjectInfo() {
         projectBeans = ProjectDAO.readAllProjects();
-    }
-    
-    //TODO: Change location potentially
-    public void loadTicketsForProject() {
-        // You would need to implement this method in the ProjectDAO or similar
-        this.tickets = projectDAO.readAllTicketsByName(this.getName());
     }
 }

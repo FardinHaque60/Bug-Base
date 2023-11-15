@@ -19,7 +19,6 @@ public class MainController {
 			// tells Beans to initalize info from what was persisted in db
 			ProjectBean.getAllProjectInfo();
 			TicketBean.readAllTicketsInDatabase();
-			CommentBean.readAllCommentsInDatabase();
 			firstInitialization = false;
 		}
 		showProjects();

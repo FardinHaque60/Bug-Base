@@ -18,6 +18,9 @@ public class ProjectDAO {
 	public static ProjectDAO getProjectConnection() {
 		return ProjectConnection;
 	}
+
+//METHODS FOR INITIALIZATION START
+	
 	/**
 	 * Reads all projects from DB, should be called only once
 	 * @return returns list of projectBeans 
@@ -39,6 +42,35 @@ public class ProjectDAO {
         }
         return projectBeans;
     }
+    
+    /**
+     * 
+     * @param projectName
+     * @return
+     */
+    public ObservableList<TicketBean> readAllTicketsByName(String projectName) {
+        ObservableList<TicketBean> ticketBeans = FXCollections.observableArrayList();
+        String query = "SELECT * FROM ticket WHERE projectName = ?";
+        try (Connection connection = SqliteConnection.connect();
+            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+     
+            preparedStatement.setString(1, projectName);
+            
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String title = resultSet.getString("title");
+                String description = resultSet.getString("description");
+                TicketBean ticket = new TicketBean(projectName, title, description);
+                ticketBeans.add(ticket);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ticketBeans;
+    }
+    
+//METHODS FOR INITIALIZATION END
     
     /**
      * Writes project bean onto DB
@@ -75,32 +107,5 @@ public class ProjectDAO {
         catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    /** TODO: look to move this potentially
-     * 
-     * @param projectName
-     * @return
-     */
-    public ObservableList<TicketBean> readAllTicketsByName(String projectName) {
-        ObservableList<TicketBean> ticketBeans = FXCollections.observableArrayList();
-        String query = "SELECT * FROM ticket WHERE projectName = ?";
-        try (Connection connection = SqliteConnection.connect();
-            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-     
-            preparedStatement.setString(1, projectName);
-            
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                String title = resultSet.getString("title");
-                String description = resultSet.getString("description");
-                TicketBean ticket = new TicketBean(projectName, title, description);
-                ticketBeans.add(ticket);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return ticketBeans;
     }  
 }

@@ -34,16 +34,21 @@ public class CreateTicketController extends AbstractCreateController {
 	
 	@FXML public void save() {
 	    String selectedProjectName = projectDropdownList.getValue();
+	    
+	    //finds what projectBean object the user selected
+	    ProjectBean ticketParent = null;
+	    for (ProjectBean projectBean : ProjectBean.getProjectBeanList()) {
+			if (selectedProjectName.equals(projectBean.getName())) {
+				ticketParent = projectBean;
+			}
+	    }
 
 	    if (selectedProjectName != null) {
 	        TicketBean ticketInfo = new TicketBean(selectedProjectName, ticketTitle.getText(), ticketDescription.getText());
-	        ticketInfo.writeTicketBean();
+	        ticketInfo.writeTicketBean(ticketParent);
 	        goHome();
 	    } else {
 	        // Handle the case where no matching project ID was found
-	    }
-	   
+	    }  
 	}
-
-
 }

@@ -42,15 +42,12 @@ public class ViewTicketController extends AbstractViewController implements Init
 		CommentDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 		CommentDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 		
-		//CommentTable.refresh();
-		
 		CommentTable.setItems(thisBean.getCommentInfo()); 
 	}
 
 	public static void initalizeTicket(TicketBean ticket) {
 		thisBean = ticket;
 	    titleFill = ticket.getTitle();
-	    thisBean.loadCommentsForTicket(); //Look to fix, connects to the db everytime we want to open the ticket page
 	    
 	    descriptionFill = ticket.getDescription();
 	    projectParentFill = ticket.getProjectName();
@@ -58,7 +55,6 @@ public class ViewTicketController extends AbstractViewController implements Init
 	
 	@FXML public void makeNewComment() {
 		CreateCommentController.initializeComment(thisBean);
-		//CommentTable.refresh();
 		goTo("view/CreateComment.fxml");
 	}
 	

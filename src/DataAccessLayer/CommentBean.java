@@ -15,7 +15,7 @@ public class CommentBean {
     public CommentBean(int ticketParent, String date, String description) {
         this.ticketParent = new SimpleIntegerProperty(ticketParent);
         this.date = new SimpleStringProperty(date);
-        this.description = new SimpleStringProperty(description.replace("\n", " "));
+        this.description = new SimpleStringProperty(description);
     }
 
     /**
@@ -36,8 +36,5 @@ public class CommentBean {
 
     public String getDescription() {
         return this.description.get();
-    }
-    public static void readAllCommentsInDatabase() {
-        CommentDAO.readAllComments();
     }
 }

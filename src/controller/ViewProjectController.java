@@ -41,13 +41,10 @@ public class ViewProjectController extends AbstractViewController implements Ini
 		TicketDescriptions.setCellValueFactory(new PropertyValueFactory<>("description"));
 			
 		TicketTable.setItems(thisBean.getTicketInfo());
-		
 	}
 	
 	public static void initialize(ProjectBean b) {
 	    thisBean = b;
-	    // Assume this method now exists and properly fetches tickets for this project
-	    thisBean.loadTicketsForProject(); 
 
 	    nameFill = b.getName();
 	    dateFill = b.getDate();
@@ -57,7 +54,6 @@ public class ViewProjectController extends AbstractViewController implements Ini
 	@FXML public void getTicket(MouseEvent event) {
 		try {
 			TicketBean selectedTicket = TicketTable.getSelectionModel().getSelectedItem();
-
 			
 			ViewTicketController.initalizeTicket(selectedTicket);
 			common.loadDisplay("view/ViewTicket.fxml");
@@ -67,7 +63,6 @@ public class ViewProjectController extends AbstractViewController implements Ini
 		}
 	}
 		
-
 	//TODO: implement editing project by seeing which fields changed
 	@Override
 	@FXML public void edit() {
