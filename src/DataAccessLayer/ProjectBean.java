@@ -30,6 +30,15 @@ public class ProjectBean {
         projectBeans.add(this);
     }
     
+    public void updateProject(String newName, String newDate, String newDescription) {
+    	String oldName = this.name.get();
+    	this.setName(newName);
+    	this.setDate(newDate);
+    	this.setDescription(newDescription);
+    	
+    	projectDAO.updateProject(this, oldName);
+    }
+    
     // deletes this project and all its predecessors 
     public void deleteProject() {
     	//clears all comments under this project
@@ -53,13 +62,25 @@ public class ProjectBean {
     public String getName() {
         return this.name.get();
     }
+    
+    public void setName(String name) {
+    	this.name.set(name);
+    }
 
     public String getDate() {
         return this.date.get();
     }
+    
+    public void setDate(String date) {
+    	this.date.set(date);
+    }
 
     public String getDescription() {
         return this.description.get();
+    }
+    
+    public void setDescription(String description) {
+    	this.description.set(description);
     }
 
     public ObservableList<TicketBean> getTicketInfo() {

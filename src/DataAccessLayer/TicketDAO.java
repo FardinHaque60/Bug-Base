@@ -79,7 +79,7 @@ public class TicketDAO {
         }
     }
 
-    /** TODO: To be used, delete bean functionality
+    /**
      * 
      * @param projectParent that this ticket belongs to
      * @param title of this ticket

@@ -73,7 +73,10 @@ public class ViewProjectController extends AbstractViewController implements Ini
 	//TODO: implement editing project by seeing which fields changed
 	@Override
 	@FXML public void edit() {
+		thisBean.updateProject(nameInfo.getText(), dateInfo.getText(), descriptionInfo.getText());
 		
+		initialize(thisBean); //refreshes page to reflect new changes
+		common.loadDisplay("view/viewProject.fxml"); //refreshes the page
 	}
 
 	@FXML public void deleteProject() {

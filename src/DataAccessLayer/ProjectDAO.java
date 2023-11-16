@@ -63,14 +63,32 @@ public class ProjectDAO {
         }
     }
     
-    /** TODO: Not used yet, needs to be implemented
+    /** TODO: to be used, edit bean functionality
+     * 
+     * @param bean to be edited/updated
+     */
+    public void updateProject(ProjectBean bean, String oldName) {
+        String query = "UPDATE project SET name = ?, date = ?, description = ? WHERE name = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, bean.getName());
+            preparedStatement.setString(2, bean.getDate());
+            preparedStatement.setString(3, bean.getDescription());
+            preparedStatement.setString(4, oldName);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
      * Method used to delete beans
      * @param bean to be deleted
      */
     public void deleteProject(ProjectBean bean) {
     	String sql = "DELETE FROM project WHERE name = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            // TODO: not finished implementing yet
             preparedStatement.setString(1, bean.getName());
 
             int affectedRows = preparedStatement.executeUpdate();
