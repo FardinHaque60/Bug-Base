@@ -90,7 +90,17 @@ public class TicketDAO {
 
             preparedStatement.setString(1, projectParent);
             preparedStatement.setString(2, title);
-            preparedStatement.executeUpdate();
+            
+            int rowsAffected = preparedStatement.executeUpdate();
+            
+            //TEST
+            if (rowsAffected == 1) {
+            	System.out.println("Successfully deleted " + title + " from DB");
+            }
+            else {
+            	System.out.println("Error deleting " + title + " from DB");
+            }
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -30,6 +30,21 @@ public class ProjectBean {
         projectBeans.add(this);
     }
     
+    // deletes this project and all its predecessors 
+    public void deleteProject() {
+    	//clears all comments under this project
+    	for (TicketBean t: tickets) {
+    		t.deleteComments();
+    	}
+    	tickets.clear(); //clears all tickets under this project
+    	projectBeans.remove(this); //removes project from list of projects
+    	projectDAO.deleteProject(this); //deletes it from db 
+    }
+    
+    public void removeTicket(TicketBean t) {
+    	this.tickets.remove(t);
+    }
+    
     //adds a ticket to a given parents list of tickets
     public void addTicket(TicketBean t) {
     	this.tickets.add(t);

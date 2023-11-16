@@ -53,7 +53,6 @@ public class ViewProjectController extends AbstractViewController implements Ini
 	
 	public static void initialize(ProjectBean b) {
 	    thisBean = b;
-
 	    nameFill = b.getName();
 	    dateFill = b.getDate();
 	    descriptionFill = b.getDescription();
@@ -75,5 +74,10 @@ public class ViewProjectController extends AbstractViewController implements Ini
 	@Override
 	@FXML public void edit() {
 		
+	}
+
+	@FXML public void deleteProject() {
+		thisBean.deleteProject();
+		common.loadDisplay("view/ProjDisplay.fxml");
 	}
 }

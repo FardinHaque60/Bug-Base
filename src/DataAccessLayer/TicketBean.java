@@ -28,6 +28,16 @@ public class TicketBean {
         parent.addTicket(this);
     }
     
+    public void deleteTicket(ProjectBean parent) {
+    	this.deleteComments();
+    	parent.removeTicket(this);
+    	ticketDAO.deleteTicket(getProjectName(), getTitle());
+    }
+    
+    public void deleteComments() {
+    	this.comments.clear();
+    }
+    
     public String getProjectName() {
         return this.projectName.get();
     }
@@ -75,6 +85,7 @@ public class TicketBean {
 		for (TicketBean t: ticketBeans) {
 			if (t.getTitle().equals(c.getTicketParent()) && t.getProjectName().equals(c.getProjectAncestor())) {
 				t.addComment(c);
+				break;
 			}
 		}
 	}

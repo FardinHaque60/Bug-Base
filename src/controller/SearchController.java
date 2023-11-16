@@ -13,6 +13,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 
@@ -134,5 +136,17 @@ public class SearchController implements Initializable {
 		catch (NullPointerException e){
 			//do nothing, put it in a system log later or something
 		}
+	}
+
+	//TODO: this delete menu will show up when you right click
+	//but since we can right click and click the project normally it may cause some issues
+	@FXML public void deleteProject() {
+		//just to test if hitting delete works
+		common.loadDisplay("view/ProjDisplay.fxml");
+	}
+
+	//TODO: Same problem as deleteProjects
+	@FXML public void deleteTicket() {
+		
 	}
 }

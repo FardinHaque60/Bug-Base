@@ -68,12 +68,19 @@ public class ProjectDAO {
      * @param bean to be deleted
      */
     public void deleteProject(ProjectBean bean) {
-    	String sql = "DELETE name FROM project WHERE id = ?";
+    	String sql = "DELETE FROM project WHERE name = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             // TODO: not finished implementing yet
-            preparedStatement.setString(1, bean.getDescription());
+            preparedStatement.setString(1, bean.getName());
 
             int affectedRows = preparedStatement.executeUpdate();
+            //TEST
+            if (affectedRows == 1) {
+            	System.out.println("Successfully Deleted " + bean.getName() + " from DB");
+            }
+            else {
+            	System.out.println("Error deleting " + bean.getName() + " from DB");
+            }
         }
         catch (SQLException e) {
             e.printStackTrace();
