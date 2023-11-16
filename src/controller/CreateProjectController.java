@@ -106,7 +106,7 @@ public class CreateProjectController extends AbstractCreateController {
 			return;
 		}
 		
-	    ProjectBean projectInfo = new ProjectBean(projName.getText(), formatter.format(projDate.getValue()), projDescription.getText()); // ID is 0 as a placeholder.
+	    ProjectBean projectInfo = new ProjectBean(projName.getText(), formatter.format(projDate.getValue()), projDescription.getText());
 	    projectInfo.writeProjectBean();
 	    goHome();
 	}

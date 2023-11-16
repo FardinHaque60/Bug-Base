@@ -1,41 +1,39 @@
 package DataAccessLayer;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class CommentBean {
-
-	// List of comments used for ticket info
-    private static ObservableList<CommentBean> commentBeans = FXCollections.observableArrayList();
-    
     
     // Reference to CommentDAO
     private static CommentDAO commentDAO = CommentDAO.getCommentConnection();
 
-    private SimpleIntegerProperty ticketParent;
-	private SimpleStringProperty description, date;
+	private SimpleStringProperty projectAncestor, ticketParent, description, date;
 
-    public CommentBean(int ticketParent, String date, String description) {
-        this.ticketParent = new SimpleIntegerProperty(ticketParent);
+    public CommentBean(String parentAncestor, String ticketParent, String date, String description) {
+    	this.projectAncestor = new SimpleStringProperty(parentAncestor);
+        this.ticketParent = new SimpleStringProperty(ticketParent);
         this.date = new SimpleStringProperty(date);
         this.description = new SimpleStringProperty(description);
     }
 
     /**
      * Adds comment into the database and in the list of comments into its ticketParent.
+     * 
+     * @param TicketBean t to be written and added to list
      */
-    public void writeCommentBean() {
+    public void writeCommentBean(TicketBean t) {
         commentDAO.writeComment(this);
+        t.addComment(this);
     }
 
-    public int getTicketParent() {
-        return this.ticketParent.get();
+    public String getProjectAncestor() {
+    	return this.projectAncestor.get();
     }
     
-    public static ObservableList<CommentBean> getCommentBeans() {
-    	return commentBeans;
+    public String getTicketParent() {
+        return this.ticketParent.get();
     }
 
     public String getDate() {
@@ -46,7 +44,15 @@ public class CommentBean {
         return this.description.get();
     }
     
+    /** Reads all comments from database and calls insertComment from TicketBean class on each one
+     * that method in TicketBean handles putting the comments to their respective based on
+     * projectName and ticketTitle matches
+     */
     public static void readAllCommentsInDatabase() {
+    	ObservableList<CommentBean> commentBeans = FXCollections.observableArrayList();
 		commentBeans = CommentDAO.readAllComments();
+		for (CommentBean c: commentBeans) {
+			TicketBean.insertComment(c);
+		}
 	}
 }

@@ -11,16 +11,11 @@ public class CommentDAO {
 
 	final static CommentDAO CommentConnection = new CommentDAO();
 	
-	private CommentDAO() {
-		
-	}
+	private CommentDAO() { }
 	
-	public static CommentDAO getCommentConnection() {
-		return CommentConnection;
-	}
+	public static CommentDAO getCommentConnection() { return CommentConnection; }
 	
-    // Method to read all comments from the database
-	/** TODO: current not doing anything with this
+	/** Method to read all comments from the database
 	 */
     public static ObservableList<CommentBean> readAllComments() {
         ObservableList<CommentBean> commentBeans = FXCollections.observableArrayList();
@@ -31,10 +26,11 @@ public class CommentDAO {
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
-                int ticketParent = resultSet.getInt("TicketID");
+            	String parentAncestor = resultSet.getString("ParentAncestor");
+                String ticketParent = resultSet.getString("TicketParent");
                 String date = resultSet.getString("date");
                 String description = resultSet.getString("description");
-                commentBeans.add(new CommentBean(ticketParent, date, description));
+                commentBeans.add(new CommentBean(parentAncestor, ticketParent, date, description));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,14 +43,15 @@ public class CommentDAO {
      * @param bean to be written to db
      */
     public void writeComment(CommentBean bean) {
-        String sql = "INSERT INTO comment (TicketID, date, description) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO comment (ParentAncestor, TicketParent, date, description) VALUES (?, ?, ?, ?)";
 
         try (Connection connection = SqliteConnection.connect();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setLong(1, bean.getTicketParent());
-            preparedStatement.setString(2, bean.getDate());
-            preparedStatement.setString(3, bean.getDescription());
+        	preparedStatement.setString(1, bean.getProjectAncestor());
+            preparedStatement.setString(2, bean.getTicketParent());
+            preparedStatement.setString(3, bean.getDate());
+            preparedStatement.setString(4, bean.getDescription());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

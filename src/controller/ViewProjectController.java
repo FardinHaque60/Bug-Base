@@ -31,15 +31,23 @@ public class ViewProjectController extends AbstractViewController implements Ini
 	//TODO: get description to fit not all in one line
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		nameInfo.setText(nameFill);
-		dateInfo.setText(dateFill);
-		descriptionInfo.setText(descriptionFill);
-		
-		TicketTitles.setCellValueFactory(new PropertyValueFactory<>("title"));
-		TicketDescriptions.setCellValueFactory(new PropertyValueFactory<>("description"));
-		
-		
-		TicketTable.setItems(thisBean.getTicketInfo());
+		try {
+			nameInfo.setText(nameFill);
+			dateInfo.setText(dateFill);
+			descriptionInfo.setText(descriptionFill);
+			
+			TicketTitles.setCellValueFactory(new PropertyValueFactory<>("title"));
+			TicketDescriptions.setCellValueFactory(new PropertyValueFactory<>("description"));
+			
+			
+			TicketTable.setItems(thisBean.getTicketInfo());
+		}
+		catch (NullPointerException e) {
+			//TODO:
+			//do nothing for now
+			//this handles special case where user goes Search Page -> ticket page -> go back -> Error project page wont load correctly
+			//so now it will load a blank project page, but we have to fix this
+		}
 	}
 	
 	public static void initialize(ProjectBean b) {

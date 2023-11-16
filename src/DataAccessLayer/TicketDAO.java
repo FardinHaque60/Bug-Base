@@ -12,13 +12,9 @@ public class TicketDAO {
 
 	final static TicketDAO TicketConnection = new TicketDAO();
 	
-	private TicketDAO() {
-		
-	}
+	private TicketDAO() { }
 	
-	public static TicketDAO getTicketConnection() {
-		return TicketConnection;
-	}
+	public static TicketDAO getTicketConnection() { return TicketConnection; }
 	
 	/** reads all tickets in DB 
 	 * @returns list of tickets
@@ -98,63 +94,5 @@ public class TicketDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    /** given a tickets title we can return its id
-     * 
-     * @param title of the ticket
-     * @return id of the ticket
-     */
-    public int getTicketIDByTitle(String title) {
-        String query = "SELECT ticketID FROM ticket WHERE title = ?";
-        try (Connection connection = SqliteConnection.connect();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, title);
-
-         
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                return resultSet.getInt("ticketID");
-            } else {
-                return -1;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // In case of SQL error, handle accordingly
-            // You could return a default value or throw a custom exception
-            return -1;
-        }
-    }
-    
-    /** TODO: move to different class?
-     * 
-     * @param id
-     * @return
-     */
-    public ObservableList<CommentBean> readAllCommentsByID(int id) {
-        ObservableList<CommentBean> commentBeans = FXCollections.observableArrayList();
-        // Updated query with a WHERE clause to filter by project name
-        String query = "SELECT * FROM comment WHERE TicketID = ?";
-        try (Connection connection = SqliteConnection.connect();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            
-            // Set the project name parameter in the prepared statement
-            preparedStatement.setLong(1, id);
-            
-            // Execute the query
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                // Since we're filtering by projectName, we already know it matches the input parameter
-                String date = resultSet.getString("date");
-                String description = resultSet.getString("description");
-                CommentBean comment = new CommentBean(id, date, description);
-                commentBeans.add(comment);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return commentBeans;
     }
 }

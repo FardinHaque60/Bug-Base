@@ -1,6 +1,5 @@
 package DataAccessLayer;
 
-import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,13 +10,9 @@ import javafx.collections.ObservableList;
 public class ProjectDAO {
 	final static ProjectDAO ProjectConnection = new ProjectDAO();
 	
-	private ProjectDAO() {
-		
-	}
+	private ProjectDAO() { }
 	
-	public static ProjectDAO getProjectConnection() {
-		return ProjectConnection;
-	}
+	public static ProjectDAO getProjectConnection() { return ProjectConnection; }
 
 //METHODS FOR INITIALIZATION START
 	
@@ -43,33 +38,6 @@ public class ProjectDAO {
         return projectBeans;
     }
     
-    /**
-     * 
-     * @param projectName
-     * @return
-     */
-    public ObservableList<TicketBean> readAllTicketsByName(String projectName) {
-        ObservableList<TicketBean> ticketBeans = FXCollections.observableArrayList();
-        String query = "SELECT * FROM ticket WHERE projectName = ?";
-        try (Connection connection = SqliteConnection.connect();
-            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-     
-            preparedStatement.setString(1, projectName);
-            
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                String title = resultSet.getString("title");
-                String description = resultSet.getString("description");
-                TicketBean ticket = new TicketBean(projectName, title, description);
-                ticketBeans.add(ticket);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return ticketBeans;
-    }
-    
 //METHODS FOR INITIALIZATION END
     
     /**
@@ -81,10 +49,12 @@ public class ProjectDAO {
 
         try (Connection connection = SqliteConnection.connect();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            
+            System.out.println("Entered");
             preparedStatement.setString(1, bean.getName());
             preparedStatement.setString(2, bean.getDate());
             preparedStatement.setString(3, bean.getDescription());
+            
+            preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
