@@ -51,7 +51,8 @@ public class CreateCommentController extends AbstractCreateController implements
 	
 	@Override
 	public void save() {
-		CommentBean commentInfo = new CommentBean(ticketParent.getTitle(), commentTimestamp.getText(), commentDescription.getText());
+		// create comment bean and write to database
+		CommentBean commentInfo = new CommentBean(ticketParent.getProjectName(), ticketParent.getTitle(), commentTimestamp.getText(), commentDescription.getText());
 		commentInfo.writeCommentBean(ticketParent);
 		goBack();
 	}

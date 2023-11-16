@@ -36,8 +36,8 @@ public class SearchController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		ticketBeans = TicketBean.getAllTicketInfo();
-		projectBeans = ProjectBean.getAllProjectInfo();
+		ticketBeans = TicketBean.getTicketBeanList();
+		projectBeans = ProjectBean.getProjectBeanList();
 		
 		// sets the project table
 		ProjectName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -46,7 +46,7 @@ public class SearchController implements Initializable {
 		
 		
 		TicketTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-		ProjectParent.setCellValueFactory(new PropertyValueFactory<>("projectParent"));
+		ProjectParent.setCellValueFactory(new PropertyValueFactory<>("projectName"));
 		TicketResult.setItems(ticketBeans);
 		
 //Project Search Bar implementation below
@@ -93,9 +93,9 @@ public class SearchController implements Initializable {
 				
 				if (TicketBean.getTitle().toLowerCase().indexOf(searchKeyword) > -1) {
 					return true;
-				} else if (TicketBean.getProjectParent().toLowerCase().indexOf(searchKeyword) > -1){
+				} else if (TicketBean.getProjectName().toLowerCase().indexOf(searchKeyword) > -1){
 					return true;
-				} else {
+				}else {
 					return false;
 				}
 			});
@@ -116,7 +116,7 @@ public class SearchController implements Initializable {
 		try {
 			ProjectBean selectedProject = ProjectResult.getSelectionModel().getSelectedItem();
 			
-			ViewProjectController.initalize(selectedProject);
+			ViewProjectController.initialize(selectedProject);
 			common.loadDisplay("view/ViewProject.fxml");
 		}
 		catch (NullPointerException e){

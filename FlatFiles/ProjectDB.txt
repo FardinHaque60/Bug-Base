@@ -1,6 +1,0 @@
-Mario Game
-	10/25/2023
-	Mario game imitation. Made with Unity. 
-Schedule Program
-	10/27/2023
-	Allows you to create schedules and find the fastest time to finish jobs. 

@@ -14,15 +14,15 @@ public class MainController {
 
 	@FXML public void initialize() { 
 		common.setMainBox(mainBox);
-		showProjects();
 		// first time running the application, read from the database
 		if (firstInitialization) {
-			// tells Beans to initalize info from what was persisted in db
+			// tells Beans to initialize info from what was persisted in db
 			ProjectBean.readAllProjectsInDatabase();
 			TicketBean.readAllTicketsInDatabase();
 			CommentBean.readAllCommentsInDatabase();
 			firstInitialization = false;
 		}
+		showProjects();
 	}
 	
 	/**

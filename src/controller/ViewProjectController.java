@@ -22,9 +22,7 @@ public class ViewProjectController extends AbstractViewController implements Ini
 	@FXML TextField dateInfo;
 	CommonObjs common = CommonObjs.getInstance();
 	
-	private static String nameFill;
-	private static String descriptionFill;
-	private static String dateFill;
+	private static String nameFill, descriptionFill, dateFill;
 	private static ProjectBean thisBean;
 	@FXML TableView<TicketBean>  TicketTable;
 	@FXML TableColumn<TicketBean, String> TicketTitles;
@@ -33,23 +31,32 @@ public class ViewProjectController extends AbstractViewController implements Ini
 	//TODO: get description to fit not all in one line
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		nameInfo.setText(nameFill);
-		dateInfo.setText(dateFill);
-		descriptionInfo.setText(descriptionFill);
-		
-		TicketTitles.setCellValueFactory(new PropertyValueFactory<>("title"));
-		TicketDescriptions.setCellValueFactory(new PropertyValueFactory<>("description"));
-		
-		TicketTable.setItems(thisBean.getTicketInfo());
-		
+		try {
+			nameInfo.setText(nameFill);
+			dateInfo.setText(dateFill);
+			descriptionInfo.setText(descriptionFill);
+			
+			TicketTitles.setCellValueFactory(new PropertyValueFactory<>("title"));
+			TicketDescriptions.setCellValueFactory(new PropertyValueFactory<>("description"));
+			
+			
+			TicketTable.setItems(thisBean.getTicketInfo());
+		}
+		catch (NullPointerException e) {
+			//TODO:
+			//do nothing for now
+			//this handles special case where user goes Search Page -> ticket page -> go back -> Error project page wont load correctly
+			//so now it will load a blank project page, but we have to fix this
+		}
 	}
 	
-	public static void initalize(ProjectBean b) {
-		thisBean = b;
-		nameFill = b.getName();
-		dateFill = b.getDate();
-		descriptionFill = b.getDescription();
-	}
+	public static void initialize(ProjectBean b) {
+	    thisBean = b;
+
+	    nameFill = b.getName();
+	    dateFill = b.getDate();
+	    descriptionFill = b.getDescription();
+	}	
 	
 	@FXML public void getTicket(MouseEvent event) {
 		try {
@@ -62,7 +69,7 @@ public class ViewProjectController extends AbstractViewController implements Ini
 			//do nothing, put it in a system log later or something
 		}
 	}
-
+		
 	//TODO: implement editing project by seeing which fields changed
 	@Override
 	@FXML public void edit() {

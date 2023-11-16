@@ -28,14 +28,16 @@ public class ProjectDisplayController implements Initializable {
 		// sets the project table
 		ProjectName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		ProjectDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-		ProjectTable.setItems(ProjectBean.getAllProjectInfo());
+		
+		//ProjectTable.refresh();
+		ProjectTable.setItems(ProjectBean.getProjectBeanList());
 	}
 
 	@FXML public void getProject(MouseEvent event) {
 		try {
 			ProjectBean selectedProject = ProjectTable.getSelectionModel().getSelectedItem();
 			
-			ViewProjectController.initalize(selectedProject);
+			ViewProjectController.initialize(selectedProject);
 			common.loadDisplay("view/ViewProject.fxml");
 		}
 		catch (NullPointerException e){
