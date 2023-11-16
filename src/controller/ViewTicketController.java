@@ -64,7 +64,7 @@ public class ViewTicketController extends AbstractViewController implements Init
 	}
 	
 	@FXML public void goBack() {
-		common.loadDisplay("view/ViewProject.fxml");
+		goTo("view/ViewProject.fxml");
 	}
 	
 	//TODO add implementation if user changes fields ticket gets updates
