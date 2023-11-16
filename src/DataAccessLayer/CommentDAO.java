@@ -59,4 +59,41 @@ public class CommentDAO {
             e.printStackTrace();
         }
     }
+    
+    public void deleteComment(CommentBean bean) {
+        String sql = "DELETE FROM comment WHERE ParentAncestor = ? AND TicketParent = ? AND description = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+        	preparedStatement.setString(1, bean.getProjectAncestor());
+        	preparedStatement.setString(2, bean.getTicketParent());
+        	preparedStatement.setString(3, bean.getDescription());
+
+            
+            int affectedRows = preparedStatement.executeUpdate();
+            
+            if (affectedRows == 1) {
+            	System.out.println("Successfully deleted comments " + bean.getDescription());
+            }
+            else {
+            	System.out.println("Error in deleting comment" + bean.getDescription());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void updateProjectName(CommentBean bean) {
+        String sql = "UPDATE comment SET ParentAncestor = ? WHERE TicketParent = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+        	preparedStatement.setString(1, bean.getProjectAncestor());
+            preparedStatement.setString(2, bean.getTicketParent());
+            
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

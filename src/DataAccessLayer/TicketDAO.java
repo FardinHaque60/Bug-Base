@@ -78,6 +78,18 @@ public class TicketDAO {
             e.printStackTrace();
         }
     }
+    
+    public void updateProjectName(TicketBean bean) {
+    	String query = "UPDATE ticket SET projectName = ? WHERE title = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, bean.getProjectName());
+            preparedStatement.setString(2, bean.getTitle());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * 

@@ -27,9 +27,19 @@ public class CommentBean {
         commentDAO.writeComment(this);
         t.addComment(this);
     }
+    
+    public void deleteComment() {
+    	commentDAO.deleteComment(this);
+    }
 
     public String getProjectAncestor() {
     	return this.projectAncestor.get();
+    }
+    
+    public void updateProjectName(String newProjAncestor) {
+    	projectAncestor.set(newProjAncestor);
+    	
+    	commentDAO.updateProjectName(this);
     }
     
     public String getTicketParent() {

@@ -35,11 +35,22 @@ public class TicketBean {
     }
     
     public void deleteComments() {
+    	for (CommentBean c: comments) {
+    		c.deleteComment();
+    	}
     	this.comments.clear();
     }
     
     public String getProjectName() {
         return this.projectName.get();
+    }
+    
+    public void setProjectName(String newProjName) {
+    	projectName.set(newProjName);
+    	ticketDAO.updateProjectName(this);
+    	for (CommentBean c: comments) {
+    		c.updateProjectName(newProjName);
+    	}
     }
     
     public String getTitle() {
