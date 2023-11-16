@@ -10,7 +10,11 @@ import javafx.collections.ObservableList;
 public class ProjectDAO {
 	final static ProjectDAO ProjectConnection = new ProjectDAO();
 	
-	private ProjectDAO() { }
+	private static Connection connection;
+	
+	private ProjectDAO() {
+		connection = SqliteConnection.getConnection();
+	}
 	
 	public static ProjectDAO getProjectConnection() { return ProjectConnection; }
 
@@ -22,8 +26,7 @@ public class ProjectDAO {
 	 */
     public static ObservableList<ProjectBean> readAllProjects() {
         ObservableList<ProjectBean> projectBeans = FXCollections.observableArrayList();
-        try (Connection connection = SqliteConnection.connect();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM project");
+        try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM project");
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
@@ -47,9 +50,8 @@ public class ProjectDAO {
     public void writeProject(ProjectBean bean) {
         String sql = "INSERT INTO project (name, date, description) VALUES (?, ?, ?)";
 
-        try (Connection connection = SqliteConnection.connect();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            System.out.println("Entered");
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            
             preparedStatement.setString(1, bean.getName());
             preparedStatement.setString(2, bean.getDate());
             preparedStatement.setString(3, bean.getDescription());
@@ -67,9 +69,8 @@ public class ProjectDAO {
      */
     public void deleteProject(ProjectBean bean) {
     	String sql = "DELETE name FROM project WHERE id = ?";
-        try (Connection connection = SqliteConnection.connect();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            // TO-DO
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            // TODO: not finished implementing yet
             preparedStatement.setString(1, bean.getDescription());
 
             int affectedRows = preparedStatement.executeUpdate();

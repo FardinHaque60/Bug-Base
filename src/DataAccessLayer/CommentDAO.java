@@ -11,7 +11,11 @@ public class CommentDAO {
 
 	final static CommentDAO CommentConnection = new CommentDAO();
 	
-	private CommentDAO() { }
+	private static Connection connection;
+	
+	private CommentDAO() {
+		connection = SqliteConnection.getConnection();
+	}
 	
 	public static CommentDAO getCommentConnection() { return CommentConnection; }
 	
@@ -21,8 +25,7 @@ public class CommentDAO {
         ObservableList<CommentBean> commentBeans = FXCollections.observableArrayList();
         String sql = "SELECT * FROM comment";
 
-        try (Connection connection = SqliteConnection.connect();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
@@ -45,8 +48,7 @@ public class CommentDAO {
     public void writeComment(CommentBean bean) {
         String sql = "INSERT INTO comment (ParentAncestor, TicketParent, date, description) VALUES (?, ?, ?, ?)";
 
-        try (Connection connection = SqliteConnection.connect();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
         	preparedStatement.setString(1, bean.getProjectAncestor());
             preparedStatement.setString(2, bean.getTicketParent());

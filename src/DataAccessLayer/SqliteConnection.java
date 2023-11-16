@@ -5,10 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class SqliteConnection {
+	
+	private static final Connection connection = SqliteConnection.connect();
+	
     // Define the path to your SQLite database file
     private static final String DATABASE_URL = "jdbc:sqlite:BugBaseStorage.db";
 
-    public static Connection connect() {
+    private static Connection connect() {
         Connection connection;
         try {
             // Load the SQLite JDBC driver
@@ -21,5 +24,9 @@ public class SqliteConnection {
             e.printStackTrace();
             return null;
         }
+    }
+    
+    public static Connection getConnection() {
+    	return connection;
     }
 }

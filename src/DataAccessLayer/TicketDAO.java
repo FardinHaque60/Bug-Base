@@ -12,7 +12,11 @@ public class TicketDAO {
 
 	final static TicketDAO TicketConnection = new TicketDAO();
 	
-	private TicketDAO() { }
+	private static Connection connection;
+	
+	private TicketDAO() {
+		connection = SqliteConnection.getConnection();
+	}
 	
 	public static TicketDAO getTicketConnection() { return TicketConnection; }
 	
@@ -22,8 +26,7 @@ public class TicketDAO {
 	public ObservableList<TicketBean> readAllTickets() {
         ObservableList<TicketBean> ticketBeans = FXCollections.observableArrayList();
         String query = "SELECT * FROM ticket";
-        try (Connection connection = SqliteConnection.connect();
-             PreparedStatement preparedStatement = connection.prepareStatement(query);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query);
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
@@ -46,8 +49,7 @@ public class TicketDAO {
     public void writeTicket(TicketBean bean) {
         String sql = "INSERT INTO ticket (projectName, title, description) VALUES (?, ?, ?)";
 
-        try (Connection connection = SqliteConnection.connect();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             
             preparedStatement.setString(1, bean.getProjectName()); 
             preparedStatement.setString(2, bean.getTitle());
@@ -66,8 +68,7 @@ public class TicketDAO {
      */
     public void updateTicket(TicketBean bean) {
         String query = "UPDATE ticket SET title = ?, description = ? WHERE projectName = ?";
-        try (Connection connection = SqliteConnection.connect();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, bean.getTitle());
             preparedStatement.setString(2, bean.getDescription());
@@ -85,8 +86,7 @@ public class TicketDAO {
      */
     public void deleteTicket(String projectParent, String title) {
         String query = "DELETE FROM ticket WHERE projectName = ? AND title = ?";
-        try (Connection connection = SqliteConnection.connect();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, projectParent);
             preparedStatement.setString(2, title);
