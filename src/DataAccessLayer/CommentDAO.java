@@ -83,13 +83,14 @@ public class CommentDAO {
         }
     }
     
-    public void updateProjectName(CommentBean bean) {
-        String sql = "UPDATE comment SET ParentAncestor = ? WHERE TicketParent = ?";
+    public void updateProjectName(CommentBean bean, String oldProjectAncestor) {
+        String sql = "UPDATE comment SET ParentAncestor = ? WHERE TicketParent = ? AND ParentAncestor = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
         	preparedStatement.setString(1, bean.getProjectAncestor());
             preparedStatement.setString(2, bean.getTicketParent());
+            preparedStatement.setString(3, oldProjectAncestor);
             
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

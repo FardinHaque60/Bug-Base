@@ -13,6 +13,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
@@ -114,26 +116,36 @@ public class SearchController implements Initializable {
 	
 	//when table entry is clicked it will open the view ticket or project page respectively
 	//TODO: Some repeated code here from projDisp and viewProj classes, look into abstraction
-	@FXML public void getProject() {
+	@FXML public void getProject(MouseEvent e) {
+		
+		if (e.getButton() != MouseButton.PRIMARY) {
+			return;
+		}
+		
 		try {
 			ProjectBean selectedProject = ProjectResult.getSelectionModel().getSelectedItem();
 			
 			ViewProjectController.initialize(selectedProject);
 			common.loadDisplay("view/ViewProject.fxml");
 		}
-		catch (NullPointerException e){
+		catch (NullPointerException exception){
 			//do nothing, put it in a system log later or something
 		}
 	}
 	
-	@FXML public void getTicket() {
+	@FXML public void getTicket(MouseEvent e) {
+		
+		if (e.getButton() != MouseButton.PRIMARY) {
+			return;
+		}
+		
 		try {
 			TicketBean selectedTicket = TicketResult.getSelectionModel().getSelectedItem();
 			
 			ViewTicketController.initalizeTicket(selectedTicket);
 			common.loadDisplay("view/ViewTicket.fxml");
 		}
-		catch (NullPointerException e){
+		catch (NullPointerException exception){
 			//do nothing, put it in a system log later or something
 		}
 	}
@@ -147,6 +159,7 @@ public class SearchController implements Initializable {
 
 	//TODO: Same problem as deleteProjects
 	@FXML public void deleteTicket() {
-		
+		//just to test if hitting delete works
+		common.loadDisplay("view/ProjDisplay.fxml");
 	}
 }

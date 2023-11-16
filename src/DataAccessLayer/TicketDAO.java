@@ -79,13 +79,15 @@ public class TicketDAO {
         }
     }
     
-    public void updateProjectName(TicketBean bean) {
-    	String query = "UPDATE ticket SET projectName = ? WHERE title = ?";
+    public void updateProjectName(TicketBean bean, String oldProjectName) {
+    	String query = "UPDATE ticket SET projectName = ? WHERE title = ? AND projectName = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
+        	
             preparedStatement.setString(1, bean.getProjectName());
             preparedStatement.setString(2, bean.getTitle());
+            preparedStatement.setString(3, oldProjectName);
             preparedStatement.executeUpdate();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -37,9 +37,11 @@ public class CommentBean {
     }
     
     public void updateProjectName(String newProjAncestor) {
+    	String oldProjectAncestor = projectAncestor.get();
+    	
     	projectAncestor.set(newProjAncestor);
     	
-    	commentDAO.updateProjectName(this);
+    	commentDAO.updateProjectName(this, oldProjectAncestor);
     }
     
     public String getTicketParent() {

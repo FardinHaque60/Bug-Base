@@ -46,8 +46,9 @@ public class TicketBean {
     }
     
     public void setProjectName(String newProjName) {
+    	String oldProjectName = projectName.get();
     	projectName.set(newProjName);
-    	ticketDAO.updateProjectName(this);
+    	ticketDAO.updateProjectName(this, oldProjectName);
     	for (CommentBean c: comments) {
     		c.updateProjectName(newProjName);
     	}
