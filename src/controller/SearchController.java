@@ -15,8 +15,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 
@@ -153,8 +151,13 @@ public class SearchController implements Initializable {
 	//TODO: this delete menu will show up when you right click
 	//but since we can right click and click the project normally it may cause some issues
 	@FXML public void deleteProject() {
+		ProjectBean selectedProject = ProjectResult.getSelectionModel().getSelectedItem();
+		
+		selectedProject.deleteProject();
+		
+		ProjectResult.refresh();
 		//just to test if hitting delete works
-		common.loadDisplay("view/ProjDisplay.fxml");
+		//common.loadDisplay("view/ProjDisplay.fxml");
 	}
 
 	//TODO: Same problem as deleteProjects
