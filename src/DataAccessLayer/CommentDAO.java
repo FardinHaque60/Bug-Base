@@ -11,7 +11,11 @@ public class CommentDAO {
 
 	final static CommentDAO CommentConnection = new CommentDAO();
 	
-	private CommentDAO() { }
+	private static Connection connection;
+	
+	private CommentDAO() {
+		connection = SqliteConnection.getConnection();
+	}
 	
 	public static CommentDAO getCommentConnection() { return CommentConnection; }
 	
@@ -21,8 +25,7 @@ public class CommentDAO {
         ObservableList<CommentBean> commentBeans = FXCollections.observableArrayList();
         String sql = "SELECT * FROM comment";
 
-        try (Connection connection = SqliteConnection.connect();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
@@ -45,13 +48,50 @@ public class CommentDAO {
     public void writeComment(CommentBean bean) {
         String sql = "INSERT INTO comment (ParentAncestor, TicketParent, date, description) VALUES (?, ?, ?, ?)";
 
-        try (Connection connection = SqliteConnection.connect();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
         	preparedStatement.setString(1, bean.getProjectAncestor());
             preparedStatement.setString(2, bean.getTicketParent());
             preparedStatement.setString(3, bean.getDate());
             preparedStatement.setString(4, bean.getDescription());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void deleteComment(CommentBean bean) {
+        String sql = "DELETE FROM comment WHERE ParentAncestor = ? AND TicketParent = ? AND description = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+        	preparedStatement.setString(1, bean.getProjectAncestor());
+        	preparedStatement.setString(2, bean.getTicketParent());
+        	preparedStatement.setString(3, bean.getDescription());
+
+            
+            int affectedRows = preparedStatement.executeUpdate();
+            
+            if (affectedRows == 1) {
+            	System.out.println("Successfully deleted comments " + bean.getDescription());
+            }
+            else {
+            	System.out.println("Error in deleting comment" + bean.getDescription());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void updateProjectName(CommentBean bean, String oldProjectAncestor) {
+        String sql = "UPDATE comment SET ParentAncestor = ? WHERE TicketParent = ? AND ParentAncestor = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+        	preparedStatement.setString(1, bean.getProjectAncestor());
+            preparedStatement.setString(2, bean.getTicketParent());
+            preparedStatement.setString(3, oldProjectAncestor);
+            
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

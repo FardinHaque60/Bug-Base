@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import DataAccessLayer.CommentBean;
+import DataAccessLayer.ProjectBean;
 import DataAccessLayer.TicketBean;
 import application.CommonObjs;
 import javafx.fxml.FXML;
@@ -64,13 +65,26 @@ public class ViewTicketController extends AbstractViewController implements Init
 	}
 	
 	@FXML public void goBack() {
-		common.loadDisplay("view/ViewProject.fxml");
+		goTo("view/ViewProject.fxml");
 	}
 	
 	//TODO add implementation if user changes fields ticket gets updates
 	@Override
 	public void edit() {
 	
+	}
+
+	@FXML public void deleteTicket() {
+		
+		ProjectBean ticketParent = null;
+	    for (ProjectBean projectBean : ProjectBean.getProjectBeanList()) {
+			if (projectParentFill.equals(projectBean.getName())) {
+				ticketParent = projectBean;
+			}
+	    }
+		
+		thisBean.deleteTicket(ticketParent);
+		common.loadDisplay("view/viewProject.fxml");
 	}
 	
 	//TODO add method so we can view comments if we click their table

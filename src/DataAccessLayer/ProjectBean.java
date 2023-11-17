@@ -30,6 +30,35 @@ public class ProjectBean {
         projectBeans.add(this);
     }
     
+    public void updateProject(String newName, String newDate, String newDescription) {
+    	String oldName = this.name.get();
+    	this.setName(newName);
+    	this.setDate(newDate);
+    	this.setDescription(newDescription);
+    	
+    	for (TicketBean t: tickets) {
+    		t.setProjectName(newName);
+    	}
+    	
+    	projectDAO.updateProject(this, oldName);
+    }
+    
+    // deletes this project and all its predecessors 
+    public void deleteProject() {
+    	//clears all tickets under this project
+    	//when deleting tickets it handles deleting its comments
+    	//deleting a ticket will also remove it from its parents list
+    	while (tickets.size() > 0) {
+    		tickets.get(0).deleteTicket(this);
+    	}
+    	projectBeans.remove(this); //removes project from list of projects
+    	projectDAO.deleteProject(this); //deletes it from db 
+    }
+    
+    public void removeTicket(TicketBean t) {
+    	this.tickets.remove(t);
+    }
+    
     //adds a ticket to a given parents list of tickets
     public void addTicket(TicketBean t) {
     	this.tickets.add(t);
@@ -38,13 +67,25 @@ public class ProjectBean {
     public String getName() {
         return this.name.get();
     }
+    
+    public void setName(String name) {
+    	this.name.set(name);
+    }
 
     public String getDate() {
         return this.date.get();
     }
+    
+    public void setDate(String date) {
+    	this.date.set(date);
+    }
 
     public String getDescription() {
         return this.description.get();
+    }
+    
+    public void setDescription(String description) {
+    	this.description.set(description);
     }
 
     public ObservableList<TicketBean> getTicketInfo() {

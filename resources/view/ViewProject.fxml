@@ -22,8 +22,8 @@
       <TextField fx:id="dateInfo" layoutX="220.0" layoutY="121.0" prefHeight="27.0" prefWidth="127.0" />
       <Label layoutX="134.0" layoutY="165.0" prefHeight="27.0" prefWidth="68.0" text="Description" wrapText="true" />
       <TextArea fx:id="descriptionInfo" layoutX="220.0" layoutY="165.0" prefHeight="81.0" prefWidth="231.0" />
-      <Button layoutX="157.0" layoutY="542.0" mnemonicParsing="false" onAction="#edit" text="Update" />
-      <Button layoutX="374.0" layoutY="542.0" mnemonicParsing="false" onAction="#goHome" text="Go Home" />
+      <Button layoutX="271.0" layoutY="542.0" mnemonicParsing="false" onAction="#edit" text="Update" />
+      <Button layoutX="398.0" layoutY="542.0" mnemonicParsing="false" onAction="#goHome" text="Go Home" />
       <Label alignment="CENTER" layoutX="264.0" layoutY="265.0" prefHeight="27.0" prefWidth="70.0" text="Tickets" wrapText="true">
          <font>
             <Font size="17.0" />
@@ -35,5 +35,6 @@
           <TableColumn fx:id="TicketDescriptions" prefWidth="193.0" text="Description" />
         </columns>
       </TableView>
+      <Button layoutX="132.0" layoutY="542.0" mnemonicParsing="false" onAction="#deleteProject" style="-fx-background-color: tomato;" text="Delete" />
    </children>
 </AnchorPane>

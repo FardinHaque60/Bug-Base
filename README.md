@@ -21,3 +21,14 @@ Click Search to enter the search page -> search for project in the project searc
 > Searching for a Ticket:
 
 On the same page you used to search for projects, use the right search bar to search for tickets -> Search for a ticket based on its title or the project (non-case sensitive) it belongs to -> click on the entry in the table to view the ticket details
+
+> Deleting a Project:
+
+1st Option: Find project in search page -> Right click project and hit delete
+
+2nd Option: Open project through search page or project display -> press delete button when viewing the project
+
+> Editing a Project:
+
+Open a project -> make changes to name, date, or description fields -> press update once you have finished making your changes
+
