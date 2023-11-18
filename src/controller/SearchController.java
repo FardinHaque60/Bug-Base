@@ -155,7 +155,9 @@ public class SearchController implements Initializable {
 		
 		selectedProject.deleteProject();
 		
+		TicketResult.setItems(TicketBean.getTicketBeanList());
 		ProjectResult.refresh();
+		
 		//just to test if hitting delete works
 		//common.loadDisplay("view/ProjDisplay.fxml");
 	}
