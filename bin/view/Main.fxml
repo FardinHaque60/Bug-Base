@@ -12,7 +12,7 @@
          <children>
             <Button layoutX="23.0" layoutY="187.0" mnemonicParsing="false" onAction="#showCreateProject" prefHeight="27.0" prefWidth="155.0" text="Create Project" />
             <Button layoutX="23.0" layoutY="234.0" mnemonicParsing="false" onAction="#showCreateTicket" prefHeight="27.0" prefWidth="155.0" text="Create Ticket" />
-            <Label alignment="CENTER" layoutX="32.0" layoutY="37.0" prefHeight="37.0" prefWidth="137.0" text="Bug Base">
+            <Label alignment="CENTER" layoutX="32.0" layoutY="37.0" onMouseClicked="#showProjects" prefHeight="37.0" prefWidth="137.0" text="Bug Base">
                <font>
                   <Font size="30.0" />
                </font>
