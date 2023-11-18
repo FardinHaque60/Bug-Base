@@ -34,6 +34,13 @@
           <TableColumn fx:id="TicketTitles" prefWidth="127.0" text="Title" />
           <TableColumn fx:id="TicketDescriptions" prefWidth="193.0" text="Description" />
         </columns>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#deleteTicket" text="Delete" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
       </TableView>
       <Button layoutX="132.0" layoutY="542.0" mnemonicParsing="false" onAction="#deleteProject" style="-fx-background-color: tomato;" text="Delete" />
    </children>
