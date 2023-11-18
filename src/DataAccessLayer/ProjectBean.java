@@ -105,7 +105,7 @@ public class ProjectBean {
     }
     
     //returns all the tickets inside application
-    public static ObservableList<TicketBean> getAllTickets() {
+    static ObservableList<TicketBean> getAllTickets() {
     	ObservableList<TicketBean> allTicketBeans = FXCollections.observableArrayList();
     	for (ProjectBean p: projectBeans) {
     		allTicketBeans.addAll(p.tickets);

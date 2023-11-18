@@ -28,12 +28,21 @@ public class CommentBean {
         t.addComment(this);
     }
     
-    public void deleteComment() {
+    public void deleteComment(TicketBean ticketBean) {
     	commentDAO.deleteComment(this);
+    	ticketBean.removeComment(this);
     }
 
     public String getProjectAncestor() {
     	return this.projectAncestor.get();
+    }
+    
+    public void updateTicketParent(String newTicketParent) {
+    	String oldTicketParent = ticketParent.get();
+    	
+    	ticketParent.set(newTicketParent); //changes local commentBean object to reflect new ticket parent name
+    	
+    	commentDAO.updateTicketName(this, oldTicketParent); //updates DB with new information
     }
     
     public void updateProjectName(String newProjAncestor) {
