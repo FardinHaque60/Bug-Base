@@ -65,26 +65,46 @@ public class ViewTicketController extends AbstractViewController implements Init
 	}
 	
 	@FXML public void goBack() {
-		goTo("view/ViewProject.fxml");
+		try {
+			ProjectBean parent = null;
+			for (ProjectBean p: ProjectBean.getProjectBeanList()) {
+				if (p.getName().equals(thisBean.getProjectName())) {
+					parent = p;
+					break;
+				}
+			}
+			
+			ViewProjectController.initialize(parent);
+			goTo("view/ViewProject.fxml");
+		}
+		catch (NullPointerException e) {
+			e.printStackTrace(); //in situation where we cannot find the tickets parent
+		}
 	}
 	
-	//TODO add implementation if user changes fields ticket gets updates
+	//if user changes fields ticket gets updates
 	@Override
 	public void edit() {
-	
+		thisBean.updateTicket(ticketTitle.getText(), ticketDescription.getText());
 	}
 
 	@FXML public void deleteTicket() {
-		
-		ProjectBean ticketParent = null;
-	    for (ProjectBean projectBean : ProjectBean.getProjectBeanList()) {
-			if (projectParentFill.equals(projectBean.getName())) {
-				ticketParent = projectBean;
-			}
-	    }
-		
-		thisBean.deleteTicket(ticketParent);
-		common.loadDisplay("view/viewProject.fxml");
+		try {
+			ProjectBean ticketParent = null;
+		    for (ProjectBean projectBean : ProjectBean.getProjectBeanList()) {
+				if (projectParentFill.equals(projectBean.getName())) {
+					ticketParent = projectBean;
+				}
+		    }
+			
+			thisBean.deleteTicket(ticketParent);
+			
+			ViewProjectController.initialize(ticketParent);
+			common.loadDisplay("view/viewProject.fxml");
+		}
+		catch (NullPointerException e) {
+			e.printStackTrace(); //in situation that ticketParent cannot find project parent for some reason
+		}
 	}
 	
 	//TODO add method so we can view comments if we click their table
