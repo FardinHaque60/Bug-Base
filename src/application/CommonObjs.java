@@ -3,6 +3,8 @@ package application;
 import java.io.IOException;
 import java.net.URL;
 
+import DataAccessLayer.ProjectBean;
+import DataAccessLayer.TicketBean;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -54,4 +56,35 @@ public class CommonObjs {
 		// add sub page into mainBox
 		mainBox.getChildren().add(pane);
 	}
+	
+	/** TODO: This method is called by common.checkProjectUniqueness(ProjectBean new, old) 
+	 * 
+	 * @return
+	 */
+	public boolean checkProjectUniqueness() {
+		//compare parameter a project against all existing projects (ProjectBean.getAllInfo())
+		return false;
+	}
+	
+	/**
+	 * 
+	 * @param t the new, modified ticket
+	 * @param p
+	 * @return
+	 */
+	public boolean checkTicketUniqueness(TicketBean t, ProjectBean p) {
+		for (TicketBean temp: p.getTicketInfo()) {
+			if (temp.getTitle().equals(t.getTitle())) {
+				return false;
+			}
+		}
+		return true;
+		
+		//get all the tickets siblings by calling ProjectParent.getTicketInfo() 
+		//make sure that this ticket does not have same title as any of its siblings
+		
+		//do the same as above but compare parameter a (just the new ticket) against projectParent.getTicketInfo()
+	}
+	
+	//TODO: checking comment uniqueness
 }

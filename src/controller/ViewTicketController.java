@@ -63,13 +63,7 @@ public class ViewTicketController extends AbstractViewController implements Init
 	
 	@FXML public void goBack() {
 		try {
-			ProjectBean parent = null;
-			for (ProjectBean p: ProjectBean.getProjectBeanList()) {
-				if (p.getName().equals(thisBean.getProjectName())) {
-					parent = p;
-					break;
-				}
-			}
+			ProjectBean parent = findProjectParent();
 			
 			ViewProjectController.initialize(parent);
 			goTo("view/ViewProject.fxml");
@@ -82,17 +76,27 @@ public class ViewTicketController extends AbstractViewController implements Init
 	//if user changes fields ticket gets updates
 	@Override
 	public void edit() {
+		//make sure to save old title and description incase this title is not unique
+		
+		//this will write updated information to DB, make sure this does not happen before we valid it
+		// move this below potentially
 		thisBean.updateTicket(ticketTitle.getText(), ticketDescription.getText());
+		
+		
+		//thisBean has new fields assigned to it
+		if (common.checkTicketUniqueness(thisBean, findProjectParent())) {
+			//if this is true that means this ticket has unique title compared to its siblings
+		}
+		else {
+			//restore old values that we saved above
+		}
+		
+		
 	}
 
 	@FXML public void deleteTicket() {
 		try {
-			ProjectBean ticketParent = null;
-		    for (ProjectBean projectBean : ProjectBean.getProjectBeanList()) {
-				if (projectParentFill.equals(projectBean.getName())) {
-					ticketParent = projectBean;
-				}
-		    }
+			ProjectBean ticketParent = findProjectParent();
 			
 			thisBean.deleteTicket(ticketParent);
 			
@@ -102,6 +106,16 @@ public class ViewTicketController extends AbstractViewController implements Init
 		catch (NullPointerException e) {
 			e.printStackTrace(); //in situation that ticketParent cannot find project parent for some reason
 		}
+	}
+	
+	private ProjectBean findProjectParent() {
+		ProjectBean ticketParent = null;
+	    for (ProjectBean projectBean : ProjectBean.getProjectBeanList()) {
+			if (projectParentFill.equals(projectBean.getName())) {
+				ticketParent = projectBean;
+			}
+	    }
+	    return ticketParent;
 	}
 	
 	@FXML public void getComment(MouseEvent event) {
