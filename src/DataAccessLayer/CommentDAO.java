@@ -77,7 +77,25 @@ public class CommentDAO {
             }
             else {
             	System.out.println("Error in deleting comment" + bean.getDescription());
+            	System.out.println(affectedRows + " were affected");
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void updateComment(CommentBean bean, String oldDescription) {
+    	String sql = "UPDATE comment SET description = ?, date = ? WHERE TicketParent = ? AND ParentAncestor = ? AND description = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+        	preparedStatement.setString(1, bean.getDescription());
+            preparedStatement.setString(2, bean.getDate());
+            preparedStatement.setString(3, bean.getTicketParent());
+            preparedStatement.setString(4, bean.getProjectAncestor());
+            preparedStatement.setString(5, oldDescription);
+            
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

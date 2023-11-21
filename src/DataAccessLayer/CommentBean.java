@@ -29,8 +29,18 @@ public class CommentBean {
     }
     
     public void deleteComment(TicketBean ticketBean) {
-    	commentDAO.deleteComment(this);
     	ticketBean.removeComment(this);
+    	commentDAO.deleteComment(this);
+    }
+    
+    //called when we are looking to update this comments description and timestamp
+    public void updateComment(String newDescription, String newTimestamp) {
+    	String oldDescription = this.getDescription();
+    	
+    	this.description.set(newDescription);
+    	this.date.set(newTimestamp);
+    	
+    	CommentDAO.updateComment(this, oldDescription);
     }
 
     public String getProjectAncestor() {

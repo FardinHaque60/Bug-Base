@@ -12,6 +12,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -59,11 +61,6 @@ public class ViewTicketController extends AbstractViewController implements Init
 		goTo("view/CreateComment.fxml");
 	}
 	
-	//TODO: if user clicks on entry in comment table they can edit its fields
-	@FXML public void editComment() {
-		
-	}
-	
 	@FXML public void goBack() {
 		try {
 			ProjectBean parent = null;
@@ -107,5 +104,31 @@ public class ViewTicketController extends AbstractViewController implements Init
 		}
 	}
 	
-	//TODO add method so we can view comments if we click their table
+	@FXML public void getComment(MouseEvent event) {
+		if (event.getButton() != MouseButton.PRIMARY) {
+			return;
+		}
+		
+		try {
+			CommentBean selectedComment = CommentTable.getSelectionModel().getSelectedItem();
+			
+			ViewCommentController.initializeComment(selectedComment);
+			common.loadDisplay("view/viewComment.fxml");
+		}
+		catch (NullPointerException e) {
+			//do nothing, this is if user selects empty entry in table
+		}
+	}
+
+	@FXML public void deleteComment() {
+		try {
+			CommentBean selectedComment = CommentTable.getSelectionModel().getSelectedItem();
+			
+			selectedComment.deleteComment(thisBean);
+			CommentTable.setItems(thisBean.getCommentInfo());
+		}
+		catch (NullPointerException e){
+			//do nothing, put it in a system log later or something
+		}
+	}
 }

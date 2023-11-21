@@ -27,11 +27,18 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <TableView fx:id="CommentTable" layoutX="139.0" layoutY="311.0" prefHeight="227.0" prefWidth="321.0">
+      <TableView fx:id="CommentTable" layoutX="139.0" layoutY="311.0" onMouseClicked="#getComment" prefHeight="227.0" prefWidth="321.0">
         <columns>
           <TableColumn fx:id="CommentDescription" prefWidth="233.0" text="Description" />
           <TableColumn fx:id="CommentDate" prefWidth="87.0" text="Date" />
         </columns>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#deleteComment" text="Delete" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
       </TableView>
       <Button layoutX="175.0" layoutY="553.0" mnemonicParsing="false" onAction="#edit" text="Update" />
       <Button layoutX="439.0" layoutY="553.0" mnemonicParsing="false" onAction="#goBack" text="Go To Project" />
