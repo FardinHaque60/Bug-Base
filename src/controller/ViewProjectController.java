@@ -1,6 +1,10 @@
 package controller;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import DataAccessLayer.ProjectBean;
@@ -14,13 +18,14 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TableView;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 
 public class ViewProjectController extends AbstractViewController implements Initializable {
 
 	@FXML TextField nameInfo;
 	@FXML TextArea descriptionInfo;
-	@FXML TextField dateInfo;
+	@FXML DatePicker dateInfo;
 	CommonObjs common = CommonObjs.getInstance();
 	
 	private static String nameFill, descriptionFill, dateFill;
@@ -28,6 +33,11 @@ public class ViewProjectController extends AbstractViewController implements Ini
 	@FXML TableView<TicketBean>  TicketTable;
 	@FXML TableColumn<TicketBean, String> TicketTitles;
 	@FXML TableColumn<TicketBean, String> TicketDescriptions;
+	
+	private static ErrorType errorType = ErrorType.NO_ERROR;
+	private enum ErrorType {
+		NO_ERROR, NO_NAME, SAME_NAME, NO_DATE
+	}
 
 	//TODO: get description to fit not all in one line
 	@Override
@@ -37,7 +47,9 @@ public class ViewProjectController extends AbstractViewController implements Ini
 		//goes back to its project parent page using bean info 
 		try {
 			nameInfo.setText(nameFill);
-			dateInfo.setText(dateFill);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+			LocalDate localDate = LocalDate.parse(dateFill, formatter);
+			dateInfo.setValue(localDate);
 			descriptionInfo.setText(descriptionFill);
 			
 			TicketTitles.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -79,7 +91,7 @@ public class ViewProjectController extends AbstractViewController implements Ini
 	//TODO: implement editing project by seeing which fields changed
 	@Override
 	@FXML public void edit() {
-		thisBean.updateProject(nameInfo.getText(), dateInfo.getText(), descriptionInfo.getText());
+		thisBean.updateProject(nameInfo.getText(), formatter.format(dateInfo.getValue()), descriptionInfo.getText());
 	}
 
 	@FXML public void deleteProject() { //if user presses delete project option on this page

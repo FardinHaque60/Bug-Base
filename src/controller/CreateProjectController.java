@@ -21,7 +21,6 @@ public class CreateProjectController extends AbstractCreateController {
 	private static LocalDate dateData;
 	private static String descriptionData;
 	private static ErrorType errorType = ErrorType.NO_ERROR;
-	
 	private enum ErrorType {
 		NO_ERROR, NO_NAME, SAME_NAME, NO_DATE
 	}
