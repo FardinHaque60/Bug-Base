@@ -1,5 +1,6 @@
 package controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,16 @@ public class CreateTicketController extends AbstractCreateController {
 	@FXML TextField ticketTitle;
 	@FXML TextArea ticketDescription;
 	
+	// static fields that save old data when errors occur
+	private static String projectData;
+	private static String titleData;
+	private static String descriptionData;
+	private static ErrorType errorType = ErrorType.NO_ERROR;
+	
+	private enum ErrorType {
+		NO_ERROR, NO_PROJECT, NO_TITLE, SAME_TITLE
+	}
+	
 	//populates drop down menu of projects to choose from
 	@FXML public void initialize() {
 		
@@ -30,10 +41,50 @@ public class CreateTicketController extends AbstractCreateController {
 		// put list of names into the dropdown list
 		ObservableList<String> projectNameObservableList = FXCollections.observableList(projectNameList);
 		projectDropdownList.setItems(projectNameObservableList);
+		
+		
+		
+		switch (errorType) {
+		
+		case NO_ERROR:
+			break;
+			
+		case NO_PROJECT:
+			ticketTitle.setText(titleData);
+			ticketDescription.setText(descriptionData);
+			break;
+			
+		case NO_TITLE:
+			projectDropdownList.setValue(projectData);
+			ticketDescription.setText(descriptionData);
+			break;
+			
+		case SAME_TITLE:
+			projectDropdownList.setValue(projectData);
+			ticketDescription.setText(descriptionData);
+			break;
+				
+		}
+		errorType = ErrorType.NO_ERROR;
 	}
 	
 	@FXML public void save() {
 	    String selectedProjectName = projectDropdownList.getValue();
+	    
+	    // Edge case: no project name
+	    if (selectedProjectName == null) {
+	    	// for initialize method
+			errorType = ErrorType.NO_PROJECT;
+			
+			// save data
+			titleData = ticketTitle.getText();
+			descriptionData = ticketDescription.getText();
+			
+			// goes to error fxml
+			goTo("view/CreateTicketError/NoProject.fxml");
+			
+			return;
+	    }
 	    
 	    //finds what projectBean object the user selected
 	    //find this tickets project parent
@@ -44,19 +95,43 @@ public class CreateTicketController extends AbstractCreateController {
 			}
 	    }
 	    
+	    // Edge case: no ticket title
+	    if (ticketTitle.getText().length() == 0) {
+	    	// for initialize method
+			errorType = ErrorType.NO_TITLE;
+			
+			// save data
+			projectData = projectDropdownList.getValue();
+			descriptionData = ticketDescription.getText();
+			
+			// goes to error fxml
+			goTo("view/CreateTicketError/NoTitle.fxml");
+			
+			return;
+	    }
+	    
+	    
 	    //make sure user selects a project for this ticket to live under
-	    if (selectedProjectName != null) {
-	        TicketBean ticketInfo = new TicketBean(selectedProjectName, ticketTitle.getText(), ticketDescription.getText());
-	        if (common.checkTicketUniqueness(ticketInfo, ticketParent)) {
-	        	//if it passed we can: 
-	        	ticketInfo.writeTicketBean(ticketParent);
-		        goHome();
-	        }
-	        else {
-	        	//make some code to reject this ticket and do not write it
-	        }
-	    } else {
-	        // Handle the case where no matching project ID was found
-	    }  
-	}
+        TicketBean ticketInfo = new TicketBean(selectedProjectName, ticketTitle.getText(), ticketDescription.getText());
+        
+        // Edge case: same ticket title
+        boolean ticketIsUnique = common.checkTicketUniqueness(ticketInfo, ticketParent);
+        if (ticketIsUnique) {
+        	// for initialize method
+			errorType = ErrorType.SAME_TITLE;
+			
+			// save data
+			projectData = projectDropdownList.getValue();
+			descriptionData = ticketDescription.getText();
+			
+			// goes to error fxml
+			goTo("view/CreateTicketError/SameTitle.fxml");
+			
+			return;
+        }
+        
+        ticketInfo.writeTicketBean(ticketParent);
+        goHome();
+    }
+	
 }

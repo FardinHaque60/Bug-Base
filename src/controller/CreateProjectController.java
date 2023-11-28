@@ -33,29 +33,29 @@ public class CreateProjectController extends AbstractCreateController {
 	@FXML public void initialize() {
 		switch (errorType) {
 		
-			case NO_ERROR:
-				// set local date to current date
-				projDate.setValue(LocalDate.now());
-				break;
-				
-			case NO_NAME:
-				// fill back date and description data
-				projDate.setValue(dateData);
-				projDescription.setText(descriptionData);
-				break;
-				
-			case SAME_NAME:
-				// fill back data
-				projName.setText(nameData);
-				projDate.setValue(dateData);
-				projDescription.setText(descriptionData);
-				break;
-				
-			case NO_DATE:
-				// fill back name & data data
-				projName.setText(nameData);
-				projDescription.setText(descriptionData);
-				break;
+		case NO_ERROR:
+			// set local date to current date
+			projDate.setValue(LocalDate.now());
+			break;
+			
+		case NO_NAME:
+			// fill back date and description data
+			projDate.setValue(dateData);
+			projDescription.setText(descriptionData);
+			break;
+			
+		case SAME_NAME:
+			// fill back data
+			projName.setText(nameData);
+			projDate.setValue(dateData);
+			projDescription.setText(descriptionData);
+			break;
+			
+		case NO_DATE:
+			// fill back name & data data
+			projName.setText(nameData);
+			projDescription.setText(descriptionData);
+			break;
 				
 		}
 		errorType = ErrorType.NO_ERROR;
@@ -63,6 +63,23 @@ public class CreateProjectController extends AbstractCreateController {
 	
 	@Override
 	@FXML public void save() {
+		// edge case: No name
+		System.out.println(projName.getText());
+		if (projName.getText().length() == 0) {
+			
+			// for initialize method
+			errorType = ErrorType.NO_NAME;
+			
+			// save name, date and description
+			dateData = projDate.getValue();
+			descriptionData = projDescription.getText();
+			
+			// goes to error fxml
+			goTo("view/CreateProjectError/NoName.fxml");
+			
+			return;
+		}
+		
 		// edge case: Name is the same as another project
 		for (ProjectBean projectBean : ProjectBean.getProjectBeanList()) {
 			if (! projectBean.getName().equals(projName.getText())) {

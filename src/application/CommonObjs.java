@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 import java.net.URL;
 
+import DataAccessLayer.CommentBean;
 import DataAccessLayer.ProjectBean;
 import DataAccessLayer.TicketBean;
 import javafx.fxml.FXMLLoader;
@@ -57,24 +58,22 @@ public class CommonObjs {
 		mainBox.getChildren().add(pane);
 	}
 	
-	/** TODO: This method is called by common.checkProjectUniqueness(ProjectBean new, old) 
-	 * 
-	 * @return
-	 */
-	public boolean checkProjectUniqueness() {
+
+	public boolean checkProjectUniqueness(ProjectBean projectBean) {
 		//compare parameter a project against all existing projects (ProjectBean.getAllInfo())
-		return false;
+		for (ProjectBean _projectBean : ProjectBean.getProjectBeanList()) {
+			if (projectBean.getName().equals(_projectBean.getName())) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
-	/**
-	 * 
-	 * @param t the new, modified ticket
-	 * @param p
-	 * @return
-	 */
-	public boolean checkTicketUniqueness(TicketBean t, ProjectBean p) {
-		for (TicketBean temp: p.getTicketInfo()) {
-			if (temp.getTitle().equals(t.getTitle())) {
+
+	public boolean checkTicketUniqueness(TicketBean ticketBean, ProjectBean projectBean) {
+		// checks whether this ticket title exists in the project bean
+		for (TicketBean _ticketBean: projectBean.getTicketInfo()) {
+			if (_ticketBean.getTitle().equals(ticketBean.getTitle())) {
 				return false;
 			}
 		}
@@ -86,5 +85,13 @@ public class CommonObjs {
 		//do the same as above but compare parameter a (just the new ticket) against projectParent.getTicketInfo()
 	}
 	
-	//TODO: checking comment uniqueness
+	public boolean checkCommentUniqueness(CommentBean commentBean, TicketBean ticketBean) {
+		// checks whether this comment description exists in the ticket bean
+		for (CommentBean _commentBean: ticketBean.getCommentInfo()) {
+			if (_commentBean.getDescription().equals(commentBean.getDescription())) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
