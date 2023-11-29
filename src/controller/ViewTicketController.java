@@ -168,8 +168,7 @@ public class ViewTicketController extends AbstractViewController implements Init
         }
         
         thisBean.updateTicket(ticketTitle.getText(), ticketDescription.getText());
-        goHome();
-
+        goBack();
 	}
 
 	@FXML public void deleteTicket() {

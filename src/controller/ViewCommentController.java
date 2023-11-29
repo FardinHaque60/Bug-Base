@@ -94,7 +94,7 @@ public class ViewCommentController extends AbstractViewController {
 		
 		thisBean.updateComment(commentDescription.getText(), timestamp.getText());
 		
-		
+		goBack();
 	}
 
 	//deletes this comment
