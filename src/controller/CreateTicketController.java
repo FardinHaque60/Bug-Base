@@ -20,11 +20,8 @@ public class CreateTicketController extends AbstractCreateController {
 	@FXML TextArea ticketDescription;
 	
 	// static fields that save old data when errors occur
-	private static String projectData;
-	private static String titleData;
-	private static String descriptionData;
+	private static String projectData, titleData, descriptionData;
 	private static ErrorType errorType = ErrorType.NO_ERROR;
-	
 	private enum ErrorType {
 		NO_ERROR, NO_PROJECT, NO_TITLE, SAME_TITLE
 	}
@@ -116,7 +113,7 @@ public class CreateTicketController extends AbstractCreateController {
         
         // Edge case: same ticket title
         boolean ticketIsUnique = common.checkTicketUniqueness(ticketInfo, ticketParent);
-        if (ticketIsUnique) {
+        if (!ticketIsUnique) {
         	// for initialize method
 			errorType = ErrorType.SAME_TITLE;
 			

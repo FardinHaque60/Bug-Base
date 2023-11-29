@@ -9,14 +9,14 @@ import DataAccessLayer.TicketBean;
 import application.CommonObjs;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 
 public class ViewTicketController extends AbstractViewController implements Initializable {
 
@@ -35,6 +35,12 @@ public class ViewTicketController extends AbstractViewController implements Init
 	private static TicketBean thisBean;
 	private static String projectParentFill;
 	
+	// static fields that save old data when errors occur
+	private static String projectData, titleData, descriptionData;
+	private static ErrorType errorType = ErrorType.NO_ERROR;
+	private enum ErrorType {
+		NO_ERROR, NO_PROJECT, NO_TITLE, SAME_TITLE
+	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -46,6 +52,29 @@ public class ViewTicketController extends AbstractViewController implements Init
 		CommentDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 		
 		CommentTable.setItems(thisBean.getCommentInfo()); 
+		
+		switch (errorType) {
+		
+		case NO_ERROR:
+			break;
+			
+		case NO_PROJECT:
+			ticketTitle.setText(titleData);
+			ticketDescription.setText(descriptionData);
+			break;
+			
+		case NO_TITLE:
+			projectParent.setText(projectData);
+			ticketDescription.setText(descriptionData);
+			break;
+			
+		case SAME_TITLE:
+			projectParent.setText(projectData);
+			ticketDescription.setText(descriptionData);
+			break;
+				
+		}
+		errorType = ErrorType.NO_ERROR;
 	}
 
 	public static void initalizeTicket(TicketBean ticket) {
@@ -76,22 +105,71 @@ public class ViewTicketController extends AbstractViewController implements Init
 	//if user changes fields ticket gets updates
 	@Override
 	public void edit() {
-		//make sure to save old title and description incase this title is not unique
 		
-		//this will write updated information to DB, make sure this does not happen before we valid it
-		// move this below potentially
-		thisBean.updateTicket(ticketTitle.getText(), ticketDescription.getText());
-		
-		
-		//thisBean has new fields assigned to it
-		if (common.checkTicketUniqueness(thisBean, findProjectParent())) {
-			//if this is true that means this ticket has unique title compared to its siblings
-		}
-		else {
-			//restore old values that we saved above
-		}
-		
-		
+	    String selectedProjectName = projectParent.getText();
+	    
+	    // Edge case: no project name
+	    if (selectedProjectName == null) {
+	    	// for initialize method
+			errorType = ErrorType.NO_PROJECT;
+			
+			// save data
+			titleData = ticketTitle.getText();
+			descriptionData = ticketDescription.getText();
+			
+			// goes to error fxml
+			goTo("view/ViewTicketError/NoProject.fxml");
+			
+			return;
+	    }
+	    
+	    //finds what projectBean object the user selected
+	    //find this tickets project parent
+	    ProjectBean ticketParent = null;
+	    for (ProjectBean projectBean : ProjectBean.getProjectBeanList()) {
+			if (selectedProjectName.equals(projectBean.getName())) {
+				ticketParent = projectBean;
+			}
+	    }
+	    
+	    // Edge case: no ticket title
+	    if (ticketTitle.getText() == null || ticketTitle.getText().length() == 0) {
+	    	// for initialize method
+			errorType = ErrorType.NO_TITLE;
+			
+			// save data
+			projectData = projectParent.getText();
+			descriptionData = ticketDescription.getText();
+			
+			// goes to error fxml
+			goTo("view/ViewTicketError/NoTitle.fxml");
+			
+			return;
+	    }
+	    
+	    
+	    //make sure user selects a project for this ticket to live under
+        TicketBean ticketInfo = new TicketBean(selectedProjectName, ticketTitle.getText(), ticketDescription.getText());
+        
+        // Edge case: same ticket title
+        boolean ticketIsUnique = common.checkTicketUniqueness(ticketInfo, ticketParent);
+        if (!ticketIsUnique) {
+        	// for initialize method
+			errorType = ErrorType.SAME_TITLE;
+			
+			// save data
+			projectData = projectParent.getText();
+			descriptionData = ticketDescription.getText();
+			
+			// goes to error fxml
+			goTo("view/ViewTicketError/SameTitle.fxml");
+			
+			return;
+        }
+        
+        thisBean.updateTicket(ticketTitle.getText(), ticketDescription.getText());
+        goHome();
+
 	}
 
 	@FXML public void deleteTicket() {
