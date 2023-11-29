@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: khaki;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewProjectController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="188.0" layoutY="14.0" prefHeight="32.0" prefWidth="223.0" text="Project Info">
+         <font>
+            <Font size="19.0" />
+         </font></Label>
+      <Label layoutX="132.0" layoutY="36.0" prefHeight="32.0" prefWidth="336.0" text="Change any of the fields and press update to edit this project">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="134.0" layoutY="74.0" prefHeight="32.0" prefWidth="68.0" text="Name" />
+      <TextField fx:id="nameInfo" layoutX="220.0" layoutY="77.0" prefHeight="21.0" prefWidth="231.0" />
+      <Label layoutX="134.0" layoutY="118.0" prefHeight="32.0" prefWidth="68.0" text="Date" />
+      <Label layoutX="134.0" layoutY="165.0" prefHeight="27.0" prefWidth="68.0" text="Description" wrapText="true" />
+      <TextArea fx:id="descriptionInfo" layoutX="220.0" layoutY="165.0" prefHeight="81.0" prefWidth="231.0" />
+      <Button layoutX="271.0" layoutY="542.0" mnemonicParsing="false" onAction="#edit" text="Update" />
+      <Button layoutX="398.0" layoutY="542.0" mnemonicParsing="false" onAction="#goHome" text="Go Home" />
+      <Label alignment="CENTER" layoutX="264.0" layoutY="265.0" prefHeight="27.0" prefWidth="70.0" text="Tickets" wrapText="true">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <TableView fx:id="TicketTable" layoutX="139.0" layoutY="298.0" onMouseClicked="#getTicket" prefHeight="222.0" prefWidth="321.0">
+        <columns>
+          <TableColumn fx:id="TicketTitles" prefWidth="127.0" text="Title" />
+          <TableColumn fx:id="TicketDescriptions" prefWidth="193.0" text="Description" />
+        </columns>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#deleteTicket" text="Delete" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </TableView>
+      <Button layoutX="132.0" layoutY="542.0" mnemonicParsing="false" onAction="#deleteProject" style="-fx-background-color: tomato;" text="Delete" />
+      <DatePicker fx:id="dateInfo" layoutX="220.0" layoutY="122.0" prefHeight="25.0" prefWidth="151.0" />
+      <Label layoutX="220.0" layoutY="93.0" prefHeight="32.0" prefWidth="160.0" text="Project requires a name" textFill="RED">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

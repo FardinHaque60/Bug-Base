@@ -64,7 +64,7 @@ public class CreateProjectController extends AbstractCreateController {
 	@FXML public void save() {
 		// edge case: No name
 		System.out.println(projName.getText());
-		if (projName.getText().length() == 0) {
+		if (projName.getText() == null || projName.getText().length() == 0) {
 			
 			// for initialize method
 			errorType = ErrorType.NO_NAME;

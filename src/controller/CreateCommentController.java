@@ -67,7 +67,7 @@ public class CreateCommentController extends AbstractCreateController implements
 		
 		
 		// Edge case: no comment description
-		if (commentDescription.getText().length() == 0) {
+		if (commentDescription.getText() == null || commentDescription.getText().length() == 0) {
 			
 			// for initialize method
 			errorType = ErrorType.NO_DESCRIPTION;

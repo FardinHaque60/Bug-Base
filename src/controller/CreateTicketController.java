@@ -96,7 +96,7 @@ public class CreateTicketController extends AbstractCreateController {
 	    }
 	    
 	    // Edge case: no ticket title
-	    if (ticketTitle.getText().length() == 0) {
+	    if (ticketTitle.getText() == null || ticketTitle.getText().length() == 0) {
 	    	// for initialize method
 			errorType = ErrorType.NO_TITLE;
 			
