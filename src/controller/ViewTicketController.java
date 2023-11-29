@@ -153,7 +153,7 @@ public class ViewTicketController extends AbstractViewController implements Init
         
         // Edge case: same ticket title
         boolean ticketIsUnique = common.checkTicketUniqueness(ticketInfo, ticketParent);
-        if (!ticketIsUnique) {
+        if (!ticketIsUnique && !ticketTitle.getText().equals(thisBean.getTitle())) {
         	// for initialize method
 			errorType = ErrorType.SAME_TITLE;
 			
