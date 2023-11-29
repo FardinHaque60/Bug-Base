@@ -88,10 +88,8 @@ public class ViewProjectController extends AbstractViewController implements Ini
 			errorType = ErrorType.NO_ERROR;
 		}
 		catch (NullPointerException e) {
-			//TODO:
-			//do nothing for now
-			//this handles special case where user goes Search Page -> ticket page -> go back -> Error project page wont load correctly
-			//so now it will load a blank project page, but we have to fix this
+			//incase this page does not load properly
+			//it will just leave fields blank
 		}
 	}
 	
@@ -115,11 +113,10 @@ public class ViewProjectController extends AbstractViewController implements Ini
 			common.loadDisplay("view/ViewTicket.fxml");
 		}
 		catch (NullPointerException e){
-			//do nothing, put it in a system log later or something
+			//do nothing, this is case where user selects empty entry
 		}
 	}
 		
-	//TODO: implement editing project by seeing which fields changed
 	@Override
 	@FXML public void edit() {
 		
@@ -178,7 +175,6 @@ public class ViewProjectController extends AbstractViewController implements Ini
 			
 			return;
 		}
-		
 		
 		thisBean.updateProject(nameInfo.getText(), formatter.format(dateInfo.getValue()), descriptionInfo.getText());
 	}
