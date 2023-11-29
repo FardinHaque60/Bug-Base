@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TableView;
@@ -59,6 +60,11 @@ public class ViewProjectController extends AbstractViewController implements Ini
 	}	
 	
 	@FXML public void getTicket(MouseEvent event) {
+		
+		if (event.getButton() != MouseButton.PRIMARY) {
+			return;
+		}
+		
 		try {
 			TicketBean selectedTicket = TicketTable.getSelectionModel().getSelectedItem();
 			
@@ -76,8 +82,28 @@ public class ViewProjectController extends AbstractViewController implements Ini
 		thisBean.updateProject(nameInfo.getText(), dateInfo.getText(), descriptionInfo.getText());
 	}
 
-	@FXML public void deleteProject() {
+	@FXML public void deleteProject() { //if user presses delete project option on this page
 		thisBean.deleteProject();
 		common.loadDisplay("view/ProjDisplay.fxml");
+	}
+
+	@FXML public void deleteTicket() { //user right clicks on ticket entry and they click delete option
+		try {
+			TicketBean selectedTicket = TicketTable.getSelectionModel().getSelectedItem();
+			
+			ProjectBean parent = null;
+			for (ProjectBean p: ProjectBean.getProjectBeanList()) {
+				if (p.getName().equals(selectedTicket.getProjectName())) {
+					parent = p;
+					break;
+				}
+			}
+			
+			selectedTicket.deleteTicket(parent);
+			TicketTable.setItems(parent.getTicketInfo());
+		}
+		catch (NullPointerException e){
+			//do nothing, put it in a system log later or something
+		}
 	}
 }

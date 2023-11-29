@@ -62,23 +62,30 @@ public class TicketDAO {
         }
     }
 
-    /** TODO: to be used, edit bean functionality
+    /** edits ticket when user wants to update their ticket
      * 
      * @param bean to be edited/updated
+     * @param oldTicketName is the old ticket name to identify which ticket to modify in DB
      */
-    public void updateTicket(TicketBean bean) {
-        String query = "UPDATE ticket SET title = ?, description = ? WHERE projectName = ?";
+    public void updateTicket(TicketBean bean, String oldTicketName) {
+        String query = "UPDATE ticket SET title = ?, description = ? WHERE title = ? AND projectName = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, bean.getTitle());
             preparedStatement.setString(2, bean.getDescription());
-            preparedStatement.setString(3, bean.getProjectName());
+            preparedStatement.setString(3, oldTicketName);
+            preparedStatement.setString(4, bean.getProjectName());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
     
+    /** updates ticket project parent when the project parent gets altered
+     * 
+     * @param bean
+     * @param oldProjectName old project name that is now being changed
+     */
     public void updateProjectName(TicketBean bean, String oldProjectName) {
     	String query = "UPDATE ticket SET projectName = ? WHERE title = ? AND projectName = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {

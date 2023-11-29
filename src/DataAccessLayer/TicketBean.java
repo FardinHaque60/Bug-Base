@@ -35,14 +35,33 @@ public class TicketBean {
     }
     
     public void deleteComments() {
-    	for (CommentBean c: comments) {
-    		c.deleteComment();
+    	while (comments.size() > 0) {
+    		comments.get(0).deleteComment(this);
     	}
-    	this.comments.clear();
+    }
+    
+    public void updateTicket(String newTitle, String newDescription) {
+    	String oldTicketTitle = title.get();
+    	
+    	this.setTitle(newTitle);
+    	this.setDescription(newDescription);
+    	
+    	ticketDAO.updateTicket(this, oldTicketTitle);
+    	this.updateComments(); //update comments to reflect the ticket has a new title
+    }
+    
+    public void updateComments() {
+    	for (CommentBean c: this.comments) {
+    		c.updateTicketParent(this.getTitle());
+    	}
     }
     
     public String getProjectName() {
         return this.projectName.get();
+    }
+    
+    public void removeComment(CommentBean c) { 
+    	this.comments.remove(c);
     }
     
     public void setProjectName(String newProjName) {
@@ -57,9 +76,17 @@ public class TicketBean {
     public String getTitle() {
         return this.title.get();
     }
+    
+    public void setTitle(String newTitle) {
+    	title.set(newTitle);
+    }
 
     public String getDescription() {
         return this.description.get();
+    }
+    
+    public void setDescription(String newDescription) {
+    	description.set(newDescription);
     }
     
     public ObservableList<CommentBean> getCommentInfo() {

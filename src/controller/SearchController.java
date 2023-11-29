@@ -157,14 +157,25 @@ public class SearchController implements Initializable {
 		
 		TicketResult.setItems(TicketBean.getTicketBeanList());
 		ProjectResult.refresh();
-		
-		//just to test if hitting delete works
-		//common.loadDisplay("view/ProjDisplay.fxml");
 	}
 
 	//TODO: Same problem as deleteProjects
 	@FXML public void deleteTicket() {
-		//just to test if hitting delete works
-		common.loadDisplay("view/ProjDisplay.fxml");
+		try {
+			TicketBean selectedTicket = TicketResult.getSelectionModel().getSelectedItem();
+			
+			ProjectBean parent  = null;
+			for (ProjectBean p: ProjectBean.getProjectBeanList()) {
+				if (selectedTicket.getProjectName().equals(p.getName())) {
+					parent = p;
+					break;
+				}
+			}
+			
+			selectedTicket.deleteTicket(parent);
+			TicketResult.setItems(TicketBean.getTicketBeanList());
+		} catch (NullPointerException e) { //in chance that the parent is not found for this ticket
+			e.printStackTrace();
+		}
 	}
 }
