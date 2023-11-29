@@ -7,8 +7,8 @@ import DataAccessLayer.ProjectBean;
 import DataAccessLayer.TicketBean;
 import application.CommonObjs;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 public class ViewCommentController extends AbstractViewController {	
 	@FXML TextField projectParent;
@@ -23,12 +23,31 @@ public class ViewCommentController extends AbstractViewController {
 	
 	CommonObjs common = CommonObjs.getInstance();
 
+	// static fields that save old data when errors occur
+	private static ErrorType errorType = ErrorType.NO_ERROR;
+	private enum ErrorType {
+		NO_ERROR, NO_DESCRIPTION, SAME_DESCRIPTION;
+	}
+	private static String commentDescriptionData;
+	
 	@FXML
 	public void initialize() {
 		projectParent.setText(projectParentFill);
 		ticketTitle.setText(ticketTitleFill);
 		timestamp.setText(formatter.format(LocalDate.now()));
 		commentDescription.setText(commentDescriptionFill);
+		
+		switch (errorType) {
+		case NO_ERROR:
+			break;
+		case NO_DESCRIPTION:
+			break;
+		case SAME_DESCRIPTION:
+			commentDescription.setText(commentDescriptionData);
+			break;
+		}
+		
+		errorType = ErrorType.NO_ERROR;
 	}
 	
 	public static void initializeComment(CommentBean c) {
@@ -40,7 +59,42 @@ public class ViewCommentController extends AbstractViewController {
 	
 	@Override
 	@FXML public void edit() {
+		
+		// Edge case: no comment description
+		if (commentDescription.getText() == null || commentDescription.getText().length() == 0) {
+			
+			// for initialize method
+			errorType = ErrorType.NO_DESCRIPTION;
+			
+			// goes to error fxml
+			goTo("view/ViewCommentError/NoDescription.fxml");
+			
+			return;
+		}
+		
+		// create comment bean and write to database
+		TicketBean ticketParent = findTicketParent();
+		CommentBean commentInfo = new CommentBean(ticketParent.getProjectName(), ticketParent.getTitle(), timestamp.getText(), commentDescription.getText());
+		
+		// Edge case: same comment description
+		boolean isCommentUnique = common.checkCommentUniqueness(commentInfo, ticketParent);
+		if (!isCommentUnique  && !commentDescription.getText().equals(thisBean.getDescription())) {
+			
+			// for initialize method
+			errorType = ErrorType.SAME_DESCRIPTION;
+			
+			// save data
+			commentDescriptionData = commentDescription.getText();
+			
+			// goes to error fxml
+			goTo("view/ViewCommentError/SameDescription.fxml");
+			
+			return;
+		}
+		
 		thisBean.updateComment(commentDescription.getText(), timestamp.getText());
+		
+		goBack();
 	}
 
 	//deletes this comment
