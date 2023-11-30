@@ -32,3 +32,23 @@ On the same page you used to search for projects, use the right search bar to se
 
 Open a project -> make changes to name, date, or description fields -> press update once you have finished making your changes
 
+> Deleting a Ticket:
+
+1st Option: search for the ticket you would like to delete on search page -> right click on that entry -> click delete
+
+2nd Option: search for the ticket you would like to delete on search page -> click on that ticket entry on the table to open it -> click delete in the bottom left hand side
+
+> Editing a Ticket:
+
+Open the the ticket -> change any of the fields on this page -> click update to save your changes
+
+> Deleting a Comment:
+
+1st Option: Open the ticket page for which the comment is under -> right click the comment you would like to delete in the comment table -> click delete
+
+2nd Option: Click on the comment you would like to delete to open the comment page -> click delete in the bottom left hand side
+
+> Editing a Comment:
+
+Open the comment by clicking on it when on it's ticket page -> edit the description field -> click update
+
