@@ -40,19 +40,35 @@ public class TicketBean {
     	}
     }
     
-    public void updateTicket(String newTitle, String newDescription) {
+    /**
+     * 
+     * @param projectBean new projectbean that this got assigned to
+     * @param newTitle
+     * @param newDescription
+     */
+    public void updateTicket(ProjectBean projectBean, String newTitle, String newDescription) {
     	String oldTicketTitle = title.get();
+    	String oldProjectParentName = projectName.get();
+    	
+    	this.projectName.setValue(projectBean.getName());
+    	
+    	if (!this.projectName.get().equals(oldProjectParentName)) {
+    		//removes this ticket from old project
+    		findProjectBean(oldProjectParentName).getTicketInfo().remove(this);
+    		//puts it in new parent
+    		projectBean.getTicketInfo().add(this);
+    	}
     	
     	this.setTitle(newTitle);
     	this.setDescription(newDescription);
     	
-    	ticketDAO.updateTicket(this, oldTicketTitle);
+    	ticketDAO.updateTicket(this, oldTicketTitle, oldProjectParentName);
     	this.updateComments(); //update comments to reflect the ticket has a new title
     }
     
     public void updateComments() {
     	for (CommentBean c: this.comments) {
-    		c.updateTicketParent(this.getTitle());
+    		c.updateTicketParent(this.getProjectName(), this.getTitle());
     	}
     }
     
@@ -95,6 +111,14 @@ public class TicketBean {
     
     public void addComment(CommentBean c) {
     	this.comments.add(c);
+    }
+    
+    private ProjectBean findProjectBean(String projectName) {
+    	for (ProjectBean p: ProjectBean.getProjectBeanList()) {
+    		if (p.getName().equals(projectName))
+    			return p;
+    	}
+    	return null;
     }
 
 //TICKET STATIC METHODS BELOW

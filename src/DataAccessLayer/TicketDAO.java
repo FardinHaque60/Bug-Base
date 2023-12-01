@@ -67,14 +67,15 @@ public class TicketDAO {
      * @param bean to be edited/updated
      * @param oldTicketName is the old ticket name to identify which ticket to modify in DB
      */
-    public void updateTicket(TicketBean bean, String oldTicketName) {
-        String query = "UPDATE ticket SET title = ?, description = ? WHERE title = ? AND projectName = ?";
+    public void updateTicket(TicketBean bean, String oldTicketName, String oldProjectName) {
+        String query = "UPDATE ticket SET projectName = ?, title = ?, description = ? WHERE title = ? AND projectName = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, bean.getTitle());
-            preparedStatement.setString(2, bean.getDescription());
-            preparedStatement.setString(3, oldTicketName);
-            preparedStatement.setString(4, bean.getProjectName());
+        	preparedStatement.setString(1, bean.getProjectName());
+            preparedStatement.setString(2, bean.getTitle());
+            preparedStatement.setString(3, bean.getDescription());
+            preparedStatement.setString(4, oldTicketName);
+            preparedStatement.setString(5, oldProjectName);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
