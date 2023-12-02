@@ -47,12 +47,14 @@ public class CommentBean {
     	return this.projectAncestor.get();
     }
     
-    public void updateTicketParent(String newTicketParent) {
+    public void updateTicketParent(String newProjectParent, String newTicketParent) {
     	String oldTicketParent = ticketParent.get();
+    	String oldProjectParent = projectAncestor.get();
     	
     	ticketParent.set(newTicketParent); //changes local commentBean object to reflect new ticket parent name
+    	projectAncestor.set(newProjectParent); //changes local commentBean object to reflect new project ancestor name
     	
-    	commentDAO.updateTicketName(this, oldTicketParent); //updates DB with new information
+    	commentDAO.updateTicketName(this, oldTicketParent, oldProjectParent); //updates DB with new information
     }
     
     public void updateProjectName(String newProjAncestor) {

@@ -128,7 +128,8 @@ public class CreateTicketController extends AbstractCreateController {
         }
         
         ticketInfo.writeTicketBean(ticketParent);
-        goHome();
+        ViewTicketController.initalizeTicket(ticketInfo);
+        goTo("view/ViewTicket.fxml");
     }
 	
 }

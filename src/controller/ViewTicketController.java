@@ -10,6 +10,7 @@ import application.CommonObjs;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -22,7 +23,7 @@ public class ViewTicketController extends AbstractViewController implements Init
 
 	@FXML TextArea ticketDescription;
 	@FXML TextField ticketTitle;
-	@FXML TextField projectParent;
+	@FXML ChoiceBox<ProjectBean> projectParent;
 	@FXML TableView<CommentBean>  CommentTable;
 	@FXML TableColumn<CommentBean, String> CommentDate;
 	@FXML TableColumn<CommentBean, String> CommentDescription;
@@ -33,10 +34,11 @@ public class ViewTicketController extends AbstractViewController implements Init
 	private static String titleFill;
 	private static String descriptionFill;
 	private static TicketBean thisBean;
-	private static String projectParentFill;
+	private static String projectParentFill; //only used to find its parent
 	
 	// static fields that save old data when errors occur
-	private static String projectData, titleData, descriptionData;
+	private static ProjectBean projectData;
+	private static String titleData, descriptionData;
 	private static ErrorType errorType = ErrorType.NO_ERROR;
 	private enum ErrorType {
 		NO_ERROR, NO_PROJECT, NO_TITLE, SAME_TITLE
@@ -46,7 +48,10 @@ public class ViewTicketController extends AbstractViewController implements Init
 	public void initialize(URL location, ResourceBundle resources) {
 		ticketTitle.setText(titleFill);
 		ticketDescription.setText(descriptionFill);
-		projectParent.setText(projectParentFill);
+		
+		projectParent.setItems(ProjectBean.getProjectBeanList());
+		
+		projectParent.setValue(findProjectParent());
 		
 		CommentDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 		CommentDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -64,12 +69,12 @@ public class ViewTicketController extends AbstractViewController implements Init
 			break;
 			
 		case NO_TITLE:
-			projectParent.setText(projectData);
+			projectParent.setValue(projectData);
 			ticketDescription.setText(descriptionData);
 			break;
 			
 		case SAME_TITLE:
-			projectParent.setText(projectData);
+			projectParent.setValue(projectData);
 			ticketDescription.setText(descriptionData);
 			break;
 				
@@ -106,7 +111,11 @@ public class ViewTicketController extends AbstractViewController implements Init
 	@Override
 	public void edit() {
 		
-	    String selectedProjectName = projectParent.getText();
+	    ProjectBean selectedProjectName = projectParent.getValue();
+	    
+	    //finds what projectBean object the user selected
+	    //find this tickets project parent
+	    ProjectBean ticketParent = findProjectParent();
 	    
 	    // Edge case: no project name
 	    if (selectedProjectName == null) {
@@ -123,13 +132,30 @@ public class ViewTicketController extends AbstractViewController implements Init
 			return;
 	    }
 	    
-	    //finds what projectBean object the user selected
-	    //find this tickets project parent
-	    ProjectBean ticketParent = null;
-	    for (ProjectBean projectBean : ProjectBean.getProjectBeanList()) {
-			if (selectedProjectName.equals(projectBean.getName())) {
-				ticketParent = projectBean;
-			}
+	    //Edge case: project that user wants to move this ticket to has a ticket of the same name
+	    if (selectedProjectName != null) {
+	    	boolean trigger = false;
+	    	
+	    	//checks if selected project has ticket with same name as this one
+	    	for (TicketBean t:  selectedProjectName.getTicketInfo()) {
+	    		if (t.getTitle().equals(ticketTitle.getText())) 
+	    			trigger = true;
+	    	}
+	    	
+	    	if (trigger) {
+		    	//initialize method
+		    	errorType = ErrorType.NO_PROJECT;
+		    	
+		    	// save data
+		    	projectData = projectParent.getValue();
+		    	titleData = ticketTitle.getText();
+		    	descriptionData = ticketDescription.getText();
+		    	
+		    	//goes to error fxml
+		    	goTo("view/ViewTicketError/NoProject.fxml");
+		    	
+		    	return;
+	    	}
 	    }
 	    
 	    // Edge case: no ticket title
@@ -138,7 +164,7 @@ public class ViewTicketController extends AbstractViewController implements Init
 			errorType = ErrorType.NO_TITLE;
 			
 			// save data
-			projectData = projectParent.getText();
+			projectData = projectParent.getValue();
 			descriptionData = ticketDescription.getText();
 			
 			// goes to error fxml
@@ -147,9 +173,8 @@ public class ViewTicketController extends AbstractViewController implements Init
 			return;
 	    }
 	    
-	    
 	    //make sure user selects a project for this ticket to live under
-        TicketBean ticketInfo = new TicketBean(selectedProjectName, ticketTitle.getText(), ticketDescription.getText());
+        TicketBean ticketInfo = new TicketBean(selectedProjectName.getName(), ticketTitle.getText(), ticketDescription.getText());
         
         // Edge case: same ticket title
         boolean ticketIsUnique = common.checkTicketUniqueness(ticketInfo, ticketParent);
@@ -158,7 +183,7 @@ public class ViewTicketController extends AbstractViewController implements Init
 			errorType = ErrorType.SAME_TITLE;
 			
 			// save data
-			projectData = projectParent.getText();
+			projectData = projectParent.getValue();
 			descriptionData = ticketDescription.getText();
 			
 			// goes to error fxml
@@ -167,7 +192,7 @@ public class ViewTicketController extends AbstractViewController implements Init
 			return;
         }
         
-        thisBean.updateTicket(ticketTitle.getText(), ticketDescription.getText());
+        thisBean.updateTicket(projectParent.getValue(), ticketTitle.getText(), ticketDescription.getText());
         goBack();
 	}
 
@@ -188,7 +213,7 @@ public class ViewTicketController extends AbstractViewController implements Init
 	private ProjectBean findProjectParent() {
 		ProjectBean ticketParent = null;
 	    for (ProjectBean projectBean : ProjectBean.getProjectBeanList()) {
-			if (projectParentFill.equals(projectBean.getName())) {
+			if (thisBean.getProjectName().equals(projectBean.getName())) {
 				ticketParent = projectBean;
 			}
 	    }

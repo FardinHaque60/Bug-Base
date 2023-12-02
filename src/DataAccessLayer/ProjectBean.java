@@ -21,6 +21,11 @@ public class ProjectBean {
         this.date = new SimpleStringProperty(date);
         this.description = new SimpleStringProperty(description);
     }
+    
+    @Override
+    public String toString() {
+    	return name.get();
+    }
 
     public void writeProjectBean() {
         // This will insert the project into the database
